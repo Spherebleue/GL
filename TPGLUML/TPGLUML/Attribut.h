@@ -7,7 +7,7 @@ using namespace std;
 #include <cstring>
 #include <fstream>
 
-abstract class Attribut
+class Attribut
 {
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------Fonction amies

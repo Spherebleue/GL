@@ -8,7 +8,7 @@ using namespace std;
 #include <cstring>
 #include <fstream>
 
-class Categoriel : public Attribut
+class Categoriel : public virtual Attribut
 {
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------Fonction amies

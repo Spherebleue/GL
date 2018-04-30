@@ -10,7 +10,7 @@ using namespace std;
 #include <cstring>
 #include <fstream>
 
-class Numerique : public Attribut
+class Numerique : public virtual Attribut
 {
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------Fonction amies
