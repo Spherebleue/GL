@@ -28,7 +28,7 @@ using namespace std;
 std::ostream& operator<<(std::ostream &strm, const Numerique &Num)
 //Pour afficher
 {
-	return strm << "Numerique( nom : " << Num.nom << " valeur : " << Num.valeur<<")" <<endl;
+	return strm << Num.nom << ";" <<Num.valeur;
 }
 //-------------------------------------------- Constructeurs - destructeur
 
