@@ -15,6 +15,8 @@ class Numerique : public Attribut
 //-------------------------------------------------------Fonction amies
 public:
 
+ friend std::ostream& operator<<(std::ostream&, const Numerique &); 
+
 //-------------------------------------------- Constructeurs - destructeur
     Numerique ( const Numerique & uneNumerique );
     // Mode d'emploi :
@@ -25,6 +27,9 @@ public:
     // Mode d'emploi :
     // Un constructeur par défaut, se contenant de creer la premiere cellule
 
+    Numerique ( string nom, int valeur);
+    // Mode d'emploi :
+    // Un constructeure
 
     virtual ~Numerique ( );
     // Mode d'emploi :

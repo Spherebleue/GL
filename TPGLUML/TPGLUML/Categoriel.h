@@ -13,6 +13,7 @@ class Categoriel : public Attribut
 //-------------------------------------------------------Fonction amies
 public:
 
+    friend std::ostream& operator<<(std::ostream&, const Categoriel &); 
 //-------------------------------------------- Constructeurs - destructeur
     Categoriel ( const Categoriel & uneCategoriel );
     // Mode d'emploi :
@@ -23,6 +24,9 @@ public:
     // Mode d'emploi :
     // Un constructeur par défaut, se contenant de creer la premiere cellule
 
+    Categoriel (string nom , string valeur);
+    // Mode d'emploi :
+    // Un constructeur par défaut, se contenant de creer la premiere cellule
 
     virtual ~Categoriel ( );
     // Mode d'emploi :

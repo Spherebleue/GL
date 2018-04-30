@@ -21,11 +21,20 @@ using namespace std;
 //------------------------------------------------------------- Constantes
 //#define MAP ;
 //----------------------------------------------------------------- PUBLIC
+
+//----------------------------------------------------- Méthodes publiques
+
 Attribut * Attribut::copieAttribut()
+//creer un pointeur sur l'attribut
 {
 	return new Attribut(*this);
 }
-//----------------------------------------------------- Méthodes publiques
+
+std::ostream& operator<<(std::ostream &strm, const Attribut &At)
+//Pour afficher
+{
+	return strm << "Attribut ( nom : " << At.nom <<")"<<endl;
+}
 
 //-------------------------------------------- Constructeurs - destructeur
 

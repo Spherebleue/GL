@@ -13,6 +13,8 @@ class Attribut
 //-------------------------------------------------------Fonction amies
 public:
 
+    friend std::ostream& operator<<(std::ostream&, const Attribut &); 
+
 //-------------------------------------------- Constructeurs - destructeur
     Attribut ( const Attribut & uneAttribut );
     // Mode d'emploi :

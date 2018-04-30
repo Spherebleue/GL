@@ -25,7 +25,11 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-
+std::ostream& operator<<(std::ostream &strm, const Numerique &Num)
+//Pour afficher
+{
+	return strm << "Numerique( nom : " << Num.nom << " valeur : " << Num.valeur<<")" <<endl;
+}
 //-------------------------------------------- Constructeurs - destructeur
 
 Numerique::Numerique ( const Numerique & unNumerique )
@@ -40,6 +44,7 @@ Numerique::Numerique ( const Numerique & unNumerique )
 	} //----- Fin de Numerique (constructeur de copie)
 
 
+
 Numerique::Numerique ()
 // Algorithme :
 // Un constructeur par défaut.
@@ -47,6 +52,18 @@ Numerique::Numerique ()
 		#ifdef MAP
 			cout << "Appel au constructeur de <Numerique>" << endl;
 		#endif
+
+	} //----- Fin de Numerique
+
+Numerique::Numerique ( string nom, int valeur)
+// Algorithme :
+// Un constructeur
+	{
+		#ifdef MAP
+			cout << "Appel au constructeur de <Numerique>" << endl;
+		#endif
+		this->valeur=valeur;
+		this->nom=nom;
 
 	} //----- Fin de Numerique
 
