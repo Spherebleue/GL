@@ -48,6 +48,18 @@ Empreinte::Empreinte ()
 
 	} //----- Fin de Empreinte
 
+Empreinte::Empreinte (string ID,
+	Attribut * attributs)
+// Algorithme :
+// Un constructeur par défaut.
+	{
+		#ifdef MAP
+			cout << "Appel au constructeur de <Empreinte>" << endl;
+		#endif
+
+		this.ID =ID;
+		this.attributs = attributs;
+	} //----- Fin de Empreinte
 
 Empreinte::~Empreinte ( )
 // Algorithme :
@@ -57,6 +69,7 @@ Empreinte::~Empreinte ( )
 		    cout << "Appel au destructeur de <Empreinte>" << endl;
 		#endif
 
+		delete attributs;
 	} //----- Fin de ~Empreinte
 //------------------------------------------------------------------ PRIVE
 

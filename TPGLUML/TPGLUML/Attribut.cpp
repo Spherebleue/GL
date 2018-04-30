@@ -33,7 +33,7 @@ Attribut::Attribut ( const Attribut & unAttribut )
 		#ifdef MAP
 			cout << "Appel au constructeur de copie de <Attribut>" << endl;
 		#endif
-
+		this.nom = unAttribut.nom;
 
 	} //----- Fin de Attribut (constructeur de copie)
 
@@ -48,6 +48,17 @@ Attribut::Attribut ()
 
 	} //----- Fin de Attribut
 
+Attribut::Attribut (string nom)
+// Algorithme :
+// Un constructeur par défaut.
+	{
+		#ifdef MAP
+			cout << "Appel au constructeur de <Attribut>" << endl;
+		#endif
+
+		this.nom = nom;
+
+	} //----- Fin de Attribut
 
 Attribut::~Attribut ( )
 // Algorithme :
@@ -57,8 +68,9 @@ Attribut::~Attribut ( )
 		    cout << "Appel au destructeur de <Attribut>" << endl;
 		#endif
 
-
 	} //----- Fin de ~Attribut
+
+
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
