@@ -95,6 +95,10 @@ Maladie::~Maladie()
 #ifdef MAP
 	cout << "Appel au destructeur de <Maladie>" << endl;
 #endif
+	for (int i = 0; i < nombreCritere; i++)
+	{
+		delete listeCritere[i];
+	}
 	delete [] listeCritere;
 
 } //----- Fin de ~Maladie
