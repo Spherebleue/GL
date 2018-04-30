@@ -3,14 +3,13 @@
 
 //--------------------------------------------------- Interfaces utilisées
 
-#include "Numerique.h"
 #include "Attribut.h"
 using namespace std;
 #include <iostream>
 #include <cstring>
 #include <fstream>
 
-class Numerique : public virtual Attribut
+class Numerique : public Attribut
 {
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------Fonction amies

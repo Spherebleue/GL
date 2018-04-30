@@ -1,14 +1,13 @@
 #if ! defined ( Categoriel_H )
 #define Categoriel_H
 //--------------------------------------------------- Interfaces utilisées
-#include "Categoriel.h"
 #include "Attribut.h"
 using namespace std;
 #include <iostream>
 #include <cstring>
 #include <fstream>
 
-class Categoriel : public virtual Attribut
+class Categoriel : public Attribut
 {
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------Fonction amies

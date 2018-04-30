@@ -18,15 +18,11 @@ using namespace std;
 //------------------------------------------------------ Include personnel
 #include "Docteur.h"
 
-
 //------------------------------------------------------------- Constantes
-//#define MAP ;
-
-
+#define MAP ;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-
 
 //-------------------------------------------- Constructeurs - destructeur
 Docteur::Docteur ( const Docteur & unDocteur )
@@ -52,7 +48,7 @@ Docteur::Docteur ()
 	} //----- Fin de Docteur
 
 
-Docteur::~Docteur ( )
+Docteur::~Docteur ()
 // Algorithme :
 //
 	{

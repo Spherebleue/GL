@@ -7,22 +7,22 @@ using namespace std;
 #include <cstring>
 #include <fstream>
 
-abstract class Utilisateur
+class Utilisateur
 {
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------Fonction amies
 public:
 
 //-------------------------------------------- Constructeurs - destructeur
-    Utilisateur ( const Utilisateur & unUtilisateur);
-    // Mode d'emploi :
-    // Fait une copie en profondeur de l'objet donne en parametre, et
-    // l ajoute au Empreinte.
 
 	Utilisateur();
     // Mode d'emploi :
     // Un constructeur par défaut, se contenant de creer la premiere cellule
 
+    Utilisateur ( const Utilisateur & unUtilisateur);
+    // Mode d'emploi :
+    // Fait une copie en profondeur de l'objet donne en parametre, et
+    // l ajoute au Empreinte.
 
     virtual ~Utilisateur( );
     // Mode d'emploi :
@@ -40,4 +40,6 @@ protected:
 	string adresse;
 
 };
+
+#endif
 
