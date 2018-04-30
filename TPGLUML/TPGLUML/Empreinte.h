@@ -1,3 +1,12 @@
+#if ! defined ( Empreinte_H )
+#define Empreinte_H
+//--------------------------------------------------- Interfaces utilisées
+#include "Attribut.h"
+using namespace std;
+#include <iostream>
+#include <cstring>
+#include <fstream>
+
 class Empreinte
 {
 //----------------------------------------------------------------- PUBLIC
@@ -26,7 +35,7 @@ protected:
 
 //----------------------------------------------------- Attributs protégés
 	String ID;
-	Attribut * attributs;         //21/11 permet de parcourir le Empreinte
+	Attribut * attributs;
 
 };
 
