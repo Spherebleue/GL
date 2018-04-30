@@ -21,7 +21,10 @@ using namespace std;
 //------------------------------------------------------------- Constantes
 //#define MAP ;
 //----------------------------------------------------------------- PUBLIC
-
+Attribut * Attribut::copieAttribut()
+{
+	return new Attribut(*this);
+}
 //----------------------------------------------------- Méthodes publiques
 
 //-------------------------------------------- Constructeurs - destructeur
@@ -33,7 +36,7 @@ Attribut::Attribut ( const Attribut & unAttribut )
 		#ifdef MAP
 			cout << "Appel au constructeur de copie de <Attribut>" << endl;
 		#endif
-		this.nom = unAttribut.nom;
+		this->nom = unAttribut.nom;
 
 	} //----- Fin de Attribut (constructeur de copie)
 
@@ -56,7 +59,7 @@ Attribut::Attribut (string nom)
 			cout << "Appel au constructeur de <Attribut>" << endl;
 		#endif
 
-		this.nom = nom;
+		this->nom = nom;
 
 	} //----- Fin de Attribut
 

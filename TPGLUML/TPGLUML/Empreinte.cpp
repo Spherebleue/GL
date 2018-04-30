@@ -24,6 +24,10 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
+void Empreinte::ajouterAttribut(Attribut * attribut, int position)
+{
+	attributs[position] = attribut->copieAttribut();
+}
 
 
 //-------------------------------------------- Constructeurs - destructeur
@@ -48,8 +52,7 @@ Empreinte::Empreinte ()
 
 	} //----- Fin de Empreinte
 
-Empreinte::Empreinte (string ID,
-	Attribut * attributs)
+Empreinte::Empreinte (string ID, int nombreAttributs)
 // Algorithme :
 // Un constructeur par défaut.
 	{
@@ -57,9 +60,11 @@ Empreinte::Empreinte (string ID,
 			cout << "Appel au constructeur de <Empreinte>" << endl;
 		#endif
 
-		this.ID =ID;
-		this.attributs = attributs;
+		this->ID =ID;
+		attributs = new Attribut * [nombreAttributs];
 	} //----- Fin de Empreinte
+
+
 
 Empreinte::~Empreinte ( )
 // Algorithme :

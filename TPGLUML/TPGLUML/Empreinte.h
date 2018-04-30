@@ -25,6 +25,10 @@ public:
     // Mode d'emploi :
     // Un constructeur par défaut, se contenant de creer la premiere cellule
 
+	Empreinte(string, int);
+
+	void ajouterAttribut(Attribut * , int);
+
 
     virtual ~Empreinte ( );
     // Mode d'emploi :
@@ -37,7 +41,7 @@ protected:
 
 //----------------------------------------------------- Attributs protégés
 	string ID;
-	Attribut * attributs;
+	Attribut ** attributs;
 
 };
 

@@ -23,6 +23,10 @@ public:
     // Mode d'emploi :
     // Un constructeur par défaut, se contenant de creer la premiere cellule
 
+	Attribut(string);
+
+	Attribut * copieAttribut();
+
 
     virtual ~Attribut ( );
     // Mode d'emploi :
