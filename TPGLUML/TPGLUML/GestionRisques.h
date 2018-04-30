@@ -4,6 +4,7 @@ class GestionRisques
 {
 public:
 	GestionRisques();
+	
 	void initMaladies();
 	
 	void analyserFichier(string nomFichier);
