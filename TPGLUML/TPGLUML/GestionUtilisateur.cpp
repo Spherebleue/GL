@@ -9,7 +9,7 @@ void CreerCompte(string nom, string prenom, string motpasse, string adresse)
 {
 }
 
-void AffichageListeDocteurs(String nomFichier)
+void AffichageListeDocteurs(string nomFichier)
 {
 }
 
