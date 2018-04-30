@@ -1,12 +1,12 @@
 /*************************************************************************
-                           Empreinte  -  description
+                           Attribut  -  description
                              -------------------
     début                : $DATE$
     copyright            : (C) $YEAR$ par $AUTHOR$
     e-mail               : $EMAIL$
 *************************************************************************/
 
-//---------- Réalisation de la classe <Empreinte> (fichier Empreinte.cpp) ------------
+//---------- Réalisation de la classe <Attribut> (fichier Attribut.cpp) ------------
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -16,48 +16,49 @@ using namespace std;
 #include <cstring>
 
 //------------------------------------------------------ Include personnel
-#include "Empreinte.h"
+#include "Attribut.h"
 
 //------------------------------------------------------------- Constantes
 //#define MAP ;
-
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
 
-
 //-------------------------------------------- Constructeurs - destructeur
-Empreinte::Empreinte ( const Empreinte & unEmpreinte )
+
+Attribut::Attribut ( const Attribut & unAttribut )
 // Algorithme :
 // Un constructeur de copie.
 	{
 		#ifdef MAP
-			cout << "Appel au constructeur de copie de <Empreinte>" << endl;
+			cout << "Appel au constructeur de copie de <Attribut>" << endl;
 		#endif
 
-	} //----- Fin de Empreinte (constructeur de copie)
+
+	} //----- Fin de Attribut (constructeur de copie)
 
 
-Empreinte::Empreinte ()
+Attribut::Attribut ()
 // Algorithme :
 // Un constructeur par défaut.
 	{
 		#ifdef MAP
-			cout << "Appel au constructeur de <Empreinte>" << endl;
+			cout << "Appel au constructeur de <Attribut>" << endl;
 		#endif
 
-	} //----- Fin de Empreinte
+	} //----- Fin de Attribut
 
 
-Empreinte::~Empreinte ( )
+Attribut::~Attribut ( )
 // Algorithme :
 //
 	{
 		#ifdef MAP
-		    cout << "Appel au destructeur de <Empreinte>" << endl;
+		    cout << "Appel au destructeur de <Attribut>" << endl;
 		#endif
 
-	} //----- Fin de ~Empreinte
+
+	} //----- Fin de ~Attribut
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées

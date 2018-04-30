@@ -1,12 +1,12 @@
 /*************************************************************************
-                           Empreinte  -  description
+                           Numerique  -  description
                              -------------------
     début                : $DATE$
     copyright            : (C) $YEAR$ par $AUTHOR$
     e-mail               : $EMAIL$
 *************************************************************************/
 
-//---------- Réalisation de la classe <Empreinte> (fichier Empreinte.cpp) ------------
+//---------- Réalisation de la classe <Numerique> (fichier Numerique.cpp) ------------
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -16,7 +16,7 @@ using namespace std;
 #include <cstring>
 
 //------------------------------------------------------ Include personnel
-#include "Empreinte.h"
+#include "Numerique.h"
 
 //------------------------------------------------------------- Constantes
 //#define MAP ;
@@ -27,37 +27,39 @@ using namespace std;
 
 
 //-------------------------------------------- Constructeurs - destructeur
-Empreinte::Empreinte ( const Empreinte & unEmpreinte )
+
+Numerique::Numerique ( const Numerique & unNumerique )
+
 // Algorithme :
 // Un constructeur de copie.
 	{
 		#ifdef MAP
-			cout << "Appel au constructeur de copie de <Empreinte>" << endl;
+			cout << "Appel au constructeur de copie de <Numerique>" << endl;
 		#endif
 
-	} //----- Fin de Empreinte (constructeur de copie)
+	} //----- Fin de Numerique (constructeur de copie)
 
 
-Empreinte::Empreinte ()
+Numerique::Numerique ()
 // Algorithme :
 // Un constructeur par défaut.
 	{
 		#ifdef MAP
-			cout << "Appel au constructeur de <Empreinte>" << endl;
+			cout << "Appel au constructeur de <Numerique>" << endl;
 		#endif
 
-	} //----- Fin de Empreinte
+	} //----- Fin de Numerique
 
 
-Empreinte::~Empreinte ( )
+Numerique::~Numerique ( )
 // Algorithme :
 //
 	{
 		#ifdef MAP
-		    cout << "Appel au destructeur de <Empreinte>" << endl;
+		    cout << "Appel au destructeur de <Numerique>" << endl;
 		#endif
 
-	} //----- Fin de ~Empreinte
+	} //----- Fin de ~Numerique
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées

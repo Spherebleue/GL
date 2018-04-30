@@ -1,43 +1,43 @@
-#if ! defined ( Empreinte_H )
-#define Empreinte_H
+#if ! defined ( Numerique_H )
+#define Numerique_H
 
 //--------------------------------------------------- Interfaces utilisées
 
+#include "Numerique.h"
 #include "Attribut.h"
 using namespace std;
 #include <iostream>
 #include <cstring>
 #include <fstream>
 
-class Empreinte
+class Numerique : public Attribut
 {
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------Fonction amies
 public:
 
 //-------------------------------------------- Constructeurs - destructeur
-    Empreinte ( const Empreinte & uneEmpreinte );
+    Numerique ( const Numerique & uneNumerique );
     // Mode d'emploi :
     // Fait une copie en profondeur de l'objet donne en parametre, et
-    // l ajoute au Empreinte.
+    // l ajoute au Numerique.
 
-    Empreinte ();
+    Numerique ();
     // Mode d'emploi :
     // Un constructeur par défaut, se contenant de creer la premiere cellule
 
 
-    virtual ~Empreinte ( );
+    virtual ~Numerique ( );
     // Mode d'emploi :
-    // Destructeur de Empreinte
+    // Destructeur de Numerique
 
 //------------------------------------------------------------------ PRIVE
 
 protected:
 //----------------------------------------------------- Méthodes protégées
 
-//----------------------------------------------------- Attributs protégés
-	string ID;
-	Attribut * attributs;
+//----------------------------------------------------- Numeriques protégés
+	int valeur;
 
 };
 

@@ -1,34 +1,32 @@
-#if ! defined ( Empreinte_H )
-#define Empreinte_H
-
+#if ! defined ( Attribut_H )
+#define Attribut_H
 //--------------------------------------------------- Interfaces utilisées
-
 #include "Attribut.h"
 using namespace std;
 #include <iostream>
 #include <cstring>
 #include <fstream>
 
-class Empreinte
+abstract class Attribut
 {
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------Fonction amies
 public:
 
 //-------------------------------------------- Constructeurs - destructeur
-    Empreinte ( const Empreinte & uneEmpreinte );
+    Attribut ( const Attribut & uneAttribut );
     // Mode d'emploi :
     // Fait une copie en profondeur de l'objet donne en parametre, et
-    // l ajoute au Empreinte.
+    // l ajoute au Attribut.
 
-    Empreinte ();
+    Attribut ();
     // Mode d'emploi :
     // Un constructeur par défaut, se contenant de creer la premiere cellule
 
 
-    virtual ~Empreinte ( );
+    virtual ~Attribut ( );
     // Mode d'emploi :
-    // Destructeur de Empreinte
+    // Destructeur de Attribut
 
 //------------------------------------------------------------------ PRIVE
 
@@ -36,9 +34,8 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-	string ID;
-	Attribut * attributs;
+	string nom;
 
 };
 
-#endif
+#endif 

@@ -1,12 +1,12 @@
 /*************************************************************************
-                           Empreinte  -  description
+                           Categoriel  -  description
                              -------------------
     début                : $DATE$
     copyright            : (C) $YEAR$ par $AUTHOR$
     e-mail               : $EMAIL$
 *************************************************************************/
 
-//---------- Réalisation de la classe <Empreinte> (fichier Empreinte.cpp) ------------
+//---------- Réalisation de la classe <Categoriel> (fichier Categoriel.cpp) ------------
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -16,48 +16,49 @@ using namespace std;
 #include <cstring>
 
 //------------------------------------------------------ Include personnel
-#include "Empreinte.h"
+#include "Categoriel.h"
 
 //------------------------------------------------------------- Constantes
 //#define MAP ;
-
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
 
-
 //-------------------------------------------- Constructeurs - destructeur
-Empreinte::Empreinte ( const Empreinte & unEmpreinte )
+
+Categoriel::Categoriel ( const Categoriel & unCategoriel )
 // Algorithme :
 // Un constructeur de copie.
 	{
 		#ifdef MAP
-			cout << "Appel au constructeur de copie de <Empreinte>" << endl;
+			cout << "Appel au constructeur de copie de <Categoriel>" << endl;
 		#endif
 
-	} //----- Fin de Empreinte (constructeur de copie)
+
+	} //----- Fin de Categoriel (constructeur de copie)
 
 
-Empreinte::Empreinte ()
+Categoriel::Categoriel ()
 // Algorithme :
 // Un constructeur par défaut.
 	{
 		#ifdef MAP
-			cout << "Appel au constructeur de <Empreinte>" << endl;
+			cout << "Appel au constructeur de <Categoriel>" << endl;
 		#endif
 
-	} //----- Fin de Empreinte
+	} //----- Fin de Categoriel
 
 
-Empreinte::~Empreinte ( )
+Categoriel::~Categoriel ( )
 // Algorithme :
 //
 	{
 		#ifdef MAP
-		    cout << "Appel au destructeur de <Empreinte>" << endl;
+		    cout << "Appel au destructeur de <Categoriel>" << endl;
 		#endif
 
-	} //----- Fin de ~Empreinte
+
+	} //----- Fin de ~Categoriel
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
