@@ -15,7 +15,7 @@ class Numerique : public Attribut
 //-------------------------------------------------------Fonction amies
 public:
 
- friend std::ostream& operator<<(std::ostream&, const Numerique &); 
+ friend ostream& operator<<(ostream&, const Numerique &); 
 
 //-------------------------------------------- Constructeurs - destructeur
     Numerique ( const Numerique & uneNumerique );

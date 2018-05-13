@@ -15,7 +15,8 @@ using namespace std;
 #include <iostream>
 #include "Categoriel.h"
 #include "Numerique.h"
-#include "Attribut.h"
+#include "CritereCategoriel.h"
+#include "CritereNumerique.h"
 
 //------------------------------------------------------ Include personnel
 
@@ -23,7 +24,7 @@ int testCategoriel_1 ()
 // test constructeur
 {
     Categoriel canard ("canard", "canard");
-    cout<< canard;
+    cout<< canard<<endl;
     return 0;
 }
 
@@ -31,21 +32,40 @@ int testNumerique_1 ()
 //test numerique
 {
     Numerique canard ("canard", 42);
-    cout<< canard;
+    cout<< canard<<endl;
     return 0;
 }
 
-int testAttribut_1 ()
+int testAttribut_1()
 //test attribut
 {
-    Attribut canard ("canard");
-    cout<< canard;
-    return 0;
+	Attribut canard("canard");
+	cout << canard << endl;
+	return 0;
+}
+
+
+int testCritere_1()
+//test critere
+{
+	CritereCategoriel canard("canard", false, "bouh");
+	cout<<canard<<endl;
+	return 0;
+}
+
+int testCritere_2()
+//test critere
+{
+	CritereNumerique canard("canard", false, 3, 8);
+	cout<<canard<<endl;
+	return 0;
 }
 
 int main(int argc, char* argv[])
 {
     testCategoriel_1();
-    testNumerique_1 ();
-    testAttribut_1 ();
+ //   testNumerique_1 ();
+   // testAttribut_1 ();
+	testCritere_1();
+	testCritere_2();
 }

@@ -24,10 +24,11 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-std::ostream& operator<<(std::ostream &strm, const Categoriel &Cat)
+ostream& operator<<(ostream &strm, const Categoriel &Cat)
 //Pour afficher
 {
-	return strm << "Categoriel ( nom : " << Cat.nom << " valeur : " << Cat.valeur<<")"<<endl;
+	strm << "Categoriel ( nom : " << Cat.nom << ", valeur : " << Cat.valeur << ")";
+	return strm;
 }
 //-------------------------------------------- Constructeurs - destructeur
 
@@ -53,15 +54,13 @@ Categoriel::Categoriel ()
 
 	} //----- Fin de Categoriel
 
-Categoriel::Categoriel (string nom , string valeur)
+Categoriel::Categoriel (string nomT , string valeurT) : Attribut(nomT), valeur(valeurT)
 // Algorithme :
 // Un constructeur par défaut.
 	{
 		#ifdef MAP
 			cout << "Appel au constructeur de <Categoriel>" << endl;
 		#endif
-		this->nom = nom;
-		this->valeur=valeur;
 
 	} //----- Fin de Categoriel
 
