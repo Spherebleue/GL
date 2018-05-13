@@ -1,12 +1,12 @@
 /*************************************************************************
-Critere  -  description
+CritereCategoriel  -  description
 -------------------
 début                : $DATE$
 copyright            : (C) $YEAR$ par $AUTHOR$
 e-mail               : $EMAIL$
 *************************************************************************/
 
-//---------- Réalisation de la classe <Critere> (fichier Critere.cpp) ------------
+//---------- Réalisation de la classe <CritereCategoriel> (fichier CritereCategoriel.cpp) ------------
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -19,7 +19,7 @@ using namespace std;
 
 //------------------------------------------------------ Include personnel
 
-#include "Critere.h"
+#include "CritereCategoriel.h"
 
 //------------------------------------------------------------- Constantes
 //#define MAP ;
@@ -28,70 +28,75 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-/*void Critere::afficher()
+/*void CritereCategoriel::afficher()
 {
-	cout << "Nom : " << nomAttribut.c_str() << ", utilite : " << utile ;
+	Critere::afficher();
+	cout<< ", valeur : "<< categorie <<endl;
 }*/
 
-ostream& operator<<(ostream &strm, const Critere &At)
+ostream& operator<<(ostream &strm, const CritereCategoriel &At)
 //Pour afficher
 {
-	strm << "Nom : " << At.nomAttribut << ", utilite : " << At.utile ;
+	strm << "Nom : " << At.nomAttribut << ", utilite : " << At.utile << ", valeur : "<< At.categorie;
 	return strm;
 }
 
+CritereCategoriel * CritereCategoriel::copieCritere()
+{
+	return new CritereCategoriel(*this);
+}
+
 //-------------------------------------------- Constructeurs - destructeur
-Critere::Critere(const Critere & unCritere)
+CritereCategoriel::CritereCategoriel(const CritereCategoriel & unCritereCategoriel)
 // Algorithme :
 // Un constructeur de copie.
 {
 #ifdef MAP
-	cout << "Appel au constructeur de copie de <Critere>" << endl;
+	cout << "Appel au constructeur de copie de <CritereCategoriel>" << endl;
 #endif
-	nomAttribut = unCritere.nomAttribut;
-	utile = unCritere.utile;
+	nomAttribut = unCritereCategoriel.nomAttribut;
+	utile = unCritereCategoriel.utile;
+	categorie = unCritereCategoriel.categorie;
 
 
 
-} //----- Fin de Critere (constructeur de copie)
+} //----- Fin de CritereCategoriel (constructeur de copie)
 
 
 
-Critere::Critere()
+CritereCategoriel::CritereCategoriel()
 // Algorithme :
 // Un constructeur par défaut.
 {
 #ifdef MAP
-	cout << "Appel au constructeur de <Critere>" << endl;
+	cout << "Appel au constructeur de <CritereCategoriel>" << endl;
 #endif
 
-} //----- Fin de Critere
+} //----- Fin de CritereCategoriel
 
-Critere::Critere(string nomAttributT, bool utileT) : nomAttribut(nomAttributT), utile(utileT)
+CritereCategoriel::CritereCategoriel(string nomAttributT, bool utileT, string categorieT) : Critere(nomAttributT, utileT), categorie(categorieT)
 // Algorithme :
 // Un constructeur avec tous les attributs
 {
 #ifdef MAP
-	cout << "Appel au constructeur de <Critere>" << endl;
+	cout << "Appel au constructeur de <CritereCategoriel>" << endl;
 #endif
 
-
-
-} //----- Fin de Critere
+} //----- Fin de CritereCategoriel
 
 
 
 
-Critere::~Critere()
+CritereCategoriel::~CritereCategoriel()
 // Algorithme :
 //
 {
 #ifdef MAP
-	cout << "Appel au destructeur de <Critere>" << endl;
+	cout << "Appel au destructeur de <CritereCategoriel>" << endl;
 #endif
 
 
-} //----- Fin de ~Critere
+} //----- Fin de ~CritereCategoriel
   //------------------------------------------------------------------ PRIVE
 
   //----------------------------------------------------- Méthodes protégées

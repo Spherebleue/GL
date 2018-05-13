@@ -13,7 +13,7 @@ class Categoriel : public Attribut
 //-------------------------------------------------------Fonction amies
 public:
 
-    friend std::ostream& operator<<(std::ostream&, const Categoriel &); 
+    friend ostream& operator<<(ostream&, const Categoriel &); 
 //-------------------------------------------- Constructeurs - destructeur
     Categoriel ( const Categoriel & uneCategoriel );
     // Mode d'emploi :

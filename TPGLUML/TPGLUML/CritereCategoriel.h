@@ -1,43 +1,43 @@
-#ifndef CRITERE_H_INCLUDED
-#define CRITERE_H_INCLUDED
 
+#define CritereCategoriel_H
 //--------------------------------------------------- Interfaces utilisées
 
 using namespace std;
 #include <iostream>
 #include <cstring>
 #include <fstream>
+#include "Critere.h"
 
-class Critere
+class CritereCategoriel : public Critere
 {
 	//----------------------------------------------------------------- PUBLIC
 	//-------------------------------------------------------Fonction amies
 public:
-  	
-	friend ostream& operator<<(ostream&, const Critere &); 
+
+	friend ostream& operator<<(ostream&, const CritereCategoriel &); 
 
 	//-------------------------------------------- Constructeurs - destructeur
-	Critere(const Critere & uneCritere);
+	CritereCategoriel(const CritereCategoriel & uneCritereCategoriel);
 	// Mode d'emploi :
 	// Fait une copie en profondeur de l'objet donne en parametre, et
-	// l ajoute au Critere.
+	// l ajoute au CritereCategoriel.
 
-	Critere();
+	CritereCategoriel();
 	// Mode d'emploi :
 	// Un constructeur par défaut, se contenant de creer la premiere cellule
 
-	Critere(string, bool);
+	CritereCategoriel(string, bool, string);
 	// Mode d'emploi :
-	// Un constructeur pour créer un Critere
+	// Un constructeur pour créer un CritereCategoriel
 
 	void afficher();
-	
-	virtual Critere * copieCritere() =0;
+
+	CritereCategoriel * copieCritere();
 
 
-	virtual ~Critere();
+	virtual ~CritereCategoriel();
 	// Mode d'emploi :
-	// Destructeur de Critere
+	// Destructeur de CritereCategoriel
 
 	//------------------------------------------------------------------ PRIVE
 
@@ -45,11 +45,10 @@ protected:
 	//----------------------------------------------------- Méthodes protégées
 
 	//----------------------------------------------------- Attributs protégés
-	string nomAttribut;
-	bool utile;
-
+	string categorie;
 
 };
 
-#endif
 
+
+#pragma once

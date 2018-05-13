@@ -1,43 +1,43 @@
-#ifndef CRITERE_H_INCLUDED
-#define CRITERE_H_INCLUDED
 
+#define CritereNumerique_H
 //--------------------------------------------------- Interfaces utilisées
 
+#include "Critere.h"
 using namespace std;
 #include <iostream>
 #include <cstring>
 #include <fstream>
 
-class Critere
+
+class CritereNumerique : public Critere
 {
 	//----------------------------------------------------------------- PUBLIC
 	//-------------------------------------------------------Fonction amies
 public:
-  	
-	friend ostream& operator<<(ostream&, const Critere &); 
+
+	friend ostream& operator<<(ostream&, const CritereNumerique &); 
 
 	//-------------------------------------------- Constructeurs - destructeur
-	Critere(const Critere & uneCritere);
+	CritereNumerique(const CritereNumerique & uneCritereNumerique);
 	// Mode d'emploi :
 	// Fait une copie en profondeur de l'objet donne en parametre, et
-	// l ajoute au Critere.
+	// l ajoute au CritereNumerique.
 
-	Critere();
+	CritereNumerique();
 	// Mode d'emploi :
 	// Un constructeur par défaut, se contenant de creer la premiere cellule
 
-	Critere(string, bool);
+	CritereNumerique(string, bool, double, double);
 	// Mode d'emploi :
-	// Un constructeur pour créer un Critere
+	// Un constructeur pour créer un CritereNumerique
 
 	void afficher();
-	
-	virtual Critere * copieCritere() =0;
+	CritereNumerique * copieCritere();
 
 
-	virtual ~Critere();
+	virtual ~CritereNumerique();
 	// Mode d'emploi :
-	// Destructeur de Critere
+	// Destructeur de CritereNumerique
 
 	//------------------------------------------------------------------ PRIVE
 
@@ -45,11 +45,13 @@ protected:
 	//----------------------------------------------------- Méthodes protégées
 
 	//----------------------------------------------------- Attributs protégés
-	string nomAttribut;
-	bool utile;
+
+	double ecartType;
+	double moyenne;
 
 
 };
 
-#endif
 
+
+#pragma once
