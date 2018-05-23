@@ -6,14 +6,22 @@
 #include "Attribut.h"
 using namespace std;
 #include <iostream>
-#include <cstring>
+#include <string>
 #include <fstream>
+#include <utility>
+#include <vector>
+#include <assert.h>
 
 class Empreinte
 {
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------Fonction amies
 public:
+
+    string fichierFormat ="Donnes/F1_ok.txt";
+    //void ajouterAttribut(Attribut *);
+
+    void initialiserFormat();
 
 //-------------------------------------------- Constructeurs - destructeur
     Empreinte ( const Empreinte & uneEmpreinte );
@@ -23,11 +31,10 @@ public:
 
     Empreinte ();
     // Mode d'emploi :
-    // Un constructeur par défaut, se contenant de creer la premiere cellule
+    // Un constructeur par défaut, se contentant de creer la premiere cellule
 
-	Empreinte(string, int);
+	Empreinte(std::vector <Attribut> nouveauxAttributs);
 
-	void ajouterAttribut(Attribut * , int);
 
 
     virtual ~Empreinte ( );
@@ -41,7 +48,8 @@ protected:
 
 //----------------------------------------------------- Attributs protégés
 	string ID;
-	Attribut ** attributs;
+	vector <Attribut> attributs;
+	static vector< pair<string,string> > format;
 
 };
 
