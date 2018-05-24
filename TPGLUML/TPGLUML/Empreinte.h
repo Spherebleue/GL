@@ -18,10 +18,11 @@ class Empreinte
 //-------------------------------------------------------Fonction amies
 public:
 
-    string fichierFormat ="Donnes/F1_ok.txt";
-    //void ajouterAttribut(Attribut *);
+    static string fichierFormat;
+	static vector< pair<string, string> > format;
+    void ajouterAttribut(Attribut *);
 
-    void initialiserFormat();
+    void static initialiserFormat();
 
 //-------------------------------------------- Constructeurs - destructeur
     Empreinte ( const Empreinte & uneEmpreinte );
@@ -33,7 +34,7 @@ public:
     // Mode d'emploi :
     // Un constructeur par défaut, se contentant de creer la premiere cellule
 
-	Empreinte(std::vector <Attribut> nouveauxAttributs);
+	Empreinte(std::vector <Attribut*> nouveauxAttributs);
 
 
 
@@ -48,9 +49,11 @@ protected:
 
 //----------------------------------------------------- Attributs protégés
 	string ID;
-	vector <Attribut> attributs;
-	static vector< pair<string,string> > format;
+	vector <Attribut *> attributs;
+
 
 };
+
+
 
 #endif

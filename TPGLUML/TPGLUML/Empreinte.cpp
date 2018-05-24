@@ -14,17 +14,21 @@
 
 //------------------------------------------------------ Include personnel
 #include "Empreinte.h"
+#include <sstream>
+
 using namespace std;
 //------------------------------------------------------------- Constantes
 //#define MAP ;
 
 //----------------------------------------------------------------- PUBLIC
-
+string Empreinte::fichierFormat = "F1_ok.txt";
+vector< pair<string, string> > Empreinte::format;
 
 void Empreinte::initialiserFormat()
-{/*
+{
+	
     ifstream entreeFichier;
-    entreeFichier.open(this->fichierFormat);
+    entreeFichier.open(fichierFormat);
 
     assert(entreeFichier);                        //verifie que le fichier est bien trouve
 
@@ -34,10 +38,10 @@ void Empreinte::initialiserFormat()
     assert(line.compare("AttributeName;AttributeType")==0);    //verifie que l'entete est bien la bonne
     getline(entreeFichier, line);
     assert(line.compare("NoID;ID")==0);
-    getline(entreeFichier, line);
 
     while(entreeFichier.good())
     {
+		getline(entreeFichier, line);
         stringstream ss;
         ss.str(line);
         string nomAttribut;
@@ -63,19 +67,19 @@ void Empreinte::initialiserFormat()
         }
 
         pair<string,string> nouvellePaire=make_pair(nomAttribut,typeAttribut);
-        this->format.push_back(nouvellePaire);
+        format.push_back(nouvellePaire);
 
-        getline(entreeFichier, line);
-    }*/
+        
+    }
 
 }
 
 //----------------------------------------------------- Méthodes publiques
-/*void Empreinte::ajouterAttribut(Attribut * attribut)
+void Empreinte::ajouterAttribut(Attribut * attribut)
 {
-    Attribut a = new Attribut(*attribut);
-	attributs.push_back(a);
-}*/
+	
+	attributs.push_back(attribut->copieAttribut());
+}
 
 
 //-------------------------------------------- Constructeurs - destructeur
@@ -97,14 +101,11 @@ Empreinte::Empreinte ()
 		#ifdef MAP
 			cout << "Appel au constructeur de <Empreinte>" << endl;
 		#endif
-       /* if( this->format.empty())
-        {
-            initialiserFormat();
-        }*/
+
 	} //----- Fin de Empreinte
 
 
-Empreinte::Empreinte (std::vector <Attribut> nouveauxAttributs)
+Empreinte::Empreinte (std::vector <Attribut *> nouveauxAttributs)
 // Algorithme :
 // Un constructeur par défaut.
 	{
