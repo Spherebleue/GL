@@ -30,7 +30,6 @@ public:
 	// Mode d'emploi :
 	// Un constructeur pour créer un CritereCategoriel
 
-	void afficher();
 
 	CritereCategoriel * copieCritere();
 

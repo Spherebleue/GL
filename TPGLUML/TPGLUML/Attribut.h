@@ -1,11 +1,12 @@
-#if ! defined ( Attribut_H )
-#define Attribut_H
+#ifndef ATTRIBUT_H_INCLUDED
+#define ATTRIBUT_H_INCLUDED
 //--------------------------------------------------- Interfaces utilisées
-#include "Attribut.h"
+
 using namespace std;
 #include <iostream>
 #include <cstring>
 #include <fstream>
+
 
 class Attribut
 {
@@ -13,7 +14,7 @@ class Attribut
 //-------------------------------------------------------Fonction amies
 public:
 
-    friend std::ostream& operator<<(std::ostream&, const Attribut &); 
+    friend ostream& operator<<(ostream&, const Attribut &); 
 
 //-------------------------------------------- Constructeurs - destructeur
     Attribut ( const Attribut & uneAttribut );
@@ -44,4 +45,4 @@ protected:
 
 };
 
-#endif 
+#endif

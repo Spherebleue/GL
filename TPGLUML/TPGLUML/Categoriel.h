@@ -28,6 +28,8 @@ public:
     // Mode d'emploi :
     // Un constructeur par défaut, se contenant de creer la premiere cellule
 
+	string getValeur();
+
     virtual ~Categoriel ( );
     // Mode d'emploi :
     // Destructeur de Categoriel

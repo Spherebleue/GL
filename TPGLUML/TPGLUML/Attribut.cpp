@@ -14,6 +14,7 @@
 using namespace std;
 #include <iostream>
 #include <cstring>
+#include <string>
 
 //------------------------------------------------------ Include personnel
 #include "Attribut.h"
@@ -30,11 +31,13 @@ Attribut * Attribut::copieAttribut()
 	return new Attribut(*this);
 }
 
-std::ostream& operator<<(std::ostream &strm, const Attribut &At)
+ostream& operator<<(std::ostream &strm, const Attribut &At)
 //Pour afficher
 {
-	return strm << "Attribut ( nom : " << At.nom <<")"<<endl;
+	strm << " Nom : " << At.nom << " ";
+	return strm;
 }
+	
 
 //-------------------------------------------- Constructeurs - destructeur
 
@@ -45,7 +48,7 @@ Attribut::Attribut ( const Attribut & unAttribut )
 		#ifdef MAP
 			cout << "Appel au constructeur de copie de <Attribut>" << endl;
 		#endif
-		this->nom = unAttribut.nom;
+		nom = unAttribut.nom;
 
 	} //----- Fin de Attribut (constructeur de copie)
 
@@ -60,15 +63,13 @@ Attribut::Attribut ()
 
 	} //----- Fin de Attribut
 
-Attribut::Attribut (string nom)
+Attribut::Attribut (string nomT) : nom (nomT)
 // Algorithme :
 // Un constructeur par défaut.
 	{
 		#ifdef MAP
 			cout << "Appel au constructeur de <Attribut>" << endl;
 		#endif
-
-		this->nom = nom;
 
 	} //----- Fin de Attribut
 

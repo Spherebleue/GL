@@ -13,21 +13,25 @@ class Administrateur : public Utilisateur
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------Fonction amies
 public:
+	friend ostream& operator<<(ostream&, const Administrateur &);
 
 //-------------------------------------------- Constructeurs - destructeur
-    Administrateur ( const Administrateur & unAdministrateur);
+    Administrateur ( const Administrateur & unAdministrateur); 
     // Mode d'emploi :
-    // Fait une copie en profondeur de l'objet donne en parametre, et
-    // l ajoute au Empreinte.
+    // Fait une copie en profondeur de l'objet donne en parametre
 
 	Administrateur();
     // Mode d'emploi :
-    // Un constructeur par défaut, se contenant de creer la premiere cellule
+    // Un constructeur par défaut
+
+	Administrateur(string, string, string, string);
+	// Mode d'emploi :
+	// un constructeur
 
 
     virtual ~Administrateur( );
     // Mode d'emploi :
-    // Destructeur de Empreinte
+    // Destructeur de Administateur
 
 //------------------------------------------------------------------ PRIVE
 
@@ -37,4 +41,5 @@ protected:
 //----------------------------------------------------- Attributs protégés
 	
 };
+#endif
 

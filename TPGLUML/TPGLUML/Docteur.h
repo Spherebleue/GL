@@ -13,6 +13,7 @@ class Docteur : public Utilisateur
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------Fonction amies
 public:
+	friend ostream& operator<<(ostream&, const Docteur &);
 
 //-------------------------------------------- Constructeurs - destructeur
     Docteur ( const Docteur & unDocteur);
@@ -23,7 +24,7 @@ public:
 	Docteur();
     // Mode d'emploi :
     // Un constructeur par défaut, se contenant de creer la premiere cellule
-
+	Docteur(string, string, string, string);
 
     virtual ~Docteur( );
     // Mode d'emploi :

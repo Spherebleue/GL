@@ -83,7 +83,7 @@ void Maladie::afficherContenu()
 	cout << "Nom maladie : " << nom.c_str() << endl;
 	for (int i = 0; i < nombreCritere; i++)
 	{
-		listeCritere[i]->afficher();
+		cout << listeCritere[i] << endl;;
 	}
 	
 }

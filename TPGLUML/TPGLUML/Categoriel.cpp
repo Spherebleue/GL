@@ -14,7 +14,7 @@
 using namespace std;
 #include <iostream>
 #include <cstring>
-
+#include <string>
 //------------------------------------------------------ Include personnel
 #include "Categoriel.h"
 
@@ -22,12 +22,18 @@ using namespace std;
 //#define MAP ;
 //----------------------------------------------------------------- PUBLIC
 
+string Categoriel::getValeur()
+{
+	return valeur;
+}
 //----------------------------------------------------- Méthodes publiques
 
 ostream& operator<<(ostream &strm, const Categoriel &Cat)
 //Pour afficher
 {
-	strm << "Categoriel ( nom : " << Cat.nom << ", valeur : " << Cat.valeur << ")";
+
+	
+	strm << "Nom : " << Cat.nom << ", valeur : " << Cat.valeur;
 	return strm;
 }
 //-------------------------------------------- Constructeurs - destructeur
@@ -39,6 +45,8 @@ Categoriel::Categoriel ( const Categoriel & unCategoriel )
 		#ifdef MAP
 			cout << "Appel au constructeur de copie de <Categoriel>" << endl;
 		#endif
+			nom = unCategoriel.nom;
+			valeur = unCategoriel.valeur;
 
 
 	} //----- Fin de Categoriel (constructeur de copie)

@@ -14,6 +14,8 @@
 using namespace std;
 #include <iostream>
 #include <cstring>
+#include <fstream>
+#include <string>
 
 //------------------------------------------------------ Include personnel
 #include "Administrateur.h"
@@ -27,9 +29,14 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-
+ostream& operator<<(ostream &strm, const Administrateur& Ad)
+//Pour afficher
+{
+	strm << "Nom : " << Ad.nom << ", prenom : " << Ad.prenom << " , mdp : " << Ad.motDePasse << ", adresse : " << Ad.adresse;
+	return strm;
+}
 //-------------------------------------------- Constructeurs - destructeur
-Administrateur::Administrateur ( const Administrateur & unAdministrateur )
+Administrateur::Administrateur ( const Administrateur & unAdministrateur ) : Utilisateur (unAdministrateur.nom, unAdministrateur.prenom, unAdministrateur.motDePasse, unAdministrateur.adresse)
 // Algorithme :
 // Un constructeur de copie.
 	{
@@ -50,6 +57,17 @@ Administrateur::Administrateur ()
 		#endif
 
 	} //----- Fin de Administrateur
+
+Administrateur::Administrateur(string nomT, string prenomT, string motDePasseT, string adresseT) : Utilisateur(nomT, prenomT,motDePasseT,adresseT)
+// Algorithme :
+// Un constructeur 
+{
+#ifdef MAP
+	cout << "Appel au constructeur de <Administrateur>" << endl;
+#endif
+
+} //----- Fin de Administrateur
+
 
 
 Administrateur::~Administrateur ( )

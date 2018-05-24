@@ -13,8 +13,10 @@
 //-------------------------------------------------------- Include système
 using namespace std;
 #include <iostream>
+
 #include "Categoriel.h"
 #include "Numerique.h"
+#include "Empreinte.h"
 #include "CritereCategoriel.h"
 #include "CritereNumerique.h"
 
@@ -23,8 +25,9 @@ using namespace std;
 int testCategoriel_1 ()
 // test constructeur
 {
-    Categoriel canard ("canard", "canard");
+    Categoriel canard ("canard", "canardj");
     cout<< canard<<endl;
+	//cout << (canard.getValeur());
     return 0;
 }
 
@@ -45,6 +48,7 @@ int testAttribut_1()
 }
 
 
+
 int testCritere_1()
 //test critere
 {
@@ -61,11 +65,23 @@ int testCritere_2()
 	return 0;
 }
 
+
+int test_CodeInit()
+{
+	Empreinte::initialiserFormat();
+	for (int i = 0; i < int (Empreinte::format.size()); i++)
+	{
+		cout << Empreinte::format[i].first << ", " << Empreinte::format[i].second << endl;
+	}
+	return 0;
+}
 int main(int argc, char* argv[])
 {
     testCategoriel_1();
- //   testNumerique_1 ();
-   // testAttribut_1 ();
+    testNumerique_1 ();
+    testAttribut_1 ();
 	testCritere_1();
 	testCritere_2();
+	test_CodeInit();
+	while (true);
 }

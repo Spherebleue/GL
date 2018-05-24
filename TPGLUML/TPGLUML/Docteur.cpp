@@ -14,6 +14,8 @@
 using namespace std;
 #include <iostream>
 #include <cstring>
+#include <fstream>
+#include <string>
 
 //------------------------------------------------------ Include personnel
 #include "Docteur.h"
@@ -23,18 +25,25 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-
+ostream& operator<<(ostream &strm, const Docteur& Doc)
+//Pour afficher
+{
+	strm << "Nom : " << Doc.nom << ", prenom : " << Doc.prenom << " , mdp : " << Doc.motDePasse << ", adresse : " << Doc.adresse;
+	return strm;
+}
 //-------------------------------------------- Constructeurs - destructeur
-Docteur::Docteur ( const Docteur & unDocteur )
+
+
+Docteur::Docteur(const Docteur & unDocteur) : Utilisateur(unDocteur.nom, unDocteur.prenom, unDocteur.motDePasse, unDocteur.adresse)
 // Algorithme :
 // Un constructeur de copie.
-	{
-		#ifdef MAP
-			cout << "Appel au constructeur de copie de <Docteur>" << endl;
-		#endif
+{
+#ifdef MAP
+	cout << "Appel au constructeur de copie de <Docteur>" << endl;
+#endif
 
 
-	} //----- Fin de Docteur (constructeur de copie)
+} //----- Fin de Docteur (constructeur de copie)
 
 
 Docteur::Docteur ()
@@ -47,6 +56,15 @@ Docteur::Docteur ()
 
 	} //----- Fin de Docteur
 
+Docteur::Docteur(string nomT, string prenomT, string motDePasseT, string adresseT) : Utilisateur(nomT, prenomT, motDePasseT, adresseT)
+// Algorithme :
+// Un constructeur 
+{
+#ifdef MAP
+	cout << "Appel au constructeur de <Docteur>" << endl;
+#endif
+
+} 
 
 Docteur::~Docteur ()
 // Algorithme :

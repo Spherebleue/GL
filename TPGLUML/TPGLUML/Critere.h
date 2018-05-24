@@ -30,7 +30,7 @@ public:
 	// Mode d'emploi :
 	// Un constructeur pour créer un Critere
 
-	void afficher();
+	
 	
 	virtual Critere * copieCritere() =0;
 

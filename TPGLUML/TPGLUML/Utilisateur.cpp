@@ -14,6 +14,8 @@
 using namespace std;
 #include <iostream>
 #include <cstring>
+#include <fstream>
+#include <string>
 
 //------------------------------------------------------ Include personnel
 #include "Utilisateur.h"
@@ -26,10 +28,15 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-
+ostream& operator<<(ostream &strm, const Utilisateur &Ut)
+//Pour afficher
+{
+	strm << "Nom : " << Ut.nom << ", prenom : " << Ut.prenom << " , mdp : " << Ut.motDePasse <<", adresse : " << Ut.adresse;
+	return strm;
+}
 
 //-------------------------------------------- Constructeurs - destructeur
-Utilisateur::Utilisateur ( const Utilisateur & unUtilisateur )
+Utilisateur::Utilisateur ( const Utilisateur & unUtilisateur ) : nom(unUtilisateur.nom), prenom(unUtilisateur.prenom), motDePasse(unUtilisateur.motDePasse), adresse(unUtilisateur.adresse)
 // Algorithme :
 // Un constructeur de copie.
 	{
@@ -50,6 +57,15 @@ Utilisateur::Utilisateur ()
 		#endif
 
 	} //----- Fin de Utilisateur
+
+
+Utilisateur::Utilisateur(string nomT, string prenomT, string motDePasseT, string adresseT) : nom(nomT), prenom(prenomT), motDePasse(motDePasseT), adresse(adresseT)
+{
+
+	#ifdef MAP
+		cout << "Appel au constructeur de <Utilisateur>" << endl;
+	#endif
+}
 
 
 Utilisateur::~Utilisateur ( )
