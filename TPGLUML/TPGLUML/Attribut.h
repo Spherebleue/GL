@@ -16,6 +16,10 @@ public:
 
     friend ostream& operator<<(ostream&, const Attribut &); 
 
+	virtual ostream& output(ostream &) const = 0;
+
+
+
 //-------------------------------------------- Constructeurs - destructeur
     Attribut ( const Attribut & uneAttribut );
     // Mode d'emploi :
@@ -28,7 +32,7 @@ public:
 
 	Attribut(string);
 
-	Attribut * copieAttribut();
+	virtual Attribut * copieAttribut() = 0;
 
 
     virtual ~Attribut ( );

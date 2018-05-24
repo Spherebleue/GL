@@ -21,6 +21,11 @@ using namespace std;
 //------------------------------------------------------------- Constantes
 //#define MAP ;
 //----------------------------------------------------------------- PUBLIC
+Categoriel *Categoriel::copieAttribut()
+//creer un pointeur sur l'attribut
+{
+	return new Categoriel(*this);
+}
 
 string Categoriel::getValeur()
 {
@@ -35,6 +40,12 @@ ostream& operator<<(ostream &strm, const Categoriel &Cat)
 	
 	strm << "Nom : " << Cat.nom << ", valeur : " << Cat.valeur;
 	return strm;
+}
+
+ostream& Categoriel::output(ostream&strm) const
+{
+	return strm << *this << std::endl;
+
 }
 //-------------------------------------------- Constructeurs - destructeur
 

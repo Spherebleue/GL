@@ -19,6 +19,7 @@ using namespace std;
 #include "Empreinte.h"
 #include "CritereCategoriel.h"
 #include "CritereNumerique.h"
+#include "GestionRisques.h"
 
 //------------------------------------------------------ Include personnel
 
@@ -39,13 +40,6 @@ int testNumerique_1 ()
     return 0;
 }
 
-int testAttribut_1()
-//test attribut
-{
-	Attribut canard("canard");
-	cout << canard << endl;
-	return 0;
-}
 
 
 
@@ -75,13 +69,20 @@ int test_CodeInit()
 	}
 	return 0;
 }
+int test_analyseFichier()
+
+{
+	GestionRisques gr;
+	gr.analyserFichier("F3_ok.txt");
+	return 0;
+}
 int main(int argc, char* argv[])
 {
     testCategoriel_1();
     testNumerique_1 ();
-    testAttribut_1 ();
 	testCritere_1();
 	testCritere_2();
 	test_CodeInit();
+	test_analyseFichier();
 	while (true);
 }

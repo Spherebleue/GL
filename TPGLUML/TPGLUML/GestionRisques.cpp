@@ -77,16 +77,16 @@ void GestionRisques::analyserFichier(string nomFichier)
 
 	string line;
 	getline(entreeFichier, line);
-	Empreinte e;
+	vector <Empreinte *> vectEmpreinte;
 	while (entreeFichier.good())
 	{
-
+		Empreinte * e = new Empreinte();
 		getline(entreeFichier, line);
 		stringstream ss;
 		ss.str(line);
 		string valeurAttribut;
 		getline(ss, valeurAttribut, ';');
-		for (int i = 0; i < Empreinte::format.size(); i++)
+		for (int i = 0; i < int (Empreinte::format.size()); i++)
 		{
 			if (i == Empreinte::format.size())
 			{
@@ -100,30 +100,35 @@ void GestionRisques::analyserFichier(string nomFichier)
 
 			if (Empreinte::format[i].second.compare("Categoriel") == 0) //verifie que le type est bien le bon
 			{
-				Attribut * a = new Categoriel(Empreinte::format[i].first, valeurAttribut);
-				e.ajouterAttribut(a);
+				Categoriel * a = new Categoriel(Empreinte::format[i].first, valeurAttribut);
+				//cout << *a << endl;
+				e->ajouterAttribut(a);
 			}
 			else if (Empreinte::format[i].second.compare("Numerique") == 0)
 			{
-				Attribut * a = new Numerique(Empreinte::format[i].first, stoi(valeurAttribut));
-				e.ajouterAttribut(a);
+				Numerique * a = new Numerique(Empreinte::format[i].first, stod(valeurAttribut));
+				//cout << *a << endl;
+				e->ajouterAttribut(a);
 			}
 			else
 			{
 				cout << "Erreur : l'un des attributs n'est ni numerique, ni categoriel" << endl;
 				abort();
 			}
-		}
 			
-
-	}
-
-			/*pair<string, string> nouvellePaire = make_pair(nomAttribut, typeAttribut);
-			format.push_back(nouvellePaire);*/
-
-
 		}
+		//cout << *e << endl;
+		vectEmpreinte.push_back(e);
+
 	}
+	//cout << (vectEmpreinte.size()) << endl;
+	for (int i = 0; i < int(vectEmpreinte.size()); i++)
+	{
+		cout << (*vectEmpreinte[i]) << endl;
+	}
+
+				
+	
 }
 
 void GestionRisques::chercherMaladie(string nomMaladie)

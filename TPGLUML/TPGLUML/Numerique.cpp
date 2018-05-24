@@ -24,13 +24,26 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
+ostream&  Numerique::output(ostream&strm) const
+{
+	return strm << *this << std::endl;
 
-ostream& operator<<(ostream &strm, const Numerique &Num)
+}
+
+Numerique * Numerique::copieAttribut()
+//creer un pointeur sur l'attribut
+{
+	return new Numerique(*this);
+}
+
+ostream& operator<<(ostream &strm,const Numerique &Num)
 //Pour afficher
 {
-	strm << "Numérique (nom : " << Num.nom << ", valeur :" << Num.valeur << ")";
+	strm << "Numérique (nom :  inconnu, valeur :" << Num.valeur << ")"; //TODO : a corriger
 	return strm;
 }
+
+
 //-------------------------------------------- Constructeurs - destructeur
 
 Numerique::Numerique ( const Numerique & unNumerique )
@@ -41,6 +54,8 @@ Numerique::Numerique ( const Numerique & unNumerique )
 		#ifdef MAP
 			cout << "Appel au constructeur de copie de <Numerique>" << endl;
 		#endif
+			nom = unNumerique.nom;
+			valeur = unNumerique.valeur;
 
 	} //----- Fin de Numerique (constructeur de copie)
 
@@ -56,7 +71,7 @@ Numerique::Numerique ()
 
 	} //----- Fin de Numerique
 
-Numerique::Numerique ( string nomT, int valeurT) : Attribut(nomT), valeur (valeurT)
+Numerique::Numerique ( string nomT, double valeurT) : Attribut(nomT), valeur (valeurT)
 // Algorithme :
 // Un constructeur
 	{

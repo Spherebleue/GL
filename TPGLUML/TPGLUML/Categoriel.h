@@ -28,6 +28,9 @@ public:
     // Mode d'emploi :
     // Un constructeur par défaut, se contenant de creer la premiere cellule
 
+	Categoriel * copieAttribut();
+	ostream & output(ostream&) const  ;
+
 	string getValeur();
 
     virtual ~Categoriel ( );

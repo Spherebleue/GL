@@ -31,7 +31,7 @@ public:
 	// Mode d'emploi :
 	// Un constructeur pour créer un CritereNumerique
 
-	void afficher();
+	
 	CritereNumerique * copieCritere();
 
 

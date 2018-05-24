@@ -25,17 +25,21 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-Attribut * Attribut::copieAttribut()
+
+
+
+/*Attribut * Attribut::copieAttribut()
 //creer un pointeur sur l'attribut
 {
 	return new Attribut(*this);
-}
+}*/
 
 ostream& operator<<(std::ostream &strm, const Attribut &At)
 //Pour afficher
 {
-	strm << " Nom : " << At.nom << " ";
-	return strm;
+	return At.output(strm);
+	/*strm << " Nom : " << At.nom << " ";
+	return strm;*/
 }
 	
 

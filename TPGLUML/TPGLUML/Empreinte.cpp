@@ -24,6 +24,18 @@ using namespace std;
 string Empreinte::fichierFormat = "F1_ok.txt";
 vector< pair<string, string> > Empreinte::format;
 
+
+ostream& operator<<(ostream &strm, const Empreinte& Emp)
+//Pour afficher
+{
+	for (int i = 0; i < int(Emp.attributs.size()); i++)
+	{
+		strm << (*Emp.attributs[i]) << ", ";
+		
+	}
+	return strm;
+}
+
 void Empreinte::initialiserFormat()
 {
 	

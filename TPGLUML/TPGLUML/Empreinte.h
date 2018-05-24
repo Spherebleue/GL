@@ -22,6 +22,7 @@ public:
 	static vector< pair<string, string> > format;
     void ajouterAttribut(Attribut *);
 
+	friend ostream& operator<<(ostream&, const Empreinte & );
     void static initialiserFormat();
 
 //-------------------------------------------- Constructeurs - destructeur

@@ -27,9 +27,12 @@ public:
     // Mode d'emploi :
     // Un constructeur par défaut, se contenant de creer la premiere cellule
 
-    Numerique ( string nom, int valeur);
+    Numerique ( string nom,double valeur);
     // Mode d'emploi :
     // Un constructeure
+
+	Numerique * copieAttribut();
+	ostream & output(ostream&) const ;
 
     virtual ~Numerique ( );
     // Mode d'emploi :
@@ -41,7 +44,7 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Numeriques protégés
-	int valeur;
+	double valeur;
 
 };
 
