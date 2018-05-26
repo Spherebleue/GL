@@ -2,7 +2,7 @@
                            main  -  description
                              -------------------
     début                : 26/01/2018
-    copyright            : (C) 2018 par B3332 (Duraffourg & Gangalic)
+    copyright            : (C) 2018 par B3332
     e-mail               : b3332@insa-lyon.fr
 *************************************************************************/
 
@@ -14,75 +14,57 @@
 using namespace std;
 #include <iostream>
 
-#include "Categoriel.h"
-#include "Numerique.h"
-#include "Empreinte.h"
-#include "CritereCategoriel.h"
-#include "CritereNumerique.h"
-#include "GestionRisques.h"
-
 //------------------------------------------------------ Include personnel
+#include "GestionUtilisateur.h"
 
-int testCategoriel_1 ()
-// test constructeur
+
+//-------------------------------------------------------------------Tests
+int GestionUtilisateur_Test_1()
+//Test GestionUtilisateur constructeur
 {
-    Categoriel canard ("canard", "canardj");
-    cout<< canard<<endl;
-	//cout << (canard.getValeur());
-    return 0;
-}
-
-int testNumerique_1 ()
-//test numerique
-{
-    Numerique canard ("canard", 42);
-    cout<< canard<<endl;
-    return 0;
-}
-
-
-
-
-int testCritere_1()
-//test critere
-{
-	CritereCategoriel canard("canard", false, "bouh");
-	cout<<canard<<endl;
+	
+	GestionUtilisateur uneGestionUtilisateur = GestionUtilisateur();
 	return 0;
 }
 
-int testCritere_2()
-//test critere
+int creerCompte_Test()
+//Test creerCompte
 {
-	CritereNumerique canard("canard", false, 3, 8);
-	cout<<canard<<endl;
+	GestionUtilisateur uneGestionUtilisateur;
+	uneGestionUtilisateur.creerCompte("CHAIZA", "GUSTAVO","gustavo@gmail.com","gustavo","ListeDocteurs.txt");
 	return 0;
 }
 
-
-int test_CodeInit()
+int afficherListeDocteurs_Test()
+//Test afficherListeDocteurs
 {
-	Empreinte::initialiserFormat();
-	for (int i = 0; i < int (Empreinte::format.size()); i++)
-	{
-		cout << Empreinte::format[i].first << ", " << Empreinte::format[i].second << endl;
-	}
+	GestionUtilisateur uneGestionUtilisateur;
+	uneGestionUtilisateur.afficherListeDocteurs("ListeDocteurs.txt");
 	return 0;
 }
-int test_analyseFichier()
 
+int connexion_Test_reussie()
+//Test connexion GestionUtilisateur
 {
-	GestionRisques gr;
-	gr.analyserFichier("F3_ok.txt");
+	GestionUtilisateur uneGestionUtilisateur;
+	uneGestionUtilisateur.connexion("CHAIZA","GUSTAVO","gustavo","ListeDocteurs.txt");
 	return 0;
 }
+
+int connexion_Test_echouee()
+//Test connexion GestionUtilisateur
+{
+	GestionUtilisateur uneGestionUtilisateur;
+	uneGestionUtilisateur.connexion("CHAIZA", "REYNALDO", "gustavo", "ListeDocteurs.txt");
+	return 0;
+}
+
 int main(int argc, char* argv[])
 {
-    testCategoriel_1();
-    testNumerique_1 ();
-	testCritere_1();
-	testCritere_2();
-	test_CodeInit();
-	test_analyseFichier();
+	GestionUtilisateur_Test_1();
+	creerCompte_Test();
+	afficherListeDocteurs_Test();
+	connexion_Test_reussie();
+	connexion_Test_echouee();
 	while (true);
 }
