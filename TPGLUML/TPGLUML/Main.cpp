@@ -22,6 +22,10 @@ using namespace std;
 #include "GestionRisques.h"
 
 //------------------------------------------------------ Include personnel
+#include "GestionUtilisateur.h"
+
+
+//-------------------------------------------------------------------Tests
 
 int testCategoriel_1 ()
 // test constructeur
@@ -59,7 +63,6 @@ int testCritere_2()
 	return 0;
 }
 
-
 int test_CodeInit()
 {
 	Empreinte::initialiserFormat();
@@ -69,20 +72,60 @@ int test_CodeInit()
 	}
 	return 0;
 }
-int test_analyseFichier()
 
+int test_analyseFichier()
 {
 	GestionRisques gr;
 	gr.analyserFichier("F3_ok.txt");
 	return 0;
 }
+
+int GestionUtilisateur_Test_1()
+//Test GestionUtilisateur constructeur
+{
+	
+	GestionUtilisateur uneGestionUtilisateur = GestionUtilisateur();
+	return 0;
+}
+
+int creerCompte_Test()
+//Test creerCompte
+{
+	GestionUtilisateur uneGestionUtilisateur;
+	uneGestionUtilisateur.creerCompte("CHAIZA", "GUSTAVO","gustavo@gmail.com","gustavo","ListeDocteurs.txt");
+	return 0;
+}
+
+int afficherListeDocteurs_Test()
+//Test afficherListeDocteurs
+{
+	GestionUtilisateur uneGestionUtilisateur;
+	uneGestionUtilisateur.afficherListeDocteurs("ListeDocteurs.txt");
+	return 0;
+}
+
+int connexion_Test_reussie()
+//Test connexion GestionUtilisateur
+{
+	GestionUtilisateur uneGestionUtilisateur;
+	uneGestionUtilisateur.connexion("CHAIZA","GUSTAVO","gustavo","ListeDocteurs.txt");
+	return 0;
+}
+
+int connexion_Test_echouee()
+//Test connexion GestionUtilisateur
+{
+	GestionUtilisateur uneGestionUtilisateur;
+	uneGestionUtilisateur.connexion("CHAIZA", "REYNALDO", "gustavo", "ListeDocteurs.txt");
+	return 0;
+}
+
 int main(int argc, char* argv[])
 {
-    testCategoriel_1();
-    testNumerique_1 ();
-	testCritere_1();
-	testCritere_2();
-	test_CodeInit();
-	test_analyseFichier();
+	GestionUtilisateur_Test_1();
+	creerCompte_Test();
+	afficherListeDocteurs_Test();
+	connexion_Test_reussie();
+	connexion_Test_echouee();
 	while (true);
 }
