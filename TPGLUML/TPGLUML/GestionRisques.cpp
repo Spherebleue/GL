@@ -139,10 +139,80 @@ void GestionRisques::afficherMaladies()
 {
 }
 
-void GestionRisques::initMaladies()
+void GestionRisques::initMaladies(string nomFichier)
 {
+        ifstream entreeFichier;
+        entreeFichier.open(nomFichier);
+
+        assert(entreeFichier);                        //verifie que le fichier est bien trouve
+
+        string line;
+        getline(entreeFichier, line);
+        multimap<string, Empreinte> liste;
+        while (entreeFichier.good())
+        {
+                Empreinte * e = new Empreinte();
+                getline(entreeFichier, line);
+                stringstream ss;
+                ss.str(line);
+                string valeurAttribut;
+                getline(ss, valeurAttribut, ';');
+                string maladie ="";
+                for (int i = 0; i <= int(Empreinte::format.size()); i++)
+                {
+                        if (i == (Empreinte::format.size()+1))
+                        {
+                                getline(ss, maladie);
+                                if (maladie.compare("") == 0)
+                                {
+                                        maladie = "Aucune";
+                                }
+                                //ICI : recuperer le nom de la maladie ou "Aucune" si vide (je sais pas ce qui se passe si vide)
+                        }
+                        else
+                        {
+                                getline(ss, valeurAttribut, ';');
+                        }
+
+
+                        if (Empreinte::format[i].second.compare("Categoriel") == 0) //verifie que le type est bien le bon
+                        {
+                                Categoriel * a = new Categoriel(Empreinte::format[i].first, valeurAttribut);
+                                //cout << *a << endl;
+                                e->ajouterAttribut(a);
+                        }
+                        else if (Empreinte::format[i].second.compare("Numerique") == 0)
+                        {
+                                Numerique * a = new Numerique(Empreinte::format[i].first, stod(valeurAttribut));
+                                //cout << *a << endl;
+                                e->ajouterAttribut(a);
+                        }
+                        else
+                        {
+                                cout << "Erreur : l'un des attributs n'est ni numerique, ni categoriel" << endl;
+                                abort();
+                        }
+
+                }
+                //cout << *e << endl;
+                liste.insert(pair<string, Empreinte> (maladie, *e));
+
+                pair <multimap<string, Empreinte>::iterator, multimap<string, Empreinte>::iterator> ret;
+                ret = liste.equal_range("Aucune");
+
+                
+                        //for (multimap<string, Empreinte>::iterator it = ret.first; it != ret.second; ++it)
+                
+                for (auto i = ret.first; i != ret.second; ++i)
+                        {
+                                
+                        }
+        }
+        //pair<
+
 
 }
+
   //------------------------------------------------------------------ PRIVE
 
   //----------------------------------------------------- Méthodes protégées
