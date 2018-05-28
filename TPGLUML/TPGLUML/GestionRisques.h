@@ -1,7 +1,7 @@
 
 #if ! defined ( GestionRisques_H )
 #define GestionRisques_H
-//--------------------------------------------------- Interfaces utilisées
+//--------------------------------------------------- Interfaces utilisÃ©es
 
 using namespace std;
 #include <iostream>
@@ -23,14 +23,14 @@ public:
 
 	GestionRisques();
 	// Mode d'emploi :
-	// Un constructeur par défaut
+	// Un constructeur par dÃ©faut
 
 
 	virtual ~GestionRisques();
 	// Mode d'emploi :
 	// Destructeur de Administateur
 
-	void initMaladies();
+	void initMaladies(string);
 
 	void analyserFichier(string nomFichier);
 
@@ -42,9 +42,9 @@ public:
 	//------------------------------------------------------------------ PRIVE
 
 protected:
-	//----------------------------------------------------- Méthodes protégées
+	//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
 
-	//----------------------------------------------------- Attributs protégés
+	//----------------------------------------------------- Attributs protÃ©gÃ©s
 
 };
 #endif
