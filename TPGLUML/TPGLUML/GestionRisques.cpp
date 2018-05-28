@@ -172,8 +172,9 @@ void GestionRisques::initMaladies(string nomFichier)
 
 	string line;
 	getline(entreeFichier, line);
+	vector<Maladie> defMaladies;
 	multimap<string, Empreinte> liste;
-
+	set<string> nomDesMaladies;
 	while (entreeFichier.good())
 	{
 		Empreinte * e = new Empreinte();
@@ -221,20 +222,161 @@ void GestionRisques::initMaladies(string nomFichier)
 		}
 		//cout << *e << endl;
 		liste.insert(pair<string, Empreinte>(maladie, *e));
-
-		pair <multimap<string, Empreinte>::iterator, multimap<string, Empreinte>::iterator> ret;
-		ret = liste.equal_range("Aucune");
-
-
-		//for (multimap<string, Empreinte>::iterator it = ret.first; it != ret.second; ++it)
-
-		for (auto i = ret.first; i != ret.second; ++i)
+		if (nomDesMaladies.find("maladie") == nomDesMaladies.end())
 		{
-
+			nomDesMaladies.insert(maladie);
 		}
+
+
 	}
+
+	//----------------------------------CREATION DE LA MALADIE "AUCUNE"
+	pair <multimap<string, Empreinte>::iterator, multimap<string, Empreinte>::iterator> ret;
+	ret = liste.equal_range("Aucune");
+
+	Maladie mAucune = new Maladie("Aucune", Empreinte::format.size());
+	for (int att = 0; att <= int(Empreinte::format.size()); att++)
+	{
+		if (Empreinte::format[i].second.compare("Categoriel") == 0)
+		{
+			map<string, int> nbApparition;
+			for (auto i = ret.first; i != ret.second; ++i)
+			{
+				string val = i->second[att].valeur;
+				auto testPresence = nbApparition.find(val);
+				if (testPresence != nbApparition.end())
+				{
+					testPresence->second += 1;
+				}
+				else
+				{
+					nbApparition.insert(pair<string, int>(val, 1));
+				}
+			}
+
+			//Parcours de la map pour trouver la valeur qui apparait le plus souvent
+			int max = 0;
+			string valMax;
+			for (auto i = nbApparition.begin(); i != nbApparition.end(); i++)
+			{
+				if (i->second > max)
+				{
+					max = i->second;
+					valMax = i->first;
+				}
+			}
+			CritereCategoriel * c = new Critere(Empreinte::format[i].first, true, valMax);
+			mAucune.ajouterCritere(c, att);
+		}
+		else
+		{
+			double somme = 0;
+			int nbAtt = 0;
+			for (auto i = ret.first; i != ret.second; ++i)
+			{
+				somme += i->second[att].valeur;
+				nbAtt++;
+			}
+			double moyenne = somme / nbAtt;
+			somme = 0;
+			for (auto i = ret.first; i != ret.second; ++i)
+			{
+				somme += (i->second[att].valeur - moyenne)*(i->second[att].valeur - moyenne);
+			}
+			double ecartType = sqrt(somme / nbAtt);
+			CritereNumerique * c = new CritereNumerique(Empreinte::format[i].first, true, ecartType, moyenne);
+			mAucune.ajouterCritere(c, att);
+		}
+
+	}
+	defMaladies.push_back(mAucune);
+	//----------------------------FIN DE L'INIT de "AUCUNE"
+
+	//----------------------------ANALYSE DE TOUTE LES MALADIES
+	nomDesMaladies.erase("Aucune");
+	for (int i = 0; i < nomDesMaladies.size(); i++)
+	{
+		pair <multimap<string, Empreinte>::iterator, multimap<string, Empreinte>::iterator> ret;
+		ret = liste.equal_range(nomDesMaladies[i]);
+
+
+
+
+
+		Maladie uneMaladie = new Maladie(nomDesMaladies[i], Empreinte::format.size());
+		for (int att = 0; att <= int(Empreinte::format.size()); att++)
+		{
+			if (Empreinte::format[i].second.compare("Categoriel") == 0)
+			{
+				map<string, int> nbApparition;
+				for (auto i = ret.first; i != ret.second; ++i)
+				{
+					string val = i->second[att].valeur;
+					auto testPresence = nbApparition.find(val);
+					if (testPresence != nbApparition.end())
+					{
+						testPresence->second += 1;
+					}
+					else
+					{
+						nbApparition.insert(pair<string, int>(val, 1));
+					}
+				}
+
+				//Parcours de la map pour trouver la valeur qui apparait le plus souvent
+				int max = 0;
+				string valMax;
+				for (auto i = nbApparition.begin(); i != nbApparition.end(); i++)
+				{
+					if (i->second > max)
+					{
+						max = i->second;
+						valMax = i->first;
+					}
+				}
+				bool valid = true;
+				if (valMax.compare(mAucune.getListeCritere()[att]->categorie) == 0)
+				{
+					valid = false;
+				}
+				CritereCategoriel * c = new Critere(Empreinte::format[i].first, valid, valMax);
+				uneMaladie.ajouterCritere(c, att);
+			}
+			else
+			{
+				double somme = 0;
+				int nbAtt = 0;
+				for (auto i = ret.first; i != ret.second; ++i)
+				{
+					somme += i->second[att].valeur;
+					nbAtt++;
+				}
+				double moyenne = somme / nbAtt;
+				somme = 0;
+				for (auto i = ret.first; i != ret.second; ++i)
+				{
+					somme += (i->second[att].valeur - moyenne)*(i->second[att].valeur - moyenne);
+				}
+				double ecartType = sqrt(somme / nbAtt);
+
+				//Vérification de la pertinance du critère (utile)
+				bool valid = true;
+				if ((mAucune.getListeCritere()[att]->moyenne - 1.96*mAucube.getListeCritere()[att]->ecartType <= moyenne)
+					&& (moyenne >= mAucune.getListeCritere()[att]->moyenne + 1.96*mAucube.getListeCritere()[att]->ecartType))
+				{
+					valid = false;
+				}
+				CritereNumerique * c = new CritereNumerique(Empreinte::format[i].first, valid, ecartType, moyenne);
+				uneMaladie.ajouterCritere(c, att);
+			}
+		}
+
+
+	}
+
+
+
 }
-        //pair<
 
 void GestionRisques::enregistrerMaladies(vector<Maladie> vectMaladies)
 {
