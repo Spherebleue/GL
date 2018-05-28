@@ -1,21 +1,22 @@
 /*************************************************************************
 GestionRisques  -  description
 -------------------
-début                : $DATE$
+dÃ©but                : $DATE$
 copyright            : (C) $YEAR$ par $AUTHOR$
 e-mail               : $EMAIL$
 *************************************************************************/
 
-//---------- Réalisation de la classe <GestionRisques> (fichier GestionRisques.cpp) ------------
+//---------- RÃ©alisation de la classe <GestionRisques> (fichier GestionRisques.cpp) ------------
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include système
+//-------------------------------------------------------- Include systÃ¨me
 using namespace std;
 #include <iostream>
 #include <cstring>
 #include <cassert>
 #include <sstream>
+#include <map>
 //------------------------------------------------------ Include personnel
 
 #include "GestionRisques.h"
@@ -28,7 +29,7 @@ using namespace std;
 
 //----------------------------------------------------------------- PUBLIC
 
-//----------------------------------------------------- Méthodes publiques
+//----------------------------------------------------- MÃ©thodes publiques
 
 
 //-------------------------------------------- Constructeurs - destructeur
@@ -48,7 +49,7 @@ GestionRisques::GestionRisques(const GestionRisques & unGestionRisques)
 
 GestionRisques::GestionRisques()
 // Algorithme :
-// Un constructeur par défaut.
+// Un constructeur par dÃ©faut.
 {
 #ifdef MAP
 	cout << "Appel au constructeur de <GestionRisques>" << endl;
@@ -215,7 +216,7 @@ void GestionRisques::initMaladies(string nomFichier)
 
   //------------------------------------------------------------------ PRIVE
 
-  //----------------------------------------------------- Méthodes protégées
+  //----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
 
 
 
