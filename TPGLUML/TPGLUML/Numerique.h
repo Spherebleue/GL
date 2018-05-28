@@ -15,7 +15,7 @@ class Numerique : public Attribut
 //-------------------------------------------------------Fonction amies
 public:
 
- friend ostream& operator<<(ostream&, const Numerique &); 
+ friend ostream& operator<<(ostream&, const Numerique &);
 
 //-------------------------------------------- Constructeurs - destructeur
     Numerique ( const Numerique & uneNumerique );
@@ -33,6 +33,8 @@ public:
 
 	Numerique * copieAttribut();
 	ostream & output(ostream&) const ;
+
+	double getValeur();
 
     virtual ~Numerique ( );
     // Mode d'emploi :

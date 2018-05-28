@@ -31,14 +31,14 @@ ostream& operator<<(ostream &strm, const Empreinte& Emp)
 	for (int i = 0; i < int(Emp.attributs.size()); i++)
 	{
 		strm << (*Emp.attributs[i]) << ", ";
-		
+
 	}
 	return strm;
 }
 
 void Empreinte::initialiserFormat()
 {
-	
+
     ifstream entreeFichier;
     entreeFichier.open(fichierFormat);
 
@@ -81,18 +81,18 @@ void Empreinte::initialiserFormat()
         pair<string,string> nouvellePaire=make_pair(nomAttribut,typeAttribut);
         format.push_back(nouvellePaire);
 
-        
+
     }
 
 }
 
 
-	
+
 
 //----------------------------------------------------- Méthodes publiques
 void Empreinte::ajouterAttribut(Attribut * attribut)
 {
-	
+
 	attributs.push_back(attribut->copieAttribut());
 }
 
@@ -149,6 +149,12 @@ Empreinte::~Empreinte ( )
 		    cout << "Appel au destructeur de <Empreinte>" << endl;
 		#endif
 	} //----- Fin de ~Empreinte
+
+
+vector <Attribut *> Empreinte::getListeAttribut()
+{
+	return attributs;
+}
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées

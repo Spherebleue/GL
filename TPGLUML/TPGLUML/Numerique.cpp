@@ -30,6 +30,12 @@ ostream&  Numerique::output(ostream&strm) const
 
 }
 
+double Numerique::getValeur()
+{
+	return valeur;
+}
+
+
 Numerique * Numerique::copieAttribut()
 //creer un pointeur sur l'attribut
 {
