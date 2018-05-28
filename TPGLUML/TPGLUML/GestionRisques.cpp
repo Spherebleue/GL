@@ -140,6 +140,27 @@ void GestionRisques::chercherMaladie(string nomMaladie)
 
 void GestionRisques::afficherMaladies()
 {
+	ifstream entreeFichier;
+	entreeFichier.open("ListeMaladies.txt");
+	string ligne;
+	if (entreeFichier)
+	{
+		cout << "Liste des maladies prises en compte : " << endl;
+		while (entreeFichier.good()) {
+			stringstream ss;
+			ss.str(ligne);
+			getline(ss, ligne, ';');
+			cout << ligne << endl;
+			getline(entreeFichier, ligne);
+			}		
+		entreeFichier.close();
+	}
+	else
+	{
+
+		cerr << "Problème d'ouverture de fichier " << endl;
+	}
+
 }
 
 void GestionRisques::initMaladies(string nomFichier)
