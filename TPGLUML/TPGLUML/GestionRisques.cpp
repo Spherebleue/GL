@@ -1,16 +1,16 @@
 /*************************************************************************
 GestionRisques  -  description
 -------------------
-début                : $DATE$
+dÃ©but                : $DATE$
 copyright            : (C) $YEAR$ par $AUTHOR$
 e-mail               : $EMAIL$
 *************************************************************************/
 
-//---------- Réalisation de la classe <GestionRisques> (fichier GestionRisques.cpp) ------------
+//---------- RÃ©alisation de la classe <GestionRisques> (fichier GestionRisques.cpp) ------------
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include système
+//-------------------------------------------------------- Include systÃ¨me
 using namespace std;
 #include <iostream>
 #include <cstring>
@@ -31,7 +31,7 @@ using namespace std;
 
 //----------------------------------------------------------------- PUBLIC
 
-//----------------------------------------------------- Méthodes publiques
+//----------------------------------------------------- MÃ©thodes publiques
 
 
 //-------------------------------------------- Constructeurs - destructeur
@@ -51,7 +51,7 @@ GestionRisques::GestionRisques(const GestionRisques & unGestionRisques)
 
 GestionRisques::GestionRisques()
 // Algorithme :
-// Un constructeur par défaut.
+// Un constructeur par dÃ©faut.
 {
 #ifdef MAP
 	cout << "Appel au constructeur de <GestionRisques>" << endl;
@@ -153,7 +153,7 @@ void GestionRisques::chercherMaladie(string nomMaladie)
 			if (nomMaladieFichier.compare(nomMaladie) == 0)
 			{
 				trouve = true;
-				cout << "Maladie demandée : " << nomMaladie << endl;
+				cout << "Maladie demandÃ©e : " << nomMaladie << endl;
 			}
 			else
 			{
@@ -216,7 +216,7 @@ void GestionRisques::chercherMaladie(string nomMaladie)
 	else
 	{
 
-		cerr << "Problème d'ouverture de fichier " << endl;
+		cerr << "ProblÃ¨me d'ouverture de fichier " << endl;
 	}
 
 }
@@ -242,7 +242,7 @@ void GestionRisques::afficherMaladies()
 	else
 	{
 
-		cerr << "Problème d'ouverture de fichier " << endl;
+		cerr << "ProblÃ¨me d'ouverture de fichier " << endl;
 	}
 
 }
@@ -318,15 +318,15 @@ void GestionRisques::initMaladies(string nomFichier)
 	pair <multimap<string, Empreinte>::iterator, multimap<string, Empreinte>::iterator> ret;
 	ret = liste.equal_range("Aucune");
 
-	Maladie mAucune = new Maladie("Aucune", Empreinte::format.size());
+	Maladie mAucune ("Aucune");
 	for (int att = 0; att <= int(Empreinte::format.size()); att++)
 	{
-		if (Empreinte::format[i].second.compare("Categoriel") == 0)
+		if (Empreinte::format[att].second.compare("Categoriel") == 0)
 		{
 			map<string, int> nbApparition;
 			for (auto i = ret.first; i != ret.second; ++i)
 			{
-				string val = i->second[att].valeur;
+				string val = ( dynamic_cast<Categoriel*> (i->second.getListeAttribut()[att] ) )->getValeur() ;
 				auto testPresence = nbApparition.find(val);
 				if (testPresence != nbApparition.end())
 				{
@@ -349,7 +349,7 @@ void GestionRisques::initMaladies(string nomFichier)
 					valMax = i->first;
 				}
 			}
-			CritereCategoriel * c = new Critere(Empreinte::format[i].first, true, valMax);
+			CritereCategoriel * c = new CritereCategoriel(Empreinte::format[att].first, true, valMax);
 			mAucune.ajouterCritere(c, att);
 		}
 		else
@@ -358,17 +358,18 @@ void GestionRisques::initMaladies(string nomFichier)
 			int nbAtt = 0;
 			for (auto i = ret.first; i != ret.second; ++i)
 			{
-				somme += i->second[att].valeur;
+				somme += ( dynamic_cast<Numerique*> (i->second.getListeAttribut()[att]) )->getValeur();
 				nbAtt++;
 			}
 			double moyenne = somme / nbAtt;
 			somme = 0;
 			for (auto i = ret.first; i != ret.second; ++i)
 			{
-				somme += (i->second[att].valeur - moyenne)*(i->second[att].valeur - moyenne);
+                double valeur = ( dynamic_cast<Numerique*> (i->second.getListeAttribut()[att]) )->getValeur();
+				somme += (valeur - moyenne)*(valeur - moyenne);
 			}
 			double ecartType = sqrt(somme / nbAtt);
-			CritereNumerique * c = new CritereNumerique(Empreinte::format[i].first, true, ecartType, moyenne);
+			CritereNumerique * c = new CritereNumerique(Empreinte::format[att].first, true, ecartType, moyenne);
 			mAucune.ajouterCritere(c, att);
 		}
 
@@ -378,24 +379,20 @@ void GestionRisques::initMaladies(string nomFichier)
 
 	//----------------------------ANALYSE DE TOUTE LES MALADIES
 	nomDesMaladies.erase("Aucune");
-	for (int i = 0; i < nomDesMaladies.size(); i++)
+	for (auto i = nomDesMaladies.begin(); i != nomDesMaladies.end(); i++)
 	{
 		pair <multimap<string, Empreinte>::iterator, multimap<string, Empreinte>::iterator> ret;
-		ret = liste.equal_range(nomDesMaladies[i]);
+		ret = liste.equal_range(*i);
 
-
-
-
-
-		Maladie uneMaladie = new Maladie(nomDesMaladies[i], Empreinte::format.size());
+		Maladie uneMaladie (*i);
 		for (int att = 0; att <= int(Empreinte::format.size()); att++)
 		{
-			if (Empreinte::format[i].second.compare("Categoriel") == 0)
+			if (Empreinte::format[att].second.compare("Categoriel") == 0)
 			{
 				map<string, int> nbApparition;
-				for (auto i = ret.first; i != ret.second; ++i)
+				for (auto j = ret.first; j != ret.second; ++j)
 				{
-					string val = i->second[att].valeur;
+					string val = ( dynamic_cast<Categoriel*> (j->second.getListeAttribut()[att] ) )->getValeur() ;
 					auto testPresence = nbApparition.find(val);
 					if (testPresence != nbApparition.end())
 					{
@@ -410,20 +407,20 @@ void GestionRisques::initMaladies(string nomFichier)
 				//Parcours de la map pour trouver la valeur qui apparait le plus souvent
 				int max = 0;
 				string valMax;
-				for (auto i = nbApparition.begin(); i != nbApparition.end(); i++)
+				for (auto j = nbApparition.begin(); j != nbApparition.end(); j++)
 				{
-					if (i->second > max)
+					if (j->second > max)
 					{
-						max = i->second;
-						valMax = i->first;
+						max = j->second;
+						valMax = j->first;
 					}
 				}
 				bool valid = true;
-				if (valMax.compare(mAucune.getListeCritere()[att]->categorie) == 0)
+				if (valMax.compare( dynamic_cast<CritereCategoriel*> ( mAucune.getListeCritere()[att])->getCategorie()) == 0)
 				{
 					valid = false;
 				}
-				CritereCategoriel * c = new Critere(Empreinte::format[i].first, valid, valMax);
+				CritereCategoriel * c = new CritereCategoriel(Empreinte::format[att].first, valid, valMax);
 				uneMaladie.ajouterCritere(c, att);
 			}
 			else
@@ -432,35 +429,37 @@ void GestionRisques::initMaladies(string nomFichier)
 				int nbAtt = 0;
 				for (auto i = ret.first; i != ret.second; ++i)
 				{
-					somme += i->second[att].valeur;
+					somme += ( dynamic_cast<Numerique*> (i->second.getListeAttribut()[att]) )->getValeur();
 					nbAtt++;
 				}
 				double moyenne = somme / nbAtt;
 				somme = 0;
 				for (auto i = ret.first; i != ret.second; ++i)
 				{
-					somme += (i->second[att].valeur - moyenne)*(i->second[att].valeur - moyenne);
+					double valeur = ( dynamic_cast<Numerique*> (i->second.getListeAttribut()[att]) )->getValeur();
+                    somme += (valeur - moyenne)*(valeur - moyenne);
 				}
 				double ecartType = sqrt(somme / nbAtt);
 
-				//Vérification de la pertinance du critère (utile)
+				//VÃ©rification de la pertinance du critÃ¨re (utile)
 				bool valid = true;
-				if ((mAucune.getListeCritere()[att]->moyenne - 1.96*mAucube.getListeCritere()[att]->ecartType <= moyenne)
-					&& (moyenne >= mAucune.getListeCritere()[att]->moyenne + 1.96*mAucube.getListeCritere()[att]->ecartType))
+
+				double moyenneAucune=dynamic_cast<CritereNumerique*> (mAucune.getListeCritere()[att])->getMoyenne();
+                double ecartTypeAucune=dynamic_cast<CritereNumerique*> (mAucune.getListeCritere()[att])->getEcartType();
+
+				if ((moyenneAucune - 1.96*ecartTypeAucune <= moyenne) && (moyenne >= moyenneAucune + 1.96*ecartTypeAucune))
 				{
 					valid = false;
 				}
-				CritereNumerique * c = new CritereNumerique(Empreinte::format[i].first, valid, ecartType, moyenne);
+				CritereNumerique * c = new CritereNumerique(Empreinte::format[att].first, valid, ecartType, moyenne);
 				uneMaladie.ajouterCritere(c, att);
 			}
 		}
 
-
 	}
 
-
-
 }
+
 
 void GestionRisques::enregistrerMaladies(vector<Maladie> vectMaladies)
 {
@@ -498,7 +497,7 @@ void GestionRisques::enregistrerMaladies(vector<Maladie> vectMaladies)
 			else
 			{
 		
-				cerr << "Problème d'ouverture de fichier " << endl;
+				cerr << "ProblÃ¨me d'ouverture de fichier " << endl;
 			}
 
 
@@ -510,7 +509,7 @@ void GestionRisques::enregistrerMaladies(vector<Maladie> vectMaladies)
 
   //------------------------------------------------------------------ PRIVE
 
-  //----------------------------------------------------- Méthodes protégées
+  //----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
 
 
 
