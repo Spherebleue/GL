@@ -151,6 +151,14 @@ int test_affichageMaladies()
 
 }
 
+int test_chercherMaladie()
+{
+	
+	GestionRisques g;
+	g.chercherMaladie("m2");
+	return 0;
+}
+
 int main(int argc, char* argv[])
 {
 	//GestionUtilisateur_Test_1();
@@ -159,5 +167,7 @@ int main(int argc, char* argv[])
 	//connexion_Test_reussie();
 	//connexion_Test_echouee();
 	test_PrintMaladies();
+	//test_affichageMaladies();
+	test_chercherMaladie();
 	while (true);
 }

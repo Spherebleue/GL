@@ -136,6 +136,89 @@ void GestionRisques::analyserFichier(string nomFichier)
 
 void GestionRisques::chercherMaladie(string nomMaladie)
 {
+	ifstream entreeFichier;
+	entreeFichier.open("ListeMaladies.txt");
+	string ligne;
+	string nomMaladieFichier;
+	bool trouve = false;
+	stringstream ss;
+	
+	if (entreeFichier)
+	{
+		getline(entreeFichier, ligne);
+		while (entreeFichier.good() && trouve == false) {	
+			ss.str(ligne);
+			getline(ss, nomMaladieFichier, ';');
+			cout << "Nom maladie " << nomMaladieFichier << endl;
+			if (nomMaladieFichier.compare(nomMaladie) == 0)
+			{
+				trouve = true;
+				cout << "Maladie demandée : " << nomMaladie << endl;
+			}
+			else
+			{
+				getline(entreeFichier, ligne);
+
+			}
+		}
+			for (int i = 0; i< int(Empreinte::format.size()); i++)
+			{
+				
+				cout << Empreinte::format[i].first << " : ";
+				getline(ss, ligne, ';');
+				cout << "Utilite - " << ligne;
+				if (ligne.compare("1") == 0)
+				{
+					if (Empreinte::format[i].second.compare("Categoriel") == 0)
+					{
+						if (i == Empreinte::format.size())
+						{
+							getline(ss, ligne);
+
+						}
+						else
+						{
+							getline(ss, ligne, ';');
+						}
+						cout << "; Categorie - " << ligne;
+
+					}
+					else if (Empreinte::format[i].second.compare("Numerique") == 0)
+					{
+						getline(ss, ligne, ';');
+						cout << "; Moyenne - " << ligne;
+						if (i == Empreinte::format.size())
+						{
+							getline(ss, ligne);
+
+						}
+						else
+						{
+							getline(ss, ligne, ';');
+							
+						}
+						cout << "; Ecart-Type - " << ligne;
+
+
+					}
+				}
+				cout << endl;
+				
+
+
+			}
+			
+		
+
+
+		entreeFichier.close();
+	}
+	else
+	{
+
+		cerr << "Problème d'ouverture de fichier " << endl;
+	}
+
 }
 
 void GestionRisques::afficherMaladies()
@@ -146,6 +229,7 @@ void GestionRisques::afficherMaladies()
 	if (entreeFichier)
 	{
 		cout << "Liste des maladies prises en compte : " << endl;
+		getline(entreeFichier, ligne);
 		while (entreeFichier.good()) {
 			stringstream ss;
 			ss.str(ligne);
@@ -390,7 +474,7 @@ void GestionRisques::enregistrerMaladies(vector<Maladie> vectMaladies)
 					fichier << vectMaladies[i].getNom() << ";";
 					for (int j = 0; j<int(Empreinte::format.size()); j++)
 					{
-						fichier << vectMaladies[i].getListeCritere()[j]->getNom() << ";" << vectMaladies[i].getListeCritere()[j]->getUtile();
+						fichier << vectMaladies[i].getListeCritere()[j]->getUtile();
 	
 						if (vectMaladies[i].getListeCritere()[j]->getUtile() == true)
 						{
