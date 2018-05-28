@@ -15,9 +15,11 @@ using namespace std;
 #include <iostream>
 #include <cstring>
 
+
 //------------------------------------------------------ Include personnel
 
 #include "Maladie.h"
+#include "Empreinte.h"
 
 
 //------------------------------------------------------------- Constantes
@@ -29,13 +31,21 @@ using namespace std;
 
 
 //-------------------------------------------- Constructeurs - destructeur
-Maladie::Maladie(const Maladie & unMaladie)
+Maladie::Maladie(const Maladie & uneMaladie)
 // Algorithme :
 // Un constructeur de copie.
 {
 #ifdef MAP
 	cout << "Appel au constructeur de copie de <Maladie>" << endl;
 #endif
+	nom = uneMaladie.nom;
+	listeCritere = new Critere *[int (Empreinte::format.size())];
+	for (int i = 0; i<int(Empreinte::format.size()); i++)
+	{
+		listeCritere[i] = uneMaladie.listeCritere[i]->copieCritere();
+
+	}
+
 
 
 } //----- Fin de Maladie (constructeur de copie)
@@ -53,7 +63,7 @@ Maladie::Maladie()
 
 } //----- Fin de Maladie
 
-Maladie::Maladie(string nomT, int tailleTableau)
+Maladie::Maladie(string nomT)
 // Algorithme :
 // Un constructeur avec tous les attributs
 {
@@ -61,8 +71,8 @@ Maladie::Maladie(string nomT, int tailleTableau)
 	cout << "Appel au constructeur de <Maladie>" << endl;
 #endif
 	nom = nomT;
-	listeCritere = new Critere * [tailleTableau];
-	nombreCritere = tailleTableau;
+	listeCritere = new Critere * [int (Empreinte::format.size())];
+
 
 
 
@@ -72,6 +82,7 @@ void Maladie::ajouterCritere(Critere * critere, int position)
 {
 	
 	listeCritere[position] = critere->copieCritere();
+	cout << "ajout : " << listeCritere[position]->getNom() << endl;
 
 
 }
@@ -81,11 +92,22 @@ void Maladie::ajouterCritere(Critere * critere, int position)
 void Maladie::afficherContenu()
 {
 	cout << "Nom maladie : " << nom.c_str() << endl;
-	for (int i = 0; i < nombreCritere; i++)
+	for (int i = 0; i < int(Empreinte::format.size()); i++)
 	{
+		cout << "critere numero : " << i << endl;
 		cout << listeCritere[i] << endl;;
 	}
 	
+}
+
+string Maladie::getNom()
+{
+	return nom;
+}
+
+Critere** Maladie::getListeCritere()
+{
+	return listeCritere;
 }
 
 Maladie::~Maladie()
@@ -95,7 +117,7 @@ Maladie::~Maladie()
 #ifdef MAP
 	cout << "Appel au destructeur de <Maladie>" << endl;
 #endif
-	for (int i = 0; i < nombreCritere; i++)
+	for (int i = 0; i < int(Empreinte::format.size()); i++)
 	{
 		delete listeCritere[i];
 	}

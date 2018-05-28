@@ -34,6 +34,8 @@ public:
 	
 	CritereNumerique * copieCritere();
 
+	double getEcartType();
+	double getMoyenne();
 
 	virtual ~CritereNumerique();
 	// Mode d'emploi :

@@ -33,6 +33,8 @@ public:
 
 	CritereCategoriel * copieCritere();
 
+	string getCategorie();
+
 
 	virtual ~CritereCategoriel();
 	// Mode d'emploi :

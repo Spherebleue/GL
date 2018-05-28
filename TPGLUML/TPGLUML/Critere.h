@@ -30,6 +30,11 @@ public:
 	// Mode d'emploi :
 	// Un constructeur pour créer un Critere
 
+	string getNom();
+
+	bool getUtile();
+
+
 	
 	
 	virtual Critere * copieCritere() =0;

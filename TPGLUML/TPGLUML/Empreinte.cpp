@@ -86,6 +86,9 @@ void Empreinte::initialiserFormat()
 
 }
 
+
+	
+
 //----------------------------------------------------- Méthodes publiques
 void Empreinte::ajouterAttribut(Attribut * attribut)
 {

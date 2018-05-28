@@ -46,6 +46,11 @@ CritereCategoriel * CritereCategoriel::copieCritere()
 	return new CritereCategoriel(*this);
 }
 
+string CritereCategoriel::getCategorie()
+{
+	return categorie;
+}
+
 //-------------------------------------------- Constructeurs - destructeur
 CritereCategoriel::CritereCategoriel(const CritereCategoriel & unCritereCategoriel)
 // Algorithme :

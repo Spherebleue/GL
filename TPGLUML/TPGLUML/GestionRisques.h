@@ -1,13 +1,15 @@
 
 #if ! defined ( GestionRisques_H )
 #define GestionRisques_H
-//--------------------------------------------------- Interfaces utilisÃ©es
+//--------------------------------------------------- Interfaces utilisées
 
 using namespace std;
 #include <iostream>
 #include <cstring>
 #include <fstream>
+#include <vector>
 #include "Utilisateur.h"
+#include "Maladie.h"
 
 class GestionRisques : public Utilisateur
 {
@@ -23,7 +25,7 @@ public:
 
 	GestionRisques();
 	// Mode d'emploi :
-	// Un constructeur par dÃ©faut
+	// Un constructeur par défaut
 
 
 	virtual ~GestionRisques();
@@ -38,13 +40,15 @@ public:
 
 	void afficherMaladies();
 
+	void enregistrerMaladies(vector<Maladie>);
+
 
 	//------------------------------------------------------------------ PRIVE
 
 protected:
-	//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
+	//----------------------------------------------------- Méthodes protégées
 
-	//----------------------------------------------------- Attributs protÃ©gÃ©s
+	//----------------------------------------------------- Attributs protégés
 
 };
 #endif

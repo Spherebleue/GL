@@ -24,7 +24,7 @@ public:
 	// Mode d'emploi :
 	// Un constructeur par défaut, se contenant de creer la premiere cellule
 
-	Maladie(string, int);
+	Maladie(string);
 	// Mode d'emploi :
 	// Un constructeur pour créer une Maladie
 
@@ -32,6 +32,10 @@ public:
 	//Mode d'emploi :
 	// Une methode qui perme d'ajouter un critère à la position indiquee par le int
 	void afficherContenu();
+
+	string getNom();
+	Critere** getListeCritere();
+
 
 
 
@@ -47,7 +51,6 @@ protected:
 	//----------------------------------------------------- Attributs protégés
 	string nom;
 	Critere ** listeCritere;
-	int nombreCritere;
 
 
 };

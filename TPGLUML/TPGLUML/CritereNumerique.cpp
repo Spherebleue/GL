@@ -46,6 +46,15 @@ CritereNumerique * CritereNumerique::copieCritere()
 	return new CritereNumerique(*this);
 }
 
+double CritereNumerique::getEcartType()
+{
+	return ecartType;
+}
+double CritereNumerique::getMoyenne()
+{
+	return moyenne;
+}
+
 //-------------------------------------------- Constructeurs - destructeur
 CritereNumerique::CritereNumerique(const CritereNumerique & unCritereNumerique)
 // Algorithme :

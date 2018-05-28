@@ -13,6 +13,7 @@
 //-------------------------------------------------------- Include système
 using namespace std;
 #include <iostream>
+#include <utility>
 
 #include "Categoriel.h"
 #include "Numerique.h"
@@ -119,13 +120,44 @@ int connexion_Test_echouee()
 	uneGestionUtilisateur.connexion("CHAIZA", "REYNALDO", "gustavo", "ListeDocteurs.txt");
 	return 0;
 }
+int test_PrintMaladies()
+
+{
+	pair<string, string> nouvellePaire = make_pair("canard", "Numerique");
+	Empreinte::format.push_back(nouvellePaire);
+	Maladie m("m");
+	Maladie m2("m2");
+	CritereNumerique * canard = new CritereNumerique ("canard", true, 3, 8);
+	CritereNumerique  * canard2 = new CritereNumerique("canard", false, 3, 4);
+	m.ajouterCritere(canard, 0);
+	m2.ajouterCritere(canard2, 0);
+	vector<Maladie> v;
+	v.push_back(m);
+	v.push_back(m2);
+	GestionRisques g;
+	cout << "passe" << endl;
+	g.enregistrerMaladies(v);
+	cout << "no prob" << endl;
+	return 0;
+
+
+}
+
+int test_affichageMaladies()
+{
+	GestionRisques g;
+	g.afficherMaladies();
+	return 0;
+
+}
 
 int main(int argc, char* argv[])
 {
-	GestionUtilisateur_Test_1();
-	creerCompte_Test();
-	afficherListeDocteurs_Test();
-	connexion_Test_reussie();
-	connexion_Test_echouee();
+	//GestionUtilisateur_Test_1();
+	//creerCompte_Test();
+	//afficherListeDocteurs_Test();
+	//connexion_Test_reussie();
+	//connexion_Test_echouee();
+	test_PrintMaladies();
 	while (true);
 }

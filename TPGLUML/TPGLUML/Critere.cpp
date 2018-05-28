@@ -40,6 +40,18 @@ ostream& operator<<(ostream &strm, const Critere &At)
 	return strm;
 }
 
+
+bool Critere::getUtile()
+{
+	return utile;
+}
+
+
+string Critere::getNom()
+{
+	return nomAttribut;
+}
+
 //-------------------------------------------- Constructeurs - destructeur
 Critere::Critere(const Critere & unCritere)
 // Algorithme :
