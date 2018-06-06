@@ -8,8 +8,11 @@ using namespace std;
 #include <cstring>
 #include <fstream>
 #include <vector>
+#include <map>
 #include "Utilisateur.h"
 #include "Maladie.h"
+#include "Empreinte.h"
+
 
 class GestionRisques : public Utilisateur
 {
@@ -42,6 +45,7 @@ public:
 
 	void enregistrerMaladies(vector<Maladie>);
 
+    multimap<string, Empreinte> CreerListeEmpreinteAvecMaladie(string nomFichier);
 
 	//------------------------------------------------------------------ PRIVE
 

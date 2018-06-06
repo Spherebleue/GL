@@ -17,6 +17,7 @@ using namespace std;
 #include <cassert>
 #include <sstream>
 #include <map>
+#include <set>
 //------------------------------------------------------ Include personnel
 
 #include "GestionRisques.h"
@@ -26,6 +27,7 @@ using namespace std;
 #include "Attribut.h"
 #include "CritereCategoriel.h"
 #include "CritereNumerique.h"
+#include "math.h"
 //------------------------------------------------------------- Constantes
 //#define MAP ;
 
@@ -100,7 +102,6 @@ void GestionRisques::analyserFichier(string nomFichier)
 				getline(ss, valeurAttribut, ';');
 			}
 
-
 			if (Empreinte::format[i].second.compare("Categoriel") == 0) //verifie que le type est bien le bon
 			{
 				Categoriel * a = new Categoriel(Empreinte::format[i].first, valeurAttribut);
@@ -118,20 +119,16 @@ void GestionRisques::analyserFichier(string nomFichier)
 				cout << "Erreur : l'un des attributs n'est ni numerique, ni categoriel" << endl;
 				abort();
 			}
-			
+
 		}
 		//cout << *e << endl;
 		vectEmpreinte.push_back(e);
-
 	}
 	//cout << (vectEmpreinte.size()) << endl;
 	for (int i = 0; i < int(vectEmpreinte.size()); i++)
 	{
 		cout << (*vectEmpreinte[i]) << endl;
 	}
-
-				
-	
 }
 
 void GestionRisques::chercherMaladie(string nomMaladie)
@@ -142,11 +139,11 @@ void GestionRisques::chercherMaladie(string nomMaladie)
 	string nomMaladieFichier;
 	bool trouve = false;
 	stringstream ss;
-	
+
 	if (entreeFichier)
 	{
 		getline(entreeFichier, ligne);
-		while (entreeFichier.good() && trouve == false) {	
+		while (entreeFichier.good() && trouve == false) {
 			ss.str(ligne);
 			getline(ss, nomMaladieFichier, ';');
 			cout << "Nom maladie " << nomMaladieFichier << endl;
@@ -163,7 +160,7 @@ void GestionRisques::chercherMaladie(string nomMaladie)
 		}
 			for (int i = 0; i< int(Empreinte::format.size()); i++)
 			{
-				
+
 				cout << Empreinte::format[i].first << " : ";
 				getline(ss, ligne, ';');
 				cout << "Utilite - " << ligne;
@@ -195,27 +192,17 @@ void GestionRisques::chercherMaladie(string nomMaladie)
 						else
 						{
 							getline(ss, ligne, ';');
-							
+
 						}
 						cout << "; Ecart-Type - " << ligne;
-
-
 					}
 				}
 				cout << endl;
-				
-
-
 			}
-			
-		
-
-
 		entreeFichier.close();
 	}
 	else
 	{
-
 		cerr << "Problème d'ouverture de fichier " << endl;
 	}
 
@@ -236,7 +223,7 @@ void GestionRisques::afficherMaladies()
 			getline(ss, ligne, ';');
 			cout << ligne << endl;
 			getline(entreeFichier, ligne);
-			}		
+			}
 		entreeFichier.close();
 	}
 	else
@@ -244,24 +231,23 @@ void GestionRisques::afficherMaladies()
 
 		cerr << "Problème d'ouverture de fichier " << endl;
 	}
-
 }
 
-void GestionRisques::initMaladies(string nomFichier)
+multimap<string, Empreinte> GestionRisques::CreerListeEmpreinteAvecMaladie(string nomFichier)
 {
-	ifstream entreeFichier;
+    ifstream entreeFichier;
 	entreeFichier.open(nomFichier);
 
 	assert(entreeFichier);                        //verifie que le fichier est bien trouve
 
 	string line;
 	getline(entreeFichier, line);
-	vector<Maladie> defMaladies;
 	multimap<string, Empreinte> liste;
 	set<string> nomDesMaladies;
+
 	while (entreeFichier.good())
 	{
-		Empreinte * e = new Empreinte();
+		Empreinte e;
 		getline(entreeFichier, line);
 		stringstream ss;
 		ss.str(line);
@@ -270,9 +256,9 @@ void GestionRisques::initMaladies(string nomFichier)
 		string maladie = "";
 		for (int i = 0; i <= int(Empreinte::format.size()); i++)
 		{
-			if (i == (Empreinte::format.size() + 1))
+			if (i == (Empreinte::format.size()))
 			{
-				getline(ss, maladie);
+				getline(ss, maladie, '\r');
 				if (maladie.compare("") == 0)
 				{
 					maladie = "Aucune";
@@ -280,39 +266,46 @@ void GestionRisques::initMaladies(string nomFichier)
 				//ICI : recuperer le nom de la maladie ou "Aucune" si vide (je sais pas ce qui se passe si vide)
 			}
 			else
-			{
-				getline(ss, valeurAttribut, ';');
-			}
+            {
+                    getline(ss, valeurAttribut, ';');
 
-
-			if (Empreinte::format[i].second.compare("Categoriel") == 0) //verifie que le type est bien le bon
-			{
-				Categoriel * a = new Categoriel(Empreinte::format[i].first, valeurAttribut);
-				//cout << *a << endl;
-				e->ajouterAttribut(a);
+                if (Empreinte::format[i].second.compare("Categoriel") == 0) //verifie que le type est bien le bon
+                {
+                    Categoriel * a = new Categoriel(Empreinte::format[i].first, valeurAttribut);
+                    //cout << *a << endl;
+                    e.ajouterAttribut(a);
+                }
+                else if (Empreinte::format[i].second.compare("Numerique") == 0)
+                {
+                    Numerique * a = new Numerique(Empreinte::format[i].first, stod(valeurAttribut));
+                    //cout << *a << endl;
+                    e.ajouterAttribut(a);
+                }
+                else
+                {
+                    cout << "Erreur : l'un des attributs n'est ni numerique, ni categoriel" << endl;
+                    abort();
+                }
 			}
-			else if (Empreinte::format[i].second.compare("Numerique") == 0)
-			{
-				Numerique * a = new Numerique(Empreinte::format[i].first, stod(valeurAttribut));
-				//cout << *a << endl;
-				e->ajouterAttribut(a);
-			}
-			else
-			{
-				cout << "Erreur : l'un des attributs n'est ni numerique, ni categoriel" << endl;
-				abort();
-			}
-
 		}
-		//cout << *e << endl;
-		liste.insert(pair<string, Empreinte>(maladie, *e));
-		if (nomDesMaladies.find("maladie") == nomDesMaladies.end())
-		{
-			nomDesMaladies.insert(maladie);
-		}
-
-
+		liste.insert(make_pair(maladie,e));
 	}
+	return liste;
+}
+
+void GestionRisques::initMaladies(string nomFichier)
+{
+	vector<Maladie> defMaladies;
+	multimap<string, Empreinte> liste = CreerListeEmpreinteAvecMaladie(nomFichier);
+	set<string> nomDesMaladies;
+
+	for (auto it=liste.begin(); it!=liste.end(); ++it)
+	{
+        if (nomDesMaladies.find((*it).first) == nomDesMaladies.end())
+		{
+			nomDesMaladies.insert((*it).first);
+		}
+    }
 
 	//----------------------------------CREATION DE LA MALADIE "AUCUNE"
 	pair <multimap<string, Empreinte>::iterator, multimap<string, Empreinte>::iterator> ret;
@@ -455,16 +448,14 @@ void GestionRisques::initMaladies(string nomFichier)
 				uneMaladie.ajouterCritere(c, att);
 			}
 		}
-
 	}
-
 }
 
 
 void GestionRisques::enregistrerMaladies(vector<Maladie> vectMaladies)
 {
 			ofstream fichier("ListeMaladies.txt", ios::trunc);
-			
+
 			if (fichier)
 			{
 				for (int i = 0; i < vectMaladies.size(); i++)
@@ -474,14 +465,14 @@ void GestionRisques::enregistrerMaladies(vector<Maladie> vectMaladies)
 					for (int j = 0; j<int(Empreinte::format.size()); j++)
 					{
 						fichier << vectMaladies[i].getListeCritere()[j]->getUtile();
-	
+
 						if (vectMaladies[i].getListeCritere()[j]->getUtile() == true)
 						{
-					
+
 							if (Empreinte::format[j].second.compare("Categoriel") == 0) //verifie que le type est bien le bon
 							{
 								fichier << ";" << (dynamic_cast<CritereCategoriel*> ((vectMaladies[i].getListeCritere()[j])))->getCategorie();
-						
+
 							}
 							else if (Empreinte::format[j].second.compare("Numerique") == 0)
 							{
@@ -490,13 +481,13 @@ void GestionRisques::enregistrerMaladies(vector<Maladie> vectMaladies)
 						}
 						fichier << endl;
 					}
-					
+
 				}
 				fichier.close();
 			}
 			else
 			{
-		
+
 				cerr << "Problème d'ouverture de fichier " << endl;
 			}
 

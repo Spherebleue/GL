@@ -21,7 +21,7 @@ using namespace std;
 //#define MAP ;
 
 //----------------------------------------------------------------- PUBLIC
-string Empreinte::fichierFormat = "F1_ok.txt";
+string Empreinte::fichierFormat = "Donnees/F1_ok.txt";
 vector< pair<string, string> > Empreinte::format;
 
 
@@ -46,10 +46,9 @@ void Empreinte::initialiserFormat()
 
     string line;
     getline(entreeFichier, line);
-
-    assert(line.compare("AttributeName;AttributeType")==0);    //verifie que l'entete est bien la bonne
+    assert(line.compare("AttributeName;AttributeType\r")==0);    //verifie que l'entete est bien la bonne
     getline(entreeFichier, line);
-    assert(line.compare("NoID;ID")==0);
+    assert(line.compare("NoID;ID\r")==0);
 
     while(entreeFichier.good())
     {
@@ -62,7 +61,7 @@ void Empreinte::initialiserFormat()
         assert(nomAttribut!=line);                  //veririe que la ligne est bien formee
 
         string typeAttribut;
-        getline(ss, typeAttribut);
+        getline(ss, typeAttribut,'\r');
 
         if(typeAttribut.compare("string")==0)       //verifie que le type est bien le bon
         {
@@ -75,6 +74,7 @@ void Empreinte::initialiserFormat()
         else
         {
             cout<<"Erreur : l'un des attributs n'est ni numerique, ni categoriel"<<endl;
+            cout<<"il s'agit de la ligne :"<< line <<endl;
             abort();
         }
 
@@ -98,13 +98,18 @@ void Empreinte::ajouterAttribut(Attribut * attribut)
 
 
 //-------------------------------------------- Constructeurs - destructeur
-Empreinte::Empreinte ( const Empreinte & unEmpreinte )
+Empreinte::Empreinte ( const Empreinte & uneEmpreinte )
 // Algorithme :
 // Un constructeur de copie.
 	{
 		#ifdef MAP
 			cout << "Appel au constructeur de copie de <Empreinte>" << endl;
 		#endif
+        this->ID = uneEmpreinte.ID;
+        for (int i = 0; i<int(Empreinte::format.size()); i++)
+        {
+            attributs.push_back(uneEmpreinte.attributs[i]->copieAttribut());
+        }
 
 	} //----- Fin de Empreinte (constructeur de copie)
 

@@ -19,12 +19,12 @@ class Empreinte
 public:
 
     static string fichierFormat;
-	static vector< pair<string, string> > format;
-    void ajouterAttribut(Attribut *);
+    static vector< pair<string, string> > format;
 
+    void ajouterAttribut(Attribut *);
 	friend ostream& operator<<(ostream&, const Empreinte & );
     void static initialiserFormat();
-
+    vector <Attribut *> getListeAttribut();
 //-------------------------------------------- Constructeurs - destructeur
     Empreinte ( const Empreinte & uneEmpreinte );
     // Mode d'emploi :
@@ -51,8 +51,6 @@ protected:
 //----------------------------------------------------- Attributs protégés
 	string ID;
 	vector <Attribut *> attributs;
-
-
 };
 
 

@@ -84,7 +84,7 @@ int test_analyseFichier()
 int GestionUtilisateur_Test_1()
 //Test GestionUtilisateur constructeur
 {
-	
+
 	GestionUtilisateur uneGestionUtilisateur = GestionUtilisateur();
 	return 0;
 }
@@ -120,8 +120,20 @@ int connexion_Test_echouee()
 	uneGestionUtilisateur.connexion("CHAIZA", "REYNALDO", "gustavo", "ListeDocteurs.txt");
 	return 0;
 }
-int test_PrintMaladies()
 
+int test_CreerListeEmpreinteAvecMaladie()
+{
+    Empreinte::initialiserFormat();
+    GestionRisques gr;
+    multimap<string, Empreinte> liste = gr.CreerListeEmpreinteAvecMaladie("Donnees/F2_ok.txt");
+    for (auto it=liste.begin(); it!=liste.end(); ++it)
+	{
+        cout<< (*it).first << " : "<< (*it).second<<endl;
+	}
+	return 0;
+}
+
+int test_PrintMaladies()
 {
 	pair<string, string> nouvellePaire = make_pair("canard", "Numerique");
 	Empreinte::format.push_back(nouvellePaire);
@@ -139,8 +151,6 @@ int test_PrintMaladies()
 	g.enregistrerMaladies(v);
 	cout << "no prob" << endl;
 	return 0;
-
-
 }
 
 int test_affichageMaladies()
@@ -153,7 +163,7 @@ int test_affichageMaladies()
 
 int test_chercherMaladie()
 {
-	
+
 	GestionRisques g;
 	g.chercherMaladie("m2");
 	return 0;
@@ -166,8 +176,9 @@ int main(int argc, char* argv[])
 	//afficherListeDocteurs_Test();
 	//connexion_Test_reussie();
 	//connexion_Test_echouee();
-	test_PrintMaladies();
+	//test_PrintMaladies();
 	//test_affichageMaladies();
-	test_chercherMaladie();
-	while (true);
+	//test_chercherMaladie();
+	test_CreerListeEmpreinteAvecMaladie();
+	//while (true);
 }
