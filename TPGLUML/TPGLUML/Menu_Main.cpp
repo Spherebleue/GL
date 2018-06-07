@@ -1,18 +1,13 @@
 /*************************************************************************
-
-                      Menu Main  -  Description
-
-
-    début                : 26/01/2018
-
-    copyright            : (C) 2018 par B3332
-
-    e-mail               : b3332@insa-lyon.fr
-
+Menu_Main  -  description
+-------------------
+début                : 30/04/2018
+copyright            : (C) 2018 par Lea Ferrere - Gustavo Chaiaa-Ramirez - Gregoire Bailly - Maud Duraffourg
+e-mail               : maud.duraffourg@insa-lyon.fr
 *************************************************************************/
 
 
-//---- Réalisation de la classe <main> (fichier Menu_Main.cpp) ----------
+//---- Réalisation de la classe <Menu_Main> (fichier Menu_Main.cpp) ----------
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -22,11 +17,13 @@
 using namespace std;
 
 #include <iostream>
+#include <string>
 
 
 //------------------------------------------------------ Include personnel
 
 #include "GestionUtilisateur.h"
+#include "GestionRisques.h"
 
 //-------------------------------------------------------------------Menus
 
@@ -84,60 +81,36 @@ string outil_ObtenirMot() {
 
 void Menu_ConnexionDocteur() {
 
-
-
-	/* Demande de renseignements */
-	
+	/* Demande de renseignements */	
 	cout << endl << "Connexion Docteur" << endl << endl;
-
 	string Nom = "---";
-
 	string Prenom = "---";
-
 	string Motpasse = "---";
-
 	cout << "Entrez vos donnees toutes en majuscules, s'il vous plait, sauf votre mot de passe: " << endl << endl << "Nom : ";
- 
 	getline(cin, Nom);
-
 	cout << "Prenom : ";
-
 	getline(cin, Prenom);
-
 	cout << "Mot de passe : ";
-
 	getline(cin, Motpasse);
-
 	cout << endl;
-
-
-
 	/* Appel a la methode connexion */
-
 	GestionUtilisateur uneGestionUtilisateur;
-
-	if (uneGestionUtilisateur.connexion(Nom, Prenom, Motpasse, "ListeDocteurs.txt"))
- 
+	if (uneGestionUtilisateur.connexion(Nom, Prenom, Motpasse, "ListeDocteurs.txt")) 
 	{
-
 		Menu_DocteurConnecte();
-
 	}
-
-	else
- 
+	else 
 	{
-
 		Menu_Principal();
-
 	}
-
 }
 
 
 
 void Menu_DocteurConnecte() {
 
+	GestionRisques gestRisques;
+	string valeurCommande;
 
 	cout << "---------------------------------------------------------------------------------------------------";
 
@@ -148,7 +121,6 @@ void Menu_DocteurConnecte() {
 	cout << "3. \tAffichage des maladies prises en compte" << endl;
 	cout << "4. \tDescription des caracteristiques d'une maladie" << endl << endl;
 	cout << "Entrer 1, 2, 3 ou 4 suivant l’option que vous souhaitez utiliser puis appuyer sur la touche entrer." << endl;
-
 	cout << "Votre choix : ";
 
 
@@ -162,17 +134,24 @@ void Menu_DocteurConnecte() {
 		break;
 	}
 	case '2': {
-		cout << "AnalyseEmpreinte" << endl << endl;
+		cout << "Analyse Empreinte" << endl << endl;
+		cout << "Nom Fichier ? " << endl;
+		cin >> valeurCommande;
+		gestRisques.analyserFichier(valeurCommande);
 		Menu_DocteurConnecte();
 		break;
 	}
 	case '3': {
 		cout << "Affichage des maladies prises en compte" << endl << endl;
+		gestRisques.afficherMaladies();
 		Menu_DocteurConnecte();
 		break;
 	}
 	case '4': {
 		cout << "Description des caracteristiques d'une maladie" << endl << endl;
+		cout << "Nom de la maladie ?" << endl;
+		cin >> valeurCommande;
+		gestRisques.chercherMaladie(valeurCommande);
 		Menu_DocteurConnecte();
 		break;
 	}
@@ -191,50 +170,28 @@ void Menu_DocteurConnecte() {
 void Menu_ConnexionAdministrateur() {
 
 	/* Demande de renseignements */
-
 	cout << endl << endl << "Connexion Administrateur" << endl << endl;
-
 	string Nom = "---";
-
 	string Prenom = "---";
-
 	string Motpasse = "---";
-
 	cout << "Entrez vos donnees toutes en majuscules, s'il vous plait, sauf votre mot de passe : " << endl << endl << "Nom : ";
-
 	getline(cin, Nom);
-
 	cout << "Prenom : ";
-
 	getline(cin, Prenom);
-
 	cout << "Mot de passe : ";
-
 	getline(cin, Motpasse);
-
 	cout << endl;
-
-
-
 	/* Appel a la methode connexion */
 
 	GestionUtilisateur uneGestionUtilisateur;
-
 	if (uneGestionUtilisateur.connexion(Nom, Prenom, Motpasse, "ListeAdministrateurs.txt"))
 	{
-
 		Menu_AdministrateurConnecte();
-
 	}
-
 	else
-
 	{
-
 		Menu_Principal();
-
 	}
-
 }
 
 
@@ -253,9 +210,6 @@ void Menu_AdministrateurConnecte() {
 
 
 	char choix = outil_ObtenirChoix();
-
-
-
 	switch (choix) {
 
 	case '1': {
@@ -264,7 +218,7 @@ void Menu_AdministrateurConnecte() {
 	}
 	case '2': {
 		cout << "Modifier le fichier" << endl << endl;
-		Menu_AdministrateurConnecte();
+		Menu_ModificationFichier();
 		break;
 	}
 	default: {
@@ -276,7 +230,54 @@ void Menu_AdministrateurConnecte() {
 	}
 
 }
+void Menu_ModificationFichier()
 
+{
+	GestionRisques gestRisques;
+	string ligne;
+	cout << "---------------------------------------------------------------------------------------------------" << endl;
+	cout << "1. \tAjouter une ligne" << endl;
+	cout << "2. \tSupprimer une ligne" << endl;
+	cout << "3. \tSupprimer une empreinte via son ID" << endl;
+	cout << "Entrer 1, 2 ou 3 suivant l’option que vous souhaitez utiliser puis appuyer sur la touche entrer." << endl << endl;
+	char choix = outil_ObtenirChoix();
+	switch (choix) {
+
+	case '1': {
+		cout << "Ajout de ligne" << endl << endl;
+		cout << "Ligne à ajouter ?" << endl;
+		getline(cin, ligne);
+		gestRisques.ajouterLignes("F3_ok.txt", ligne);
+		Menu_ModificationFichier()
+		break;
+	}
+	case '2': {
+		cout << "Suppression de ligne" << endl << endl;
+		cout << "Ligne à supprimer ?" << endl;
+		getline(cin, ligne);
+		gestRisques.supprimerLignes("F3_ok.txt", ligne);
+		Menu_ModificationFichier()
+		break;
+	}
+	case '3': {
+		cout << "Suppression de l'empreinte" << endl << endl;
+		cout << "ID de l'Empreinte ?" << endl;
+		getline(cin, ligne);
+		gestRisques.supprimerEmpreinte("F3_ok.txt", ligne);
+		Menu_ModificationFichier()
+		break;
+	}
+	default: {
+		cout << endl << "ATTENTION : Vous n'avez pas pris un choix valide." << endl << endl;
+		Menu_ModificationFichier();
+		break;
+	}
+	}
+
+
+
+
+}
 
 
 void Menu_InscriptionDocteur() {
