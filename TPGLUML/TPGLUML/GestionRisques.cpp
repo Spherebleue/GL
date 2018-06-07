@@ -88,38 +88,40 @@ void GestionRisques::analyserFichier(string nomFichier)
 		ss.str(line);
 		string valeurAttribut;
 		getline(ss, valeurAttribut, ';');
-		for (int i = 0; i < int (Empreinte::format.size()); i++)
+		if(valeurAttribut.compare("")!=0)
 		{
-			if (i == Empreinte::format.size())
-			{
-				getline(ss, valeurAttribut);
-			}
-			else
-			{
-				getline(ss, valeurAttribut, ';');
-			}
+            for (int i = 0; i < int (Empreinte::format.size()); i++)
+            {
+                if (i == Empreinte::format.size())
+                {
+                    getline(ss, valeurAttribut);
+                }
+                else
+                {
+                    getline(ss, valeurAttribut, ';');
+                }
+                if (Empreinte::format[i].second.compare("Categoriel") == 0) //verifie que le type est bien le bon
+                {
+                    Categoriel * a = new Categoriel(Empreinte::format[i].first, valeurAttribut);
+                    //cout << *a << endl;
+                    e->ajouterAttribut(a);
+                }
+                else if (Empreinte::format[i].second.compare("Numerique") == 0)
+                {
+                    Numerique * a = new Numerique(Empreinte::format[i].first, stod(valeurAttribut));
+                    //cout << *a << endl;
+                    e->ajouterAttribut(a);
+                }
+                else
+                {
+                    cout << "Erreur : l'un des attributs n'est ni numerique, ni categoriel" << endl;
+                    abort();
+                }
 
-			if (Empreinte::format[i].second.compare("Categoriel") == 0) //verifie que le type est bien le bon
-			{
-				Categoriel * a = new Categoriel(Empreinte::format[i].first, valeurAttribut);
-				//cout << *a << endl;
-				e->ajouterAttribut(a);
-			}
-			else if (Empreinte::format[i].second.compare("Numerique") == 0)
-			{
-				Numerique * a = new Numerique(Empreinte::format[i].first, stod(valeurAttribut));
-				//cout << *a << endl;
-				e->ajouterAttribut(a);
-			}
-			else
-			{
-				cout << "Erreur : l'un des attributs n'est ni numerique, ni categoriel" << endl;
-				abort();
-			}
-
-		}
+            }
 		//cout << *e << endl;
 		vectEmpreinte.push_back(e);
+        }
 	}
 	entreeFichier.close();
 	//cout << (vectEmpreinte.size()) << endl;
@@ -153,30 +155,30 @@ void GestionRisques::analyserFichier(string nomFichier)
             compteurSymptomes = 0;
             for (int j = 0; j < int(Empreinte::format.size()); j++)
             {
-
                 getline(ss, attribut, ';');
-                if (attribut.compare("1") == 0)
+                if(attribut.compare("")!=0)
                 {
-                    nombreUtile ++;
-                    getline(ss, attribut, ';');
-
-                    if (Empreinte::format[j].second.compare("Categoriel") == 0) //verifie que le type est bien le bon
+                    if (attribut.compare("1") == 0)
                     {
-                        if (attribut.compare(dynamic_cast <Categoriel*>(vectEmpreinte[i]->getListeAttribut()[j])->getValeur()) ==0)
-                        compteurSymptomes ++;
-                    }
-                    else if (Empreinte::format[j].second.compare("Numerique") == 0)
-                    {
-                        moyenne = stod(attribut);
+                        nombreUtile ++;
                         getline(ss, attribut, ';');
-                        ecartType  = stod(attribut);
-                    if (dynamic_cast <Numerique*>(vectEmpreinte[i]->getListeAttribut()[j])->getValeur() <= (moyenne + ecartType) && dynamic_cast <Numerique*>(vectEmpreinte[i]->getListeAttribut()[j])->getValeur() >= (moyenne - ecartType) )
-                        compteurSymptomes ++;
+
+                        if (Empreinte::format[j].second.compare("Categoriel") == 0) //verifie que le type est bien le bon
+                        {
+                            if (attribut.compare(dynamic_cast <Categoriel*>(vectEmpreinte[i]->getListeAttribut()[j])->getValeur()) ==0)
+                            compteurSymptomes ++;
+                        }
+                        else if (Empreinte::format[j].second.compare("Numerique") == 0)
+                        {
+                            moyenne = stod(attribut);
+                            getline(ss, attribut, ';');
+                            ecartType  = stod(attribut);
+                        if (dynamic_cast <Numerique*>(vectEmpreinte[i]->getListeAttribut()[j])->getValeur() <= (moyenne + ecartType)
+                        && dynamic_cast <Numerique*>(vectEmpreinte[i]->getListeAttribut()[j])->getValeur() >= (moyenne - ecartType) )
+                            compteurSymptomes ++;
+                        }
                     }
-
-
                 }
-
             }
 
            if ((compteurSymptomes*100/ nombreUtile)>=90 )
@@ -264,14 +266,13 @@ void GestionRisques::afficherMaladies()
 	if (entreeFichier)
 	{
 		cout << "Liste des maladies prises en compte : " << endl;
-		getline(entreeFichier, ligne);
 		while (entreeFichier.good()) {
+            getline(entreeFichier, ligne);
 			stringstream ss;
 			ss.str(ligne);
 			getline(ss, ligne, ';');
 			cout << ligne << endl;
-			getline(entreeFichier, ligne);
-			}
+        }
 		entreeFichier.close();
 	}
 	else
@@ -287,7 +288,7 @@ multimap<string, Empreinte> GestionRisques::creerEmpreintesAvecMaladie(string no
 
 	assert(entreeFichier);                        //verifie que le fichier est bien trouve
 
-	string line;
+	string line ="je suis pas vide";
 	getline(entreeFichier, line);
 	multimap<string, Empreinte> liste;
 	set<string> nomDesMaladies;
@@ -301,6 +302,11 @@ multimap<string, Empreinte> GestionRisques::creerEmpreintesAvecMaladie(string no
 		string valeurAttribut;
 		getline(ss, valeurAttribut, ';');
 		string maladie = "";
+		if(valeurAttribut.compare("")==0)
+		{
+            cout<<"Erreur, fichier de donnees mal forme, une ligne vide est détectée"<<endl;
+            return liste;
+		}
 		for (int i = 0; i <= int(Empreinte::format.size()); i++)
 		{
 			if (i == (Empreinte::format.size()))
@@ -314,8 +320,7 @@ multimap<string, Empreinte> GestionRisques::creerEmpreintesAvecMaladie(string no
 			}
 			else
             {
-                    getline(ss, valeurAttribut, ';');
-
+                getline(ss, valeurAttribut, ';');
                 if (Empreinte::format[i].second.compare("Categoriel") == 0) //verifie que le type est bien le bon
                 {
                     Categoriel * a = new Categoriel(Empreinte::format[i].first, valeurAttribut);
@@ -325,7 +330,6 @@ multimap<string, Empreinte> GestionRisques::creerEmpreintesAvecMaladie(string no
                 else if (Empreinte::format[i].second.compare("Numerique") == 0)
                 {
                     Numerique * a = new Numerique(Empreinte::format[i].first, stod(valeurAttribut));
-                    //cout << *a << endl;
                     e.ajouterAttribut(a);
                 }
                 else
@@ -333,6 +337,7 @@ multimap<string, Empreinte> GestionRisques::creerEmpreintesAvecMaladie(string no
                     cout << "Erreur : l'un des attributs n'est ni numerique, ni categoriel" << endl;
                     abort();
                 }
+
 			}
 		}
 		liste.insert(make_pair(maladie,e));

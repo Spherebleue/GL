@@ -118,12 +118,12 @@ int connexion_Test_echouee()
 	return 0;
 }
 
-int test_CreerListeEmpreinteAvecMaladie()
+int test_CreerEmpreinteAvecMaladie()
 //Test creerListeEmpreinteAvecMaladie ne retourne pas de null
 {
     Empreinte::initialiserFormat();
     GestionRisques gr;
-    multimap<string, Empreinte> liste = gr.creerEmpreintesAvecMaladie("Donnees/F2_ok.txt");
+    multimap<string, Empreinte> liste = gr.creerEmpreintesAvecMaladie("Donnees/F2.txt");
     for (auto it=liste.begin(); it!=liste.end(); ++it)
 	{
         cout<< (*it).first << " : "<< (*it).second<<endl;
@@ -135,7 +135,7 @@ int test_initMaladies()
 {
     Empreinte::initialiserFormat();
     GestionRisques gr;
-    gr.initMaladies("Donnees/F2_ok.txt");
+    gr.initMaladies("Donnees/F2.txt");
     return 0;
 }
 
@@ -226,14 +226,14 @@ int main(int argc, char* argv[])
 	//connexion_Test_reussie();
 	//connexion_Test_echouee();
 	//test_PrintMaladies();
-	//test_affichageMaladies();
+	test_initMaladies();
+	test_affichageMaladies();
 	//test_chercherMaladie();
 	//test_mauvaisChercherMaladie();
-	//test_CreerListeEmpreinteAvecMaladie();
-	test_initMaladies();
+	//test_CreerEmpreinteAvecMaladie();
 	//test_supprimerLigne();
 	//test_ajouterLigne();
-	test_supprimerEmpreinte();
+	//test_supprimerEmpreinte();
 	//test_analyse();
 	//while (true);
 }
