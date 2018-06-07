@@ -280,7 +280,7 @@ void GestionRisques::afficherMaladies()
 	}
 }
 
-multimap<string, Empreinte> GestionRisques::creerListeEmpreinteAvecMaladie(string nomFichier)
+multimap<string, Empreinte> GestionRisques::creerEmpreinteAvecMaladie(string nomFichier)
 {
     ifstream entreeFichier;
 	entreeFichier.open(nomFichier);
@@ -343,7 +343,7 @@ multimap<string, Empreinte> GestionRisques::creerListeEmpreinteAvecMaladie(strin
 void GestionRisques::initMaladies(string nomFichier)
 {
 	vector<Maladie> defMaladies;
-	multimap<string, Empreinte> liste = creerListeEmpreinteAvecMaladie(nomFichier);
+	multimap<string, Empreinte> liste = creerEmpreinteAvecMaladie(nomFichier);
 	set<string> nomDesMaladies;
 
 	for (auto it=liste.begin(); it!=liste.end(); ++it)
