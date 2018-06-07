@@ -187,6 +187,13 @@ int test_mauvaisChercherMaladie()
 	return 0;
 }
 
+int test_analyse ()
+{
+GestionRisques g;
+g.analyserFichier("Donnees/F3_ok.txt");
+return 0;
+}
+
 int main(int argc, char* argv[])
 {
 	//GestionUtilisateur_Test_1();
@@ -200,5 +207,6 @@ int main(int argc, char* argv[])
 	//test_mauvaisChercherMaladie();
 	//test_CreerListeEmpreinteAvecMaladie();
 	test_initMaladies();
+	test_analyse();
 	//while (true);
 }

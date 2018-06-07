@@ -119,10 +119,73 @@ void GestionRisques::analyserFichier(string nomFichier)
 		//cout << *e << endl;
 		vectEmpreinte.push_back(e);
 	}
+	entreeFichier.close();
 	//cout << (vectEmpreinte.size()) << endl;
+
+	                     //verifie que le fichier est bien trouve
+	vector <string> empreinteMaladie;
+	int compteurSymptomes;
+	int nombreUtile = 0;
+	double ecartType = 0.0;
+	double moyenne = 0.0;
+	string attribut;
+	string nomMaladie;
+	string elementVecteur;
+
 	for (int i = 0; i < int(vectEmpreinte.size()); i++)
 	{
-		cout << (*vectEmpreinte[i]) << endl;
+        ifstream entreeFichierMaladies;
+        entreeFichierMaladies.open("ListeMaladies.txt");
+        assert(entreeFichierMaladies);
+        string numero = to_string(i+1);
+        elementVecteur = "Empreinte n°" + numero  + ": ";
+           //cout<< " co in ! "<<elementVecteur<<endl;
+
+        while (entreeFichierMaladies.good())
+        {
+            nombreUtile =0;
+            getline(entreeFichierMaladies, line);
+            stringstream ss;
+            ss.str(line);
+            getline(ss, nomMaladie, ';');
+            compteurSymptomes = 0;
+            for (int j = 0; j < int(Empreinte::format.size()); j++)
+            {
+
+                getline(ss, attribut, ';');
+                if (attribut.compare("1") == 0)
+                {
+                    nombreUtile ++;
+                    getline(ss, attribut, ';');
+
+                    if (Empreinte::format[j].second.compare("Categoriel") == 0) //verifie que le type est bien le bon
+                    {
+                        if (attribut.compare(dynamic_cast <Categoriel*>(vectEmpreinte[i]->getListeAttribut()[j])->getValeur()) ==0)
+                        compteurSymptomes ++;
+                    }
+                    else if (Empreinte::format[j].second.compare("Numerique") == 0)
+                    {
+                        moyenne = stod(attribut);
+                        getline(ss, attribut, ';');
+                        ecartType  = stod(attribut);
+                    if (dynamic_cast <Numerique*>(vectEmpreinte[i]->getListeAttribut()[j])->getValeur() <= (moyenne + ecartType) && dynamic_cast <Numerique*>(vectEmpreinte[i]->getListeAttribut()[j])->getValeur() >= (moyenne - ecartType) )
+                        compteurSymptomes ++;
+                    }
+
+
+                }
+
+            }
+
+           if ((compteurSymptomes*100/ nombreUtile)>=90 )
+            elementVecteur = elementVecteur + nomMaladie + " ";
+        }
+        empreinteMaladie.push_back(elementVecteur);
+        entreeFichierMaladies.close();
+	}
+	for (int t = 0; t< empreinteMaladie.size(); t ++)
+	{
+        cout << empreinteMaladie[t] << endl;
 	}
 }
 
@@ -438,39 +501,41 @@ void GestionRisques::initMaladies(string nomFichier)
 
 void GestionRisques::enregistrerMaladies(vector<Maladie> vectMaladies)
 {
-			ofstream fichier("ListeMaladies.txt", ios::trunc);
+    ofstream fichier("ListeMaladies.txt", ios::trunc);
 
-			if (fichier)
-			{
-				for (int i = 0; i < vectMaladies.size(); i++)
-				{
-					fichier << vectMaladies[i].getNom() << ";";
-					for (int j = 0; j<int(Empreinte::format.size()); j++)
-					{
-						fichier << vectMaladies[i].getListeCritere()[j]->getUtile()<<";";
+    if (fichier)
+    {
+        for (int i = 0; i < vectMaladies.size(); i++)
+        {
+            fichier << vectMaladies[i].getNom() << ";";
+            for (int j = 0; j<int(Empreinte::format.size()); j++)
+            {
+                fichier << vectMaladies[i].getListeCritere()[j]->getUtile()<<";";
 
-						if (vectMaladies[i].getListeCritere()[j]->getUtile() == true)
-						{
-							if (Empreinte::format[j].second.compare("Categoriel") == 0) //verifie que le type est bien le bon
-							{
-								fichier << (dynamic_cast<CritereCategoriel*> ((vectMaladies[i].getListeCritere()[j])))->getCategorie()<<";";
+                if (vectMaladies[i].getListeCritere()[j]->getUtile() == true)
+                {
+                    if (Empreinte::format[j].second.compare("Categoriel") == 0) //verifie que le type est bien le bon
+                    {
+                        fichier << (dynamic_cast<CritereCategoriel*> ((vectMaladies[i].getListeCritere()[j])))->getCategorie()<<";";
 
-							}
-							else if (Empreinte::format[j].second.compare("Numerique") == 0)
-							{
-								fichier << (dynamic_cast<CritereNumerique*> ((vectMaladies[i].getListeCritere()[j])))->getMoyenne() << ";" << (dynamic_cast<CritereNumerique*> ((vectMaladies[i].getListeCritere()[j])))->getEcartType() << ";";
-							}
+                    }
+                    else if (Empreinte::format[j].second.compare("Numerique") == 0)
+                    {
+                        fichier << (dynamic_cast<CritereNumerique*> ((vectMaladies[i].getListeCritere()[j])))->getMoyenne() << ";" << (dynamic_cast<CritereNumerique*> ((vectMaladies[i].getListeCritere()[j])))->getEcartType() << ";";
+                    }
 
-						}
-					}
-                    fichier << endl;
-				}
-				fichier.close();
-			}
-			else
-			{
-				cerr << "Problème d'ouverture de fichier " << endl;
-			}
+                }
+            }
+            if(i<vectMaladies.size()-1){
+                fichier << endl;
+            }
+        }
+        fichier.close();
+    }
+    else
+    {
+        cerr << "Problème d'ouverture de fichier " << endl;
+    }
 }
 
   //------------------------------------------------------------------ PRIVE

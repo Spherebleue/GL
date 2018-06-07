@@ -22,7 +22,7 @@ using namespace std;
 #include "Empreinte.h"
 
 // Role de la classe <GestionRisques>
-// 
+//
 //
 //------------------------------------------------------------------------
 
@@ -30,8 +30,10 @@ using namespace std;
 class GestionRisques : public Utilisateur
 {
 	//----------------------------------------------------------------- PUBLIC
-	
+
 public:
+    //----------------------------------------------------------------Constantes
+    const int pourcentageSymptomes = 90;
 	//----------------------------------------------------------------Méthodes publiques
 
 	void initMaladies(string);
@@ -71,7 +73,7 @@ public:
 	// Mode d'emploi :
 	// Destructeur de Administateur
 
-	
+
 
 	//------------------------------------------------------------------ PRIVE
 
