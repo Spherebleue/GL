@@ -280,7 +280,7 @@ void GestionRisques::afficherMaladies()
 	}
 }
 
-multimap<string, Empreinte> GestionRisques::creerEmpreinteAvecMaladie(string nomFichier)
+multimap<string, Empreinte> GestionRisques::creerEmpreintesAvecMaladie(string nomFichier)
 {
     ifstream entreeFichier;
 	entreeFichier.open(nomFichier);
@@ -343,7 +343,7 @@ multimap<string, Empreinte> GestionRisques::creerEmpreinteAvecMaladie(string nom
 void GestionRisques::initMaladies(string nomFichier)
 {
 	vector<Maladie> defMaladies;
-	multimap<string, Empreinte> liste = creerEmpreinteAvecMaladie(nomFichier);
+	multimap<string, Empreinte> liste = creerEmpreintesAvecMaladie(nomFichier);
 	set<string> nomDesMaladies;
 
 	for (auto it=liste.begin(); it!=liste.end(); ++it)
@@ -499,21 +499,48 @@ void GestionRisques::initMaladies(string nomFichier)
 	}
 	enregistrerMaladies(defMaladies);
 }
-
-void GestionRisques::supprimerLignes(string nomFichier, string ligneAEffacer)
+void GestionRisques::supprimerEmpreinte(string nomFichier, string empreinteAEffacer)
 {
     string ligne;
-    // open input file
     ifstream lectureFichier(nomFichier);
     if( !lectureFichier.is_open())
     {
           cout << "Erreur lors de l'ouverture" << endl;
           return;
     }
-    // now open temp output file
     ofstream ecritureFichier ("nouveauFichier.txt");
-    // loop to read/write the file.  Note that you need to add code here to check
-    // if you want to write the line
+    while( getline(lectureFichier,ligne, ';' ))
+    {
+        if(ligne != empreinteAEffacer)
+        {
+            ecritureFichier << ligne << ";";
+            getline(lectureFichier,ligne);
+            ecritureFichier<< ligne <<"\n";
+        }
+        else
+        {
+            getline(lectureFichier, ligne);
+        }
+    }
+    lectureFichier.close();
+    ecritureFichier.close();
+    remove(nomFichier.c_str());
+    rename("nouveauFichier.txt",nomFichier.c_str());
+
+
+}
+
+void GestionRisques::supprimerLignes(string nomFichier, string ligneAEffacer)
+{
+    string ligne;
+
+    ifstream lectureFichier(nomFichier);
+    if( !lectureFichier.is_open())
+    {
+          cout << "Erreur lors de l'ouverture" << endl;
+          return;
+    }
+    ofstream ecritureFichier ("nouveauFichier.txt");
     while( getline(lectureFichier,ligne) )
     {
         if(ligne != ligneAEffacer)
@@ -521,11 +548,9 @@ void GestionRisques::supprimerLignes(string nomFichier, string ligneAEffacer)
     }
     lectureFichier.close();
     ecritureFichier.close();
-    // delete the original file
     remove(nomFichier.c_str());
-    // rename old to new
     rename("nouveauFichier.txt",nomFichier.c_str());
-    // all done!
+
 
 }
 
