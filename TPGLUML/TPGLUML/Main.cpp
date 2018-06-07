@@ -45,9 +45,6 @@ int testNumerique_1 ()
     return 0;
 }
 
-
-
-
 int testCritere_1()
 //test critere
 {
@@ -122,6 +119,7 @@ int connexion_Test_echouee()
 }
 
 int test_CreerListeEmpreinteAvecMaladie()
+//Test creerListeEmpreinteAvecMaladie ne retourne pas de null
 {
     Empreinte::initialiserFormat();
     GestionRisques gr;
@@ -133,16 +131,27 @@ int test_CreerListeEmpreinteAvecMaladie()
 	return 0;
 }
 
+int test_initMaladies()
+{
+    Empreinte::initialiserFormat();
+    GestionRisques gr;
+    gr.initMaladies("Donnees/F2_ok.txt");
+    return 0;
+}
+
 int test_PrintMaladies()
 {
 	pair<string, string> nouvellePaire = make_pair("canard", "Numerique");
+	Empreinte::format.push_back(nouvellePaire);
 	Empreinte::format.push_back(nouvellePaire);
 	Maladie m("m");
 	Maladie m2("m2");
 	CritereNumerique * canard = new CritereNumerique ("canard", true, 3, 8);
 	CritereNumerique  * canard2 = new CritereNumerique("canard", false, 3, 4);
 	m.ajouterCritere(canard, 0);
+	m.ajouterCritere(canard2,1);
 	m2.ajouterCritere(canard2, 0);
+	m2.ajouterCritere(canard,1);
 	vector<Maladie> v;
 	v.push_back(m);
 	v.push_back(m2);
@@ -158,14 +167,23 @@ int test_affichageMaladies()
 	GestionRisques g;
 	g.afficherMaladies();
 	return 0;
-
 }
 
 int test_chercherMaladie()
+//test chercherMaladie maladie présente
 {
-
 	GestionRisques g;
+	test_PrintMaladies();
 	g.chercherMaladie("m2");
+	return 0;
+}
+
+int test_mauvaisChercherMaladie()
+//test chercherMaladie maladie non présente
+{
+	GestionRisques g;
+	test_PrintMaladies();
+	g.chercherMaladie("m3");
 	return 0;
 }
 
@@ -179,6 +197,8 @@ int main(int argc, char* argv[])
 	//test_PrintMaladies();
 	//test_affichageMaladies();
 	//test_chercherMaladie();
-	test_CreerListeEmpreinteAvecMaladie();
+	//test_mauvaisChercherMaladie();
+	//test_CreerListeEmpreinteAvecMaladie();
+	test_initMaladies();
 	//while (true);
 }

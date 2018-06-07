@@ -30,16 +30,11 @@ using namespace std;
 #include "math.h"
 //------------------------------------------------------------- Constantes
 //#define MAP ;
-
 //----------------------------------------------------------------- PUBLIC
-
 //----------------------------------------------------- Méthodes publiques
-
-
 //-------------------------------------------- Constructeurs - destructeur
 
 GestionRisques::GestionRisques(const GestionRisques & unGestionRisques)
-
 // Algorithme :
 // Un constructeur de copie.
 {
@@ -146,7 +141,6 @@ void GestionRisques::chercherMaladie(string nomMaladie)
 		while (entreeFichier.good() && trouve == false) {
 			ss.str(ligne);
 			getline(ss, nomMaladieFichier, ';');
-			cout << "Nom maladie " << nomMaladieFichier << endl;
 			if (nomMaladieFichier.compare(nomMaladie) == 0)
 			{
 				trouve = true;
@@ -155,57 +149,46 @@ void GestionRisques::chercherMaladie(string nomMaladie)
 			else
 			{
 				getline(entreeFichier, ligne);
-
 			}
 		}
-			for (int i = 0; i< int(Empreinte::format.size()); i++)
-			{
+		if(trouve==true)
+		{
+            for (int i = 0; i< int(Empreinte::format.size()); i++)
+            {
+                cout << Empreinte::format[i].first << " : ";
+                getline(ss, ligne, ';');
+                cout << "Utilite - " << ligne;
+                if (ligne.compare("1") == 0)
+                {
+                    if (Empreinte::format[i].second.compare("Categoriel") == 0)
+                    {
 
-				cout << Empreinte::format[i].first << " : ";
-				getline(ss, ligne, ';');
-				cout << "Utilite - " << ligne;
-				if (ligne.compare("1") == 0)
-				{
-					if (Empreinte::format[i].second.compare("Categoriel") == 0)
-					{
-						if (i == Empreinte::format.size())
-						{
-							getline(ss, ligne);
+                            getline(ss, ligne, ';');
 
-						}
-						else
-						{
-							getline(ss, ligne, ';');
-						}
-						cout << "; Categorie - " << ligne;
+                        cout << "; Categorie - " << ligne;
+                    }
+                    else if (Empreinte::format[i].second.compare("Numerique") == 0)
+                    {
+                        getline(ss, ligne, ';');
+                        cout << "; Moyenne - " << ligne;
+                          getline(ss, ligne, ';');
 
-					}
-					else if (Empreinte::format[i].second.compare("Numerique") == 0)
-					{
-						getline(ss, ligne, ';');
-						cout << "; Moyenne - " << ligne;
-						if (i == Empreinte::format.size())
-						{
-							getline(ss, ligne);
-
-						}
-						else
-						{
-							getline(ss, ligne, ';');
-
-						}
-						cout << "; Ecart-Type - " << ligne;
-					}
-				}
-				cout << endl;
-			}
-		entreeFichier.close();
+                        cout << "; Ecart-Type - " << ligne;
+                    }
+                }
+                cout << endl;
+            }
+            entreeFichier.close();
+        }
+        else
+        {
+            cout<<"La maladie n'a pas été trouvé"<<endl;
+        }
 	}
 	else
 	{
 		cerr << "Problème d'ouverture de fichier " << endl;
 	}
-
 }
 
 void GestionRisques::afficherMaladies()
@@ -228,7 +211,6 @@ void GestionRisques::afficherMaladies()
 	}
 	else
 	{
-
 		cerr << "Problème d'ouverture de fichier " << endl;
 	}
 }
@@ -308,16 +290,16 @@ void GestionRisques::initMaladies(string nomFichier)
     }
 
 	//----------------------------------CREATION DE LA MALADIE "AUCUNE"
-	pair <multimap<string, Empreinte>::iterator, multimap<string, Empreinte>::iterator> ret;
-	ret = liste.equal_range("Aucune");
+	pair <multimap<string, Empreinte>::iterator, multimap<string, Empreinte>::iterator> bordListe;
+	bordListe = liste.equal_range("Aucune");
 
 	Maladie mAucune ("Aucune");
-	for (int att = 0; att <= int(Empreinte::format.size()); att++)
+	for (int att = 0; att < int(Empreinte::format.size()); att++)
 	{
 		if (Empreinte::format[att].second.compare("Categoriel") == 0)
 		{
 			map<string, int> nbApparition;
-			for (auto i = ret.first; i != ret.second; ++i)
+			for (auto i = bordListe.first; i != bordListe.second; ++i)
 			{
 				string val = ( dynamic_cast<Categoriel*> (i->second.getListeAttribut()[att] ) )->getValeur() ;
 				auto testPresence = nbApparition.find(val);
@@ -330,7 +312,6 @@ void GestionRisques::initMaladies(string nomFichier)
 					nbApparition.insert(pair<string, int>(val, 1));
 				}
 			}
-
 			//Parcours de la map pour trouver la valeur qui apparait le plus souvent
 			int max = 0;
 			string valMax;
@@ -349,14 +330,14 @@ void GestionRisques::initMaladies(string nomFichier)
 		{
 			double somme = 0;
 			int nbAtt = 0;
-			for (auto i = ret.first; i != ret.second; ++i)
+			for (auto i = bordListe.first; i != bordListe.second; ++i)
 			{
 				somme += ( dynamic_cast<Numerique*> (i->second.getListeAttribut()[att]) )->getValeur();
 				nbAtt++;
 			}
 			double moyenne = somme / nbAtt;
 			somme = 0;
-			for (auto i = ret.first; i != ret.second; ++i)
+			for (auto i = bordListe.first; i != bordListe.second; ++i)
 			{
                 double valeur = ( dynamic_cast<Numerique*> (i->second.getListeAttribut()[att]) )->getValeur();
 				somme += (valeur - moyenne)*(valeur - moyenne);
@@ -374,16 +355,17 @@ void GestionRisques::initMaladies(string nomFichier)
 	nomDesMaladies.erase("Aucune");
 	for (auto i = nomDesMaladies.begin(); i != nomDesMaladies.end(); i++)
 	{
-		pair <multimap<string, Empreinte>::iterator, multimap<string, Empreinte>::iterator> ret;
-		ret = liste.equal_range(*i);
+		pair <multimap<string, Empreinte>::iterator, multimap<string, Empreinte>::iterator> bordListe;
+		bordListe = liste.equal_range(*i);
 
 		Maladie uneMaladie (*i);
-		for (int att = 0; att <= int(Empreinte::format.size()); att++)
+		for (int att = 0; att < int(Empreinte::format.size()); att++)
 		{
 			if (Empreinte::format[att].second.compare("Categoriel") == 0)
 			{
 				map<string, int> nbApparition;
-				for (auto j = ret.first; j != ret.second; ++j)
+				//on compte le nombre d'apparition pour chaque
+				for (auto j = bordListe.first; j != bordListe.second; ++j)
 				{
 					string val = ( dynamic_cast<Categoriel*> (j->second.getListeAttribut()[att] ) )->getValeur() ;
 					auto testPresence = nbApparition.find(val);
@@ -420,14 +402,14 @@ void GestionRisques::initMaladies(string nomFichier)
 			{
 				double somme = 0;
 				int nbAtt = 0;
-				for (auto i = ret.first; i != ret.second; ++i)
+				for (auto i = bordListe.first; i != bordListe.second; ++i)
 				{
 					somme += ( dynamic_cast<Numerique*> (i->second.getListeAttribut()[att]) )->getValeur();
 					nbAtt++;
 				}
 				double moyenne = somme / nbAtt;
 				somme = 0;
-				for (auto i = ret.first; i != ret.second; ++i)
+				for (auto i = bordListe.first; i != bordListe.second; ++i)
 				{
 					double valeur = ( dynamic_cast<Numerique*> (i->second.getListeAttribut()[att]) )->getValeur();
                     somme += (valeur - moyenne)*(valeur - moyenne);
@@ -448,7 +430,9 @@ void GestionRisques::initMaladies(string nomFichier)
 				uneMaladie.ajouterCritere(c, att);
 			}
 		}
+		defMaladies.push_back(uneMaladie);
 	}
+	enregistrerMaladies(defMaladies);
 }
 
 
@@ -460,43 +444,34 @@ void GestionRisques::enregistrerMaladies(vector<Maladie> vectMaladies)
 			{
 				for (int i = 0; i < vectMaladies.size(); i++)
 				{
-
 					fichier << vectMaladies[i].getNom() << ";";
 					for (int j = 0; j<int(Empreinte::format.size()); j++)
 					{
-						fichier << vectMaladies[i].getListeCritere()[j]->getUtile();
+						fichier << vectMaladies[i].getListeCritere()[j]->getUtile()<<";";
 
 						if (vectMaladies[i].getListeCritere()[j]->getUtile() == true)
 						{
-
 							if (Empreinte::format[j].second.compare("Categoriel") == 0) //verifie que le type est bien le bon
 							{
-								fichier << ";" << (dynamic_cast<CritereCategoriel*> ((vectMaladies[i].getListeCritere()[j])))->getCategorie();
+								fichier << (dynamic_cast<CritereCategoriel*> ((vectMaladies[i].getListeCritere()[j])))->getCategorie()<<";";
 
 							}
 							else if (Empreinte::format[j].second.compare("Numerique") == 0)
 							{
-								fichier << ";" << (dynamic_cast<CritereNumerique*> ((vectMaladies[i].getListeCritere()[j])))->getMoyenne() << ";" << (dynamic_cast<CritereNumerique*> ((vectMaladies[i].getListeCritere()[j])))->getEcartType();
+								fichier << (dynamic_cast<CritereNumerique*> ((vectMaladies[i].getListeCritere()[j])))->getMoyenne() << ";" << (dynamic_cast<CritereNumerique*> ((vectMaladies[i].getListeCritere()[j])))->getEcartType() << ";";
 							}
-						}
-						fichier << endl;
-					}
 
+						}
+					}
+                    fichier << endl;
 				}
 				fichier.close();
 			}
 			else
 			{
-
 				cerr << "Problème d'ouverture de fichier " << endl;
 			}
-
-
 }
-
-
-
-
 
   //------------------------------------------------------------------ PRIVE
 

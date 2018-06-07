@@ -43,11 +43,7 @@ Maladie::Maladie(const Maladie & uneMaladie)
 	for (int i = 0; i<int(Empreinte::format.size()); i++)
 	{
 		listeCritere[i] = uneMaladie.listeCritere[i]->copieCritere();
-
 	}
-
-
-
 } //----- Fin de Maladie (constructeur de copie)
 
 
@@ -72,19 +68,11 @@ Maladie::Maladie(string nomT)
 #endif
 	nom = nomT;
 	listeCritere = new Critere * [int (Empreinte::format.size())];
-
-
-
-
 } //----- Fin de Maladie
 
 void Maladie::ajouterCritere(Critere * critere, int position)
 {
-	
 	listeCritere[position] = critere->copieCritere();
-	cout << "ajout : " << listeCritere[position]->getNom() << endl;
-
-
 }
 
 
@@ -97,7 +85,7 @@ void Maladie::afficherContenu()
 		cout << "critere numero : " << i << endl;
 		cout << listeCritere[i] << endl;;
 	}
-	
+
 }
 
 string Maladie::getNom()

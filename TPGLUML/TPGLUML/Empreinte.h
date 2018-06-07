@@ -22,21 +22,23 @@ using namespace std;
 #include <assert.h>
 
 // Role de la classe <Empreinte>
-// 
+//
 //
 //------------------------------------------------------------------------
 
 class Empreinte
 {
+
+
 //----------------------------------------------------------------- PUBLIC
-	static string fichierFormat;
+public:
+    static string fichierFormat;
 	static vector< pair<string, string> > format;
 
-public:
 	//-------------------------------------------------------Fonction amies
 
 	friend ostream& operator<<(ostream&, const Empreinte &);
-	
+
 
 	//-------------------------------------------------------Méthodes publiques
 
