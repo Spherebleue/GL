@@ -18,6 +18,8 @@ using namespace std;
 #include <sstream>
 #include <map>
 #include <set>
+#include <fstream>
+#include <string>
 //------------------------------------------------------ Include personnel
 
 #include "GestionRisques.h"
@@ -278,7 +280,7 @@ void GestionRisques::afficherMaladies()
 	}
 }
 
-multimap<string, Empreinte> GestionRisques::CreerListeEmpreinteAvecMaladie(string nomFichier)
+multimap<string, Empreinte> GestionRisques::creerListeEmpreinteAvecMaladie(string nomFichier)
 {
     ifstream entreeFichier;
 	entreeFichier.open(nomFichier);
@@ -341,7 +343,7 @@ multimap<string, Empreinte> GestionRisques::CreerListeEmpreinteAvecMaladie(strin
 void GestionRisques::initMaladies(string nomFichier)
 {
 	vector<Maladie> defMaladies;
-	multimap<string, Empreinte> liste = CreerListeEmpreinteAvecMaladie(nomFichier);
+	multimap<string, Empreinte> liste = creerListeEmpreinteAvecMaladie(nomFichier);
 	set<string> nomDesMaladies;
 
 	for (auto it=liste.begin(); it!=liste.end(); ++it)
@@ -498,6 +500,43 @@ void GestionRisques::initMaladies(string nomFichier)
 	enregistrerMaladies(defMaladies);
 }
 
+void GestionRisques::supprimerLignes(string nomFichier, string ligneAEffacer)
+{
+    string ligne;
+    // open input file
+    ifstream lectureFichier(nomFichier);
+    if( !lectureFichier.is_open())
+    {
+          cout << "Erreur lors de l'ouverture" << endl;
+          return;
+    }
+    // now open temp output file
+    ofstream ecritureFichier ("nouveauFichier.txt");
+    // loop to read/write the file.  Note that you need to add code here to check
+    // if you want to write the line
+    while( getline(lectureFichier,ligne) )
+    {
+        if(ligne != ligneAEffacer)
+            ecritureFichier << ligne << "\n";
+    }
+    lectureFichier.close();
+    ecritureFichier.close();
+    // delete the original file
+    remove(nomFichier.c_str());
+    // rename old to new
+    rename("nouveauFichier.txt",nomFichier.c_str());
+    // all done!
+
+}
+
+void GestionRisques::ajouterLignes(string nomFichier, string ligneAAjouter)
+{
+    ofstream fichier(nomFichier, ios::app);
+    fichier<<ligneAAjouter<<endl;
+    fichier.close();
+
+
+}
 
 void GestionRisques::enregistrerMaladies(vector<Maladie> vectMaladies)
 {

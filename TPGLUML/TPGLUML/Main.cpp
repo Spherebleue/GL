@@ -123,7 +123,7 @@ int test_CreerListeEmpreinteAvecMaladie()
 {
     Empreinte::initialiserFormat();
     GestionRisques gr;
-    multimap<string, Empreinte> liste = gr.CreerListeEmpreinteAvecMaladie("Donnees/F2_ok.txt");
+    multimap<string, Empreinte> liste = gr.creerListeEmpreinteAvecMaladie("Donnees/F2_ok.txt");
     for (auto it=liste.begin(); it!=liste.end(); ++it)
 	{
         cout<< (*it).first << " : "<< (*it).second<<endl;
@@ -189,11 +189,27 @@ int test_mauvaisChercherMaladie()
 
 int test_analyse ()
 {
-GestionRisques g;
-g.analyserFichier("Donnees/F3_ok.txt");
-return 0;
+    GestionRisques g;
+    g.analyserFichier("Donnees/F3_ok.txt");
+    return 0;
+}
+int test_supprimerLigne()
+{
+
+    GestionRisques gr;
+    gr.supprimerLignes("Donnees/F2_ok (copie).txt", "3;None;12;145;12.1;11;Maladie1" );
+    return 0;
+
 }
 
+int test_ajouterLigne()
+{
+
+    GestionRisques gr;
+    gr.ajouterLignes("Donnees/F2_ok (copie).txt", "4;None;12;149;12.1;12;Maladie3" );
+    return 0;
+
+}
 int main(int argc, char* argv[])
 {
 	//GestionUtilisateur_Test_1();
@@ -207,6 +223,8 @@ int main(int argc, char* argv[])
 	//test_mauvaisChercherMaladie();
 	//test_CreerListeEmpreinteAvecMaladie();
 	test_initMaladies();
-	test_analyse();
+	//test_supprimerLigne();
+	test_ajouterLigne();
+	//test_analyse();
 	//while (true);
 }

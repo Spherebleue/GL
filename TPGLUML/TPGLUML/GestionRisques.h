@@ -35,7 +35,12 @@ public:
     //----------------------------------------------------------------Constantes
     const int pourcentageSymptomes = 90;
 	//----------------------------------------------------------------Méthodes publiques
-
+    void supprimerLignes(string, string);
+    //Mode d'emploi :
+    //Cette méthode permet de rajouter des lignes dans le fichier contenant la liste des empreintes et des maladies associées
+    void ajouterLignes(string, string);
+    //Mode d'emploi :
+    //Cette méthode permet de supprimer des lignes dans le fichier contenant la liste des empreintes et des maladies associées
 	void initMaladies(string);
 	// Mode d'emploi :
 	// Cette methode parcourt le fichier contenant des empreintes et les maladies associées, et détermine quels attributs sont des symptômes de la maladie et peuvent donc être utlisés en tant que critère pour déterminer si un patient est malade ou non
@@ -56,7 +61,7 @@ public:
 	// Mode d'emploi :
 	// Cette methode va écrire dans un fichier la liste des maladies et leurs critières
 
-	multimap<string, Empreinte> CreerListeEmpreinteAvecMaladie(string nomFichier);
+	multimap<string, Empreinte> creerListeEmpreinteAvecMaladie(string nomFichier);
 	// Mode d'emploi :
 	// Cette methode va lire le fichier contenant les empreintes et les maladies associées, et rentrer ces informations dans une map ayant en clé le nom de la maladie et en valeur l'Empreinte associée
 	//-------------------------------------------- Constructeurs - destructeur
