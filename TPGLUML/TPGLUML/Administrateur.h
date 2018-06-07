@@ -1,3 +1,12 @@
+/*************************************************************************
+Administrateur  -  description
+-------------------
+début                : 30/04/2018
+copyright            : (C) 2018 par Lea Ferrere - Gustavo Chaiaa-Ramirez - Gregoire Bailly - Maud Duraffourg
+e-mail               : maud.duraffourg@insa-lyon.fr
+*************************************************************************/
+
+//---------- Interface de la classe <Administrateur> (fichier Administrateur.h) ------------
 #if ! defined ( Administrateur_H )
 #define Administrateur_H
 //--------------------------------------------------- Interfaces utilisées
@@ -11,6 +20,12 @@ using namespace std;
 class Administrateur : public Utilisateur
 {
 //----------------------------------------------------------------- PUBLIC
+
+//------------------------------------------------------------------------
+// Role de la classe <Administrateur>
+// 
+//
+//------------------------------------------------------------------------
 //-------------------------------------------------------Fonction amies
 public:
 	friend ostream& operator<<(ostream&, const Administrateur &);
@@ -18,7 +33,7 @@ public:
 //-------------------------------------------- Constructeurs - destructeur
     Administrateur ( const Administrateur & unAdministrateur); 
     // Mode d'emploi :
-    // Fait une copie en profondeur de l'objet donne en parametre
+    // Fait une copie en profondeur d'un objet Administrateur
 
 	Administrateur();
     // Mode d'emploi :
@@ -26,8 +41,7 @@ public:
 
 	Administrateur(string, string, string, string);
 	// Mode d'emploi :
-	// un constructeur
-
+	// Un constructeur
 
     virtual ~Administrateur( );
     // Mode d'emploi :

@@ -1,4 +1,12 @@
+/*************************************************************************
+CritereCategoriel  -  description
+-------------------
+début                : 30/04/2018
+copyright            : (C) 2018 par Lea Ferrere - Gustavo Chaiaa-Ramirez - Gregoire Bailly - Maud Duraffourg
+e-mail               : maud.duraffourg@insa-lyon.fr
+*************************************************************************/
 
+//---------- Interface de la classe <CritereCategoriel> (fichier CritereCategoriel.h) ------------
 #define CritereCategoriel_H
 //--------------------------------------------------- Interfaces utilisées
 
@@ -8,32 +16,43 @@ using namespace std;
 #include <fstream>
 #include "Critere.h"
 
+// Role de la classe <CritereCategoriel>
+// 
+//
+//------------------------------------------------------------------------
+
 class CritereCategoriel : public Critere
 {
 	//----------------------------------------------------------------- PUBLIC
-	//-------------------------------------------------------Fonction amies
-public:
 
+	
+public:
+	//-------------------------------------------------------Fonction amies
 	friend ostream& operator<<(ostream&, const CritereCategoriel &); 
+
+	//-----------------------------------------------------Méthodes publiques
+	CritereCategoriel * copieCritere();
+	// Mode d'emploi :
+	// Une fonction qui a pour but de faire une copie en profondeur d'un pointeur de CritereCategoriel
+
+	string getCategorie();
+	// Mode d'emploi :
+	// Une accesseur pour l'attribut "categorie"
 
 	//-------------------------------------------- Constructeurs - destructeur
 	CritereCategoriel(const CritereCategoriel & uneCritereCategoriel);
 	// Mode d'emploi :
-	// Fait une copie en profondeur de l'objet donne en parametre, et
-	// l ajoute au CritereCategoriel.
+	// Fait une copie en profondeur d'un objet CritereCategoriel
 
 	CritereCategoriel();
 	// Mode d'emploi :
-	// Un constructeur par défaut, se contenant de creer la premiere cellule
+	// Un constructeur par défaut
 
 	CritereCategoriel(string, bool, string);
 	// Mode d'emploi :
-	// Un constructeur pour créer un CritereCategoriel
+	// Un constructeur
 
 
-	CritereCategoriel * copieCritere();
-
-	string getCategorie();
 
 
 	virtual ~CritereCategoriel();

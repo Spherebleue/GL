@@ -1,4 +1,12 @@
+/*************************************************************************
+CritereNumerique  -  description
+-------------------
+début                : 30/04/2018
+copyright            : (C) 2018 par Lea Ferrere - Gustavo Chaiaa-Ramirez - Gregoire Bailly - Maud Duraffourg
+e-mail               : maud.duraffourg@insa-lyon.fr
+*************************************************************************/
 
+//---------- Interface de la classe <CritereNumerique> (fichier CritereNumerique.h) ------------
 #define CritereNumerique_H
 //--------------------------------------------------- Interfaces utilisées
 
@@ -8,34 +16,48 @@ using namespace std;
 #include <cstring>
 #include <fstream>
 
+// Role de la classe <CritereNumerique>
+// 
+//
+//------------------------------------------------------------------------
+
 
 class CritereNumerique : public Critere
 {
 	//----------------------------------------------------------------- PUBLIC
-	//-------------------------------------------------------Fonction amies
+
+	
 public:
 
+	//-------------------------------------------------------Fonction amies
 	friend ostream& operator<<(ostream&, const CritereNumerique &); 
+
+	//------------------------------------------------------ Méthodes publiques
+	CritereNumerique * copieCritere();
+	// Mode d'emploi :
+	// Une fonction qui a pour but de faire une copie en profondeur d'un pointeur de CritereNumerique
+
+	double getEcartType();
+	// Mode d'emploi :
+	// Une accesseur pour l'attribut "ecartType"
+	double getMoyenne();
+	// Mode d'emploi :
+	// Une accesseur pour l'attribut "getMoyenne"
+
 
 	//-------------------------------------------- Constructeurs - destructeur
 	CritereNumerique(const CritereNumerique & uneCritereNumerique);
 	// Mode d'emploi :
-	// Fait une copie en profondeur de l'objet donne en parametre, et
-	// l ajoute au CritereNumerique.
+	// Fait une copie en profondeur d'un objet CritereNumerique.
 
 	CritereNumerique();
 	// Mode d'emploi :
-	// Un constructeur par défaut, se contenant de creer la premiere cellule
+	// Un constructeur par défaut
 
 	CritereNumerique(string, bool, double, double);
 	// Mode d'emploi :
-	// Un constructeur pour créer un CritereNumerique
-
+	// Un constructeur
 	
-	CritereNumerique * copieCritere();
-
-	double getEcartType();
-	double getMoyenne();
 
 	virtual ~CritereNumerique();
 	// Mode d'emploi :

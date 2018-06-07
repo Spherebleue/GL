@@ -1,3 +1,12 @@
+/*************************************************************************
+GestionUtilisateur  -  description
+-------------------
+début                : 30/04/2018
+copyright            : (C) 2018 par Lea Ferrere - Gustavo Chaiaa-Ramirez - Gregoire Bailly - Maud Duraffourg
+e-mail               : maud.duraffourg@insa-lyon.fr
+*************************************************************************/
+
+//---------- Interface de la classe <GestionUtilisateur> (fichier GestionUtilisateur.h) ------------
 #if ! defined ( GestionUtilisateur_H )
 #define GestionUtilisateur_H
 
@@ -11,33 +20,37 @@ using namespace std;
 #include <assert.h>
 #include "Utilisateur.h"
 
+// Role de la classe <GestionUtilisateur>
+// 
+//
+//------------------------------------------------------------------------
+
 class GestionUtilisateur
 {
 	//----------------------------------------------------------------- PUBLIC
-	//----------------------------------------------------------Fonction amies
+
 public:
 
 	bool connexion(string nom, string prenom, string motpasse, string nomFichier);
 	// Mode d'emploi :
-	// Renvoie true si lenom et mot de passe se troouve dans le fichier nomFichier.
+	// Cette methode renvoie true si le nom et mot de passe se troouve dans le fichier nomFichier, et false sinon
 
 	void afficherListeDocteurs(string nomFichier);
 	// Mode d'emploi :
-	// Affiche la liste de docteurs contenue dans le fichier de nom nomFichier.
+	// Cette methode affiche la liste de docteurs contenue dans le fichier de nom nomFichier.
 
 	void creerCompte(string nom, string prenom,string adresse, string motpasse, string nomFichier);
 	// Mode d'emploi :
-	// Cree une objets utilisateur avec les donnees recues et l'enregistre dans un fichier.
+	// Cette methode cree une objet Utilisateur avec les donnees recues et l'enregistre dans le fichier nomFichier.
 
 	//-------------------------------------------- Constructeurs - destructeur
 	GestionUtilisateur(const GestionUtilisateur & uneGestionUtilisateur);
 	// Mode d'emploi :
-	// Fait une copie en profondeur de l'objet donne en parametre, et
-	// l ajoute au GestionUtilisateur.
+	// Fait une copie en profondeur d'un objet GestionUtilisateur.
 
 	GestionUtilisateur();
 	// Mode d'emploi :
-	// Un constructeur par défaut, se contentant de creer la premiere cellule
+	// Un constructeur par défaut
 
 	virtual ~GestionUtilisateur();
 	// Mode d'emploi :
@@ -46,9 +59,7 @@ public:
 	//------------------------------------------------------------------ PRIVE
 
 protected:
-	//----------------------------------------------------- Méthodes protégées
 
-	//----------------------------------------------------- Attributs protégés
 
 };
 

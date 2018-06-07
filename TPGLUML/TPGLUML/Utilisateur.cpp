@@ -1,9 +1,9 @@
 /*************************************************************************
-                           Utilisateur  -  description
-                             -------------------
-    début                : $DATE$
-    copyright            : (C) $YEAR$ par $AUTHOR$
-    e-mail               : $EMAIL$
+Utilisateur  -  description
+-------------------
+début                : 30/04/2018
+copyright            : (C) 2018 par Lea Ferrere - Gustavo Chaiaa-Ramirez - Gregoire Bailly - Maud Duraffourg
+e-mail               : maud.duraffourg@insa-lyon.fr
 *************************************************************************/
 
 //---------- Réalisation de la classe <Utilisateur> (fichier Utilisateur.cpp) ------------

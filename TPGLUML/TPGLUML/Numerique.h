@@ -1,3 +1,12 @@
+/*************************************************************************
+Numerique  -  description
+-------------------
+début                : 30/04/2018
+copyright            : (C) 2018 par Lea Ferrere - Gustavo Chaiaa-Ramirez - Gregoire Bailly - Maud Duraffourg
+e-mail               : maud.duraffourg@insa-lyon.fr
+*************************************************************************/
+
+//---------- Interface de la classe <Numerique> (fichier Numerique.h) ------------
 #if ! defined ( Numerique_H )
 #define Numerique_H
 
@@ -9,13 +18,29 @@ using namespace std;
 #include <cstring>
 #include <fstream>
 
+// Role de la classe <Numerique>
+// 
+//
+//------------------------------------------------------------------------
+
 class Numerique : public Attribut
 {
 //----------------------------------------------------------------- PUBLIC
-//-------------------------------------------------------Fonction amies
+
 public:
 
- friend ostream& operator<<(ostream&, const Numerique &);
+//-------------------------------------------------------Fonction amies
+	friend ostream& operator<<(ostream&, const Numerique &);
+	 ostream & output(ostream&) const;
+ //----------------------------------------------Méthodes publiques
+	 Numerique * copieAttribut();
+	 // Mode d'emploi :
+	 // Une fonction qui a pour but de faire une copie en profondeur d'un pointeur de Numerique
+
+
+	double getValeur();
+	 // Mode d'emploi :
+	// Une accesseur pour l'attribut "valeur"
 
 //-------------------------------------------- Constructeurs - destructeur
     Numerique ( const Numerique & uneNumerique );
@@ -31,10 +56,6 @@ public:
     // Mode d'emploi :
     // Un constructeure
 
-	Numerique * copieAttribut();
-	ostream & output(ostream&) const ;
-
-	double getValeur();
 
     virtual ~Numerique ( );
     // Mode d'emploi :
