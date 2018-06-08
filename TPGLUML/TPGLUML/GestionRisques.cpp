@@ -122,6 +122,10 @@ void GestionRisques::analyserFichier(string nomFichier)
 		//cout << *e << endl;
 		vectEmpreinte.push_back(e);
         }
+        else
+        {
+            cout<<"Attention, ligne vide détectée dans le fichier de données " << nomFichier<<endl;
+        }
 	}
 	entreeFichier.close();
 	//cout << (vectEmpreinte.size()) << endl;
@@ -304,7 +308,7 @@ multimap<string, Empreinte> GestionRisques::creerEmpreintesAvecMaladie(string no
 		string maladie = "";
 		if(valeurAttribut.compare("")==0)
 		{
-            cout<<"Erreur, fichier de donnees mal forme, une ligne vide est détectée"<<endl;
+            cout<<"Attention, fichier de donnees "<< nomFichier<<"mal formé, une ligne vide est détectée"<<endl;
             return liste;
 		}
 		for (int i = 0; i <= int(Empreinte::format.size()); i++)
