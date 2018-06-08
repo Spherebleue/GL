@@ -296,7 +296,6 @@ multimap<string, Empreinte> GestionRisques::creerEmpreintesAvecMaladie(string no
 	getline(entreeFichier, line);
 	multimap<string, Empreinte> liste;
 	set<string> nomDesMaladies;
-
 	while (entreeFichier.good())
 	{
 		Empreinte e;
@@ -346,6 +345,7 @@ multimap<string, Empreinte> GestionRisques::creerEmpreintesAvecMaladie(string no
 		}
 		liste.insert(make_pair(maladie,e));
 	}
+	entreeFichier.close();
 	return liste;
 }
 
