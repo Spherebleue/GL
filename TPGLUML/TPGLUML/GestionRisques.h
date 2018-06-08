@@ -49,11 +49,11 @@ public:
 	// Mode d'emploi :
 	// Cette methode parcourt le fichier contenant des empreintes et les maladies associées, et détermine quels attributs sont des symptômes de la maladie et peuvent donc être utlisés en tant que critère pour déterminer si un patient est malade ou non
 
-	void analyserFichier(string nomFichier);
+	bool analyserFichier(string nomFichier);
 	// Mode d'emploi :
 	// Cette methode va analyser le ou les empreintes présente(s) dans le fichier en les comparant avec les maladies présentes dans le fichier contenant les maladies et leurs critères et affichera les maladies associées à chacune des Empreinte
 
-	void chercherMaladie(string nomMaladie);
+	bool chercherMaladie(string nomMaladie);
 	// Mode d'emploi :
 	// Cette methode parcourt le fichier contenant les maladies et leurs crtières et affiche les critères de la maladie passée en paramètre
 

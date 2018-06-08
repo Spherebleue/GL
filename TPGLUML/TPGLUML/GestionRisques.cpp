@@ -68,15 +68,29 @@ GestionRisques::~GestionRisques()
 
 } //----- Fin de ~GestionRisques
 
-void GestionRisques::analyserFichier(string nomFichier)
+bool GestionRisques::analyserFichier(string nomFichier)
 {
 	ifstream entreeFichier;
 	entreeFichier.open(nomFichier);
 
-	assert(entreeFichier);                        //verifie que le fichier est bien trouve
-
 	string line;
 	getline(entreeFichier, line);
+
+	stringstream ss;
+	ss.str(line);
+	getline(ss, line, ';');
+	int count = 0;
+	while (ss.good())
+	{
+		getline(ss, line, ';');
+		count++;
+	}
+	if (count != int(Empreinte::format.size()))
+	{
+		cout << "Erreur : le format du fichier " << nomFichier << " ne correspond pas au format des metadonnees" << endl;
+		return false;
+	}
+
 	vector <Empreinte *> vectEmpreinte;
 	while (entreeFichier.good()) // tant qu'il y a des empreintes , on cree des objets Empreinte que l'on met dans un vecteur
 	{
@@ -101,13 +115,11 @@ void GestionRisques::analyserFichier(string nomFichier)
 				if (Empreinte::format[i].second.compare("Categoriel") == 0) //verifie que le type est bien le bon
 				{
 					Categoriel * a = new Categoriel(Empreinte::format[i].first, valeurAttribut);
-					//cout << *a << endl;
 					e->ajouterAttribut(a);
 				}
 				else if (Empreinte::format[i].second.compare("Numerique") == 0)
 				{
 					Numerique * a = new Numerique(Empreinte::format[i].first, stod(valeurAttribut));
-					//cout << *a << endl;
 					e->ajouterAttribut(a);
 				}
 				else
@@ -118,10 +130,6 @@ void GestionRisques::analyserFichier(string nomFichier)
 			}
 			//cout << *e << endl;
 			vectEmpreinte.push_back(e);
-		}
-		else
-		{
-			cout << "Attention, ligne vide détectée dans le fichier de données " << nomFichier << endl;
 		}
 	}
 	entreeFichier.close();
@@ -138,7 +146,7 @@ void GestionRisques::analyserFichier(string nomFichier)
 	for (int i = 0; i < int(vectEmpreinte.size()); i++)
 	{
 		ifstream entreeFichierMaladies;
-		entreeFichierMaladies.open("ListeMaladies.txt");
+		entreeFichierMaladies.open("Donnees/ListeMaladies.txt");
 		assert(entreeFichierMaladies);
 		string numero = to_string(i + 1);
 		elementVecteur = "Empreinte numero" + numero + ": ";
@@ -191,12 +199,13 @@ void GestionRisques::analyserFichier(string nomFichier)
 		else
 			cout << empreinteMaladie[t]  << endl;
 	}
+	return true;
 }
 
-void GestionRisques::chercherMaladie(string nomMaladie)
+bool GestionRisques::chercherMaladie(string nomMaladie)
 {
 	ifstream entreeFichier;
-	entreeFichier.open("ListeMaladies.txt");
+	entreeFichier.open("Donnees/ListeMaladies.txt");
 	string ligne;
 	string nomMaladieFichier;
 	bool trouve = false;
@@ -250,18 +259,21 @@ void GestionRisques::chercherMaladie(string nomMaladie)
 		else
 		{
 			cout << "La maladie n a pas ete trouve" << endl;
+			return false;
 		}
 	}
 	else
 	{
 		cerr << "Probleme d'ouverture de fichier " << endl;
+		return false;
 	}
+	return true;
 }
 
 void GestionRisques::afficherMaladies()
 {
 	ifstream entreeFichier;
-	entreeFichier.open("ListeMaladies.txt");
+	entreeFichier.open("Donnees/ListeMaladies.txt");
 	string ligne;
 	if (entreeFichier)
 	{
@@ -286,13 +298,11 @@ multimap<string, Empreinte> GestionRisques::creerEmpreintesAvecMaladie(string no
 {
 	ifstream entreeFichier;
 	entreeFichier.open(nomFichier);
-
-	assert(entreeFichier);                        //verifie que le fichier est bien trouve
-
 	string line = "je suis pas vide";
 	getline(entreeFichier, line);
 	multimap<string, Empreinte> liste;
 	set<string> nomDesMaladies;
+
 	while (entreeFichier.good())
 	{
 		Empreinte e;
@@ -304,7 +314,6 @@ multimap<string, Empreinte> GestionRisques::creerEmpreintesAvecMaladie(string no
 		string maladie = "";
 		if (valeurAttribut.compare("") == 0)
 		{
-			cout << "Attention, fichier de donnees " << nomFichier << "mal forme, une ligne vide est détectee" << endl;
 			return liste;
 		}
 		for (int i = 0; i <= int(Empreinte::format.size()); i++)
@@ -572,7 +581,7 @@ void GestionRisques::ajouterLignes(string nomFichier, string ligneAAjouter)
 
 void GestionRisques::enregistrerMaladies(vector<Maladie> vectMaladies)
 {
-	ofstream fichier("ListeMaladies.txt", ios::trunc);
+	ofstream fichier("Donnees/ListeMaladies.txt", ios::trunc);
 
 	if (fichier)
 	{
