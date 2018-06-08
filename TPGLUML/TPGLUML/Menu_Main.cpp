@@ -88,7 +88,7 @@ void Menu_ConnexionDocteur() {
 	string nom = "---";
 	string prenom = "---";
 	string motpasse = "---";
-	cout << "Entrez vos donnees toutes en majuscules, s'il vous plait, sauf votre mot de passe: " << endl << endl << "Nom : ";
+	cout << "Entrez vos donnees toutes en majuscules, s il vous plait, sauf votre mot de passe: " << endl << endl << "Nom : ";
 	getline(cin, nom);
 	cout << "Prenom : ";
 	getline(cin, prenom);
@@ -125,12 +125,14 @@ void Menu_DocteurConnecte(string prenom, string nom) {
 
     bool termine = false;
     while(!termine){
-        //cin.ignore()
+		
+		cout << endl;
+		cout << endl;
         cout << "1. \tSe deconnecter" << endl;
         cout << "2. \tAnalyse empreinte" << endl;
         cout << "3. \tAffichage des maladies prises en compte" << endl;
         cout << "4. \tDescription des caracteristiques d'une maladie" << endl << endl;
-        cout << "Entrer 1, 2, 3 ou 4 suivant l’option que vous souhaitez utiliser puis appuyer sur la touche entrer." << endl;
+        cout << "Entrer 1, 2, 3 ou 4 suivant l option que vous souhaitez utiliser puis appuyer sur la touche entrer." << endl;
         cout << "Votre choix : ";
 
         char choix = outil_ObtenirChoix();
@@ -146,6 +148,7 @@ void Menu_DocteurConnecte(string prenom, string nom) {
                 cout << "Analyse Empreinte" << endl << endl;
                 cout << "Nom Fichier ? " << endl;
                 cin >> valeurCommande;
+				cin.ignore();
                 gestRisques.analyserFichier(valeurCommande);
                 break;
             }
@@ -157,14 +160,15 @@ void Menu_DocteurConnecte(string prenom, string nom) {
             }
             case '4': {
 				gestUt.ecritureLog("Log.txt", prenom, nom, "Description");
-                cout << "Description des caracteristiques d'une maladie" << endl << endl;
+                cout << "Description des caracteristiques d une maladie" << endl << endl;
                 cout << "Nom de la maladie ?" << endl;
                 cin >> valeurCommande;
+				cin.ignore();
                 gestRisques.chercherMaladie(valeurCommande);
                 break;
             }
             default: {
-                cout << endl << "ATTENTION : Vous n'avez pas pris un choix valide." << endl << endl;
+                cout << endl << "ATTENTION : Vous n avez pas pris un choix valide." << endl << endl;
                 break;
             }
         }
@@ -181,7 +185,7 @@ void Menu_ConnexionAdministrateur() {
 	string nom = "---";
 	string prenom = "---";
 	string motpasse = "---";
-	cout << "Entrez vos donnees toutes en majuscules, s'il vous plait, sauf votre mot de passe : " << endl << endl << "Nom : ";
+	cout << "Entrez vos donnees toutes en majuscules, s il vous plait, sauf votre mot de passe : " << endl << endl << "Nom : ";
 	getline(cin, nom);
 	cout << "Prenom : ";
 	getline(cin, prenom);
@@ -215,10 +219,11 @@ void Menu_AdministrateurConnecte(string prenom, string nom) {
     bool termine=false;
     while(!termine)
     {
-        //cin.ignore();
+		cout << endl;
+		cout << endl;
         cout << "1. \tSe deconnecter" << endl;
         cout << "2. \tModifier le fichier" << endl;
-        cout << "Entrer 1 ou 2 suivant l’option que vous souhaitez utiliser puis appuyer sur la touche entrer." << endl << endl;
+        cout << "Entrer 1 ou 2 suivant l option que vous souhaitez utiliser puis appuyer sur la touche entrer." << endl << endl;
         cout << "Votre choix : ";
 
         char choix = outil_ObtenirChoix();
@@ -235,7 +240,7 @@ void Menu_AdministrateurConnecte(string prenom, string nom) {
                 break;
             }
             default: {
-                cout << endl << "ATTENTION : Vous n'avez pas pris un choix valide." << endl << endl;
+                cout << endl << "ATTENTION : Vous n avez pas pris un choix valide." << endl << endl;
                 break;
             }
         }
@@ -251,36 +256,42 @@ void Menu_ModificationFichier()
 	bool termine=false;
     while(!termine)
     {
-        //cin.ignore()
+
+		cout << endl;
+		cout << endl;
         cout << "1. \tAjouter une ligne" << endl;
         cout << "2. \tSupprimer une ligne" << endl;
         cout << "3. \tSupprimer une empreinte via son ID" << endl;
-        cout << "Entrer 1, 2 ou 3 suivant l’option que vous souhaitez utiliser puis appuyer sur la touche entrer." << endl << endl;
+		cout << "4. \tRevenir au menu" << endl;
+        cout << "Entrer 1, 2, 3 ou 4 suivant l option que vous souhaitez utiliser puis appuyer sur la touche entrer." << endl << endl;
         char choix = outil_ObtenirChoix();
         switch (choix) {
             case '1': {
                 cout << "Ajout de ligne" << endl << endl;
-                cout << "Ligne à ajouter ?" << endl;
+                cout << "Ligne a ajouter ?" << endl;
                 getline(cin, ligne);
                 gestRisques.ajouterLignes("F3_ok.txt", ligne);
                 break;
             }
             case '2': {
                 cout << "Suppression de ligne" << endl << endl;
-                cout << "Ligne à supprimer ?" << endl;
+                cout << "Ligne a supprimer ?" << endl;
                 getline(cin, ligne);
                 gestRisques.supprimerLignes("F3_ok.txt", ligne);
                 break;
             }
             case '3': {
-                cout << "Suppression de l'empreinte" << endl << endl;
-                cout << "ID de l'Empreinte ?" << endl;
+                cout << "Suppression de l empreinte" << endl << endl;
+                cout << "ID de l Empreinte ?" << endl;
                 getline(cin, ligne);
                 gestRisques.supprimerEmpreinte("F3_ok.txt", ligne);
                 break;
             }
+			case '4': {
+				return;
+			}
             default: {
-                cout << endl << "ATTENTION : Vous n'avez pas pris un choix valide." << endl << endl;
+                cout << endl << "ATTENTION : Vous n avez pas pris un choix valide." << endl << endl;
                 break;
             }
         }
@@ -293,7 +304,7 @@ void Menu_InscriptionDocteur() {
     bool termine=false;
     while(!termine)
     {
-        cout << endl << "Veuillez inserez vos donnees personnelles a enregistrer, sil vous plait : " << endl << endl;
+        cout << endl << "Veuillez inserez vos donnees personnelles a enregistrer, s il vous plait : " << endl << endl;
 
         cout << "1. \tNom : ";
         string Nom = outil_ObtenirMot();
@@ -351,12 +362,13 @@ int Menu_Principal() {
 	cout << endl;
 	cout << "---------------------------------------------------------------------------------------------------";
 	cout << endl;
-	cout << endl << "BIENVENU a l'application des tests medicaux d'empreintes" << endl << endl;
+	cout << endl << "BIENVENU a l'application des tests medicaux d empreintes" << endl << endl;
 
     bool termine=false;
     while(!termine)
     {
-        //cin.ignore()
+		cout << endl;
+		cout << endl;
         cout << "1. \tConnexion Docteur" << endl;
         cout << "2. \tConnexion Administrateur" << endl;
         cout << "3. \tInscription Docteur" << endl;
