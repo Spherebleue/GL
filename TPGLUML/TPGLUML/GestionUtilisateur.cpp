@@ -11,10 +11,12 @@ e-mail               : maud.duraffourg@insa-lyon.fr
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
+#define _CRT_SECURE_NO_WARNINGS
 using namespace std;
 #include <iostream>
 #include <cstring>
 #include <string>
+#include <ctime>
 //------------------------------------------------------ Include personnel
 #include "GestionUtilisateur.h"
 
@@ -75,6 +77,24 @@ void GestionUtilisateur::afficherListeDocteurs(string nomFichier)
 	else
 	{
 		cerr << "Impossible d'ouvrir le fichier CompteDocteurs." << endl;
+	}
+}
+
+void GestionUtilisateur::ecritureLog(string nomFichier, string prenom, string nom, string requete)
+{
+	ofstream fichier(nomFichier, ios::app);
+	if (fichier)
+	{
+		{
+			time_t result =time(nullptr);
+			string s = (asctime(localtime(&result)));
+			s.erase(s.end() - 1, s.end());
+			fichier << s << ";" << nom << ";"<< prenom << ";" << requete<< endl;
+		}
+	}
+	else
+	{
+		cerr << "Impossible d'ouvrir le fichier de log" << endl;
 	}
 }
 

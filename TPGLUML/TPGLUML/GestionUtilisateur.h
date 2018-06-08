@@ -21,8 +21,8 @@ using namespace std;
 #include "Utilisateur.h"
 
 // Role de la classe <GestionUtilisateur>
-// 
-//
+// Cette classe permet de gérer tout ce qui touche aux utilisateurs :
+// création de compte, connexion etc...
 //------------------------------------------------------------------------
 
 class GestionUtilisateur
@@ -42,6 +42,10 @@ public:
 	void creerCompte(string nom, string prenom,string adresse, string motpasse, string nomFichier);
 	// Mode d'emploi :
 	// Cette methode cree une objet Utilisateur avec les donnees recues et l'enregistre dans le fichier nomFichier.
+
+	void ecritureLog(string nomFichier, string prenom, string nom, string requete);
+	// Mode d'emploi :
+	// Cette methode écrit dans un fichier de log à chaque fois qu'une requete est effectuée.
 
 	//-------------------------------------------- Constructeurs - destructeur
 	GestionUtilisateur(const GestionUtilisateur & uneGestionUtilisateur);

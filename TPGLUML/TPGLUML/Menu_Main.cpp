@@ -30,11 +30,11 @@ using namespace std;
 
 void Menu_ConnexionDocteur();
 
-void Menu_DocteurConnecte();
+void Menu_DocteurConnecte(string, string);
 
 void Menu_ConnexionAdministrateur();
 
-void Menu_AdministrateurConnecte();
+void Menu_AdministrateurConnecte(string, string);
 
 void Menu_InscriptionDocteur();
 
@@ -85,21 +85,21 @@ void Menu_ConnexionDocteur() {
 
 	/* Demande de renseignements */
 	cout << endl << "Connexion Docteur" << endl << endl;
-	string Nom = "---";
-	string Prenom = "---";
-	string Motpasse = "---";
+	string nom = "---";
+	string prenom = "---";
+	string motpasse = "---";
 	cout << "Entrez vos donnees toutes en majuscules, s'il vous plait, sauf votre mot de passe: " << endl << endl << "Nom : ";
-	getline(cin, Nom);
+	getline(cin, nom);
 	cout << "Prenom : ";
-	getline(cin, Prenom);
+	getline(cin, prenom);
 	cout << "Mot de passe : ";
-	getline(cin, Motpasse);
+	getline(cin, motpasse);
 	cout << endl;
 	/* Appel a la methode connexion */
 	GestionUtilisateur uneGestionUtilisateur;
-	if (uneGestionUtilisateur.connexion(Nom, Prenom, Motpasse, "ListeDocteurs.txt"))
+	if (uneGestionUtilisateur.connexion(nom, prenom, motpasse, "ListeDocteurs.txt"))
 	{
-		Menu_DocteurConnecte();
+		Menu_DocteurConnecte(prenom, nom);
 	}
 	else
 	{
@@ -109,11 +109,13 @@ void Menu_ConnexionDocteur() {
 
 
 
-void Menu_DocteurConnecte() {
+void Menu_DocteurConnecte(string prenom, string nom) {
 
 	GestionRisques gestRisques;
+	GestionUtilisateur gestUt;
+	gestUt.ecritureLog("Log.txt", prenom, nom, "Connexion");
     Empreinte::initialiserFormat();
-	gestRisques.initMaladies("Donnees/F2.txt");
+	gestRisques.initMaladies("Donnees/F2_ok.txt");
 
 	string valeurCommande;
 
@@ -140,6 +142,7 @@ void Menu_DocteurConnecte() {
                 break;
             }
             case '2': {
+				gestUt.ecritureLog("Log.txt", prenom, nom, "Analyse");
                 cout << "Analyse Empreinte" << endl << endl;
                 cout << "Nom Fichier ? " << endl;
                 cin >> valeurCommande;
@@ -147,11 +150,13 @@ void Menu_DocteurConnecte() {
                 break;
             }
             case '3': {
+				gestUt.ecritureLog("Log.txt", prenom, nom, "Affichage");
                 cout << "Affichage des maladies prises en compte" << endl << endl;
                 gestRisques.afficherMaladies();
                 break;
             }
             case '4': {
+				gestUt.ecritureLog("Log.txt", prenom, nom, "Description");
                 cout << "Description des caracteristiques d'une maladie" << endl << endl;
                 cout << "Nom de la maladie ?" << endl;
                 cin >> valeurCommande;
@@ -173,22 +178,22 @@ void Menu_ConnexionAdministrateur() {
 
 	/* Demande de renseignements */
 	cout << endl << endl << "Connexion Administrateur" << endl << endl;
-	string Nom = "---";
-	string Prenom = "---";
-	string Motpasse = "---";
+	string nom = "---";
+	string prenom = "---";
+	string motpasse = "---";
 	cout << "Entrez vos donnees toutes en majuscules, s'il vous plait, sauf votre mot de passe : " << endl << endl << "Nom : ";
-	getline(cin, Nom);
+	getline(cin, nom);
 	cout << "Prenom : ";
-	getline(cin, Prenom);
+	getline(cin, prenom);
 	cout << "Mot de passe : ";
-	getline(cin, Motpasse);
+	getline(cin, motpasse);
 	cout << endl;
 	/* Appel a la methode connexion */
 
 	GestionUtilisateur uneGestionUtilisateur;
-	if (uneGestionUtilisateur.connexion(Nom, Prenom, Motpasse, "ListeAdministrateurs.txt"))
+	if (uneGestionUtilisateur.connexion(nom, prenom, motpasse, "ListeAdministrateurs.txt"))
 	{
-		Menu_AdministrateurConnecte();
+		Menu_AdministrateurConnecte(prenom, nom);
 	}
 	else
 	{
@@ -198,7 +203,10 @@ void Menu_ConnexionAdministrateur() {
 
 
 
-void Menu_AdministrateurConnecte() {
+void Menu_AdministrateurConnecte(string prenom, string nom) {
+
+	GestionUtilisateur gestUt;
+	gestUt.ecritureLog("Log.txt", prenom, nom, "Connexion");
 
 	cout << "---------------------------------------------------------------------------------------------------";
 
@@ -222,12 +230,12 @@ void Menu_AdministrateurConnecte() {
             }
             case '2': {
                 cout << "Modifier le fichier" << endl << endl;
+				gestUt.ecritureLog("Log.txt", prenom, nom, "Modification");
                 Menu_ModificationFichier();
                 break;
             }
             default: {
                 cout << endl << "ATTENTION : Vous n'avez pas pris un choix valide." << endl << endl;
-                Menu_AdministrateurConnecte();
                 break;
             }
         }
