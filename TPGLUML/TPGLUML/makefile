@@ -1,6 +1,6 @@
 ECHO=echo
 COMP=g++
-INT=Attribut.h Empreinte.h Categoriel.h Numerique.h Administrateur.h Docteur.h Utilisateur.h Critere.h CritereNumerique.h CritereCategoriel.h Main.h GestionRisques.h GestionUtilisateur.h Maladie.h
+INT=Attribut.h Empreinte.h Categoriel.h Numerique.h Administrateur.h Docteur.h Utilisateur.h Critere.h CritereNumerique.h CritereCategoriel.h Menu_Main.h GestionRisques.h GestionUtilisateur.h Maladie.h
 REAL=$(INT:.h=.cpp)
 OBJ=$(REAL:.cpp=.o)
 EXE=demoTraj
