@@ -20,12 +20,13 @@ using namespace std;
 #include <set>
 #include <fstream>
 #include <string>
+#include<ctime>
 
 #include "stdlib.h"
 //-------------------------------------------------------------------Tests
 
 
-int SelectionLigneAlea(string nomFichierSource, string nomFichierDestination, int nbLigne)
+static int SelectionLigneAlea(string nomFichierSource, string nomFichierDestination, int nbLigne)
 {
         string table[5000];
         ifstream ifs;
@@ -33,12 +34,10 @@ int SelectionLigneAlea(string nomFichierSource, string nomFichierDestination, in
         ofstream ofs;
         ofs.open(nomFichierDestination.c_str());
 
-        assert(ifs);        //verifie que le fichier est bien trouve
-
         string line;
         getline(ifs, line);
         //on place l'entete
-        ofs<<line;
+        ofs<<line<<"\n";
 
         for(int i = 0 ; i<5000 ; i++)
         {
@@ -57,10 +56,3 @@ int SelectionLigneAlea(string nomFichierSource, string nomFichierDestination, in
     return 0;
 }
 
-int main(int argc, char* argv[])
-{
-        string destination = string(argv[1]);
-        int nbLigne = atoi(string(argv[2]).c_str());
-        SelectionLigneAlea("Donnees/DataSet1/HealthMeasurementsWithLabels.txt",destination , nbLigne );
-        return 0;
-}

@@ -28,11 +28,6 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-/*void CritereNumerique::afficher()
-{
-	Critere::afficher();
-	cout<<", ecart-type : " << ecartType << ", moyenne :" << moyenne << endl;
-}*/
 
 ostream& operator<<(ostream &strm, const CritereNumerique &At)
 //Pour afficher

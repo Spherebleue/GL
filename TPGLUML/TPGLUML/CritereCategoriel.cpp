@@ -28,11 +28,6 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-/*void CritereCategoriel::afficher()
-{
-	Critere::afficher();
-	cout<< ", valeur : "<< categorie <<endl;
-}*/
 
 ostream& operator<<(ostream &strm, const CritereCategoriel &At)
 //Pour afficher

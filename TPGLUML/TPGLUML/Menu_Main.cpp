@@ -104,7 +104,7 @@ void Menu_ConnexionDocteur() {
 	}
 	else
 	{
-		if (uneGestionUtilisateur.connexion(nom, prenom, motpasse, "ListeDocteurs.txt"))
+		if (uneGestionUtilisateur.connexion(nom, prenom, motpasse, "Donnees/ListeDocteurs.txt"))
 		{
 			
 			Menu_DocteurConnecte(prenom, nom);
@@ -122,9 +122,9 @@ void Menu_DocteurConnecte(string prenom, string nom) {
 
 	GestionRisques gestRisques;
 	GestionUtilisateur gestUt;
-	gestUt.ecritureLog("Log.txt", prenom, nom, "Connexion");
+	gestUt.ecritureLog("Donnees/Log.txt", prenom, nom, "Connexion");
     Empreinte::initialiserFormat();
-	gestRisques.initMaladies("Donnees/F2_ok.txt");
+	gestRisques.initMaladies("Donnees/DataSet1/HealthMeasurementsWithLabels.txt");
 	string valeurCommande;
 
 	cout << "---------------------------------------------------------------------------------------------------";
@@ -152,7 +152,7 @@ void Menu_DocteurConnecte(string prenom, string nom) {
                 break;
             }
             case '2': {
-				gestUt.ecritureLog("Log.txt", prenom, nom, "Analyse");
+				gestUt.ecritureLog("Donnees/Log.txt", prenom, nom, "Analyse");
                 cout << "Analyse Empreinte" << endl << endl;
                 cout << "Nom Fichier ? " << endl;
                 cin >> valeurCommande;
@@ -166,13 +166,13 @@ void Menu_DocteurConnecte(string prenom, string nom) {
                 break;
             }
             case '3': {
-				gestUt.ecritureLog("Log.txt", prenom, nom, "Affichage");
+				gestUt.ecritureLog("Donnees/Log.txt", prenom, nom, "Affichage");
                 cout << "Affichage des maladies prises en compte" << endl << endl;
                 gestRisques.afficherMaladies();
                 break;
             }
             case '4': {
-				gestUt.ecritureLog("Log.txt", prenom, nom, "Description");
+				gestUt.ecritureLog("Donnees/Log.txt", prenom, nom, "Description");
                 cout << "Description des caracteristiques d une maladie" << endl << endl;
                 cout << "Nom de la maladie ?" << endl;
                 cin >> valeurCommande;
@@ -215,7 +215,7 @@ void Menu_ConnexionAdministrateur() {
 	}
 	else
 	{
-		if (uneGestionUtilisateur.connexion(nom, prenom, motpasse, "ListeAdministrateurs.txt"))
+		if (uneGestionUtilisateur.connexion(nom, prenom, motpasse, "Donnees/ListeAdministrateurs.txt"))
 		{
 			Menu_AdministrateurConnecte(prenom, nom);
 		}
@@ -231,7 +231,7 @@ void Menu_ConnexionAdministrateur() {
 void Menu_AdministrateurConnecte(string prenom, string nom) {
 
 	GestionUtilisateur gestUt;
-	gestUt.ecritureLog("Log.txt", prenom, nom, "Connexion");
+	gestUt.ecritureLog("Donnees/Log.txt", prenom, nom, "Connexion");
 
 	cout << "---------------------------------------------------------------------------------------------------";
 
@@ -256,7 +256,7 @@ void Menu_AdministrateurConnecte(string prenom, string nom) {
             }
             case '2': {
                 cout << "Modifier le fichier" << endl << endl;
-				gestUt.ecritureLog("Log.txt", prenom, nom, "Modification");
+				gestUt.ecritureLog("Donnees/Log.txt", prenom, nom, "Modification");
                 Menu_ModificationFichier();
                 break;
             }
@@ -291,21 +291,21 @@ void Menu_ModificationFichier()
                 cout << "Ajout de ligne" << endl << endl;
                 cout << "Ligne a ajouter ?" << endl;
                 getline(cin, ligne);
-                gestRisques.ajouterLignes("F3_ok.txt", ligne);
+                gestRisques.ajouterLignes("Donnees/DataSet1/HealthMeasurementsWithLabels.txt", ligne);
                 break;
             }
             case '2': {
                 cout << "Suppression de ligne" << endl << endl;
                 cout << "Ligne a supprimer ?" << endl;
                 getline(cin, ligne);
-                gestRisques.supprimerLignes("F3_ok.txt", ligne);
+                gestRisques.supprimerLignes("Donnees/DataSet1/HealthMeasurementsWithLabels.txt", ligne);
                 break;
             }
             case '3': {
                 cout << "Suppression de l empreinte" << endl << endl;
                 cout << "ID de l Empreinte ?" << endl;
                 getline(cin, ligne);
-                gestRisques.supprimerEmpreinte("F3_ok.txt", ligne);
+                gestRisques.supprimerEmpreinte("Donnees/DataSet1/HealthMeasurementsWithLabels.txt", ligne);
                 break;
             }
 			case '4': {
@@ -356,7 +356,7 @@ void Menu_InscriptionDocteur() {
             }
             case '2': {
                 GestionUtilisateur uneGestionUtilisateur;
-                uneGestionUtilisateur.creerCompte(Nom, Prenom, Courriel, Motpasse, "ListeDocteurs.txt");
+                uneGestionUtilisateur.creerCompte(Nom, Prenom, Courriel, Motpasse, "Donnees/ListeDocteurs.txt");
                 cout << "VOTRE COMPTE A ETE CREE" << endl;
                 termine=true;
                 break;

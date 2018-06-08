@@ -21,7 +21,7 @@ using namespace std;
 //#define MAP ;
 
 //----------------------------------------------------------------- PUBLIC
-string Empreinte::fichierFormat = "Donnees/F1.txt";
+string Empreinte::fichierFormat = "Donnees/DataSet1/HealthMeasurementDescription.txt";
 vector< pair<string, string> > Empreinte::format;
 
 
@@ -82,10 +82,7 @@ void Empreinte::initialiserFormat()
             pair<string,string> nouvellePaire=make_pair(nomAttribut,typeAttribut);
             format.push_back(nouvellePaire);
         }
-        else
-        {
-            cout<<"Attention, ligne vide trouvée dans le fichier "<< fichierFormat<<endl;
-        }
+       
     }
     entreeFichier.close();
 
