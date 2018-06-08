@@ -97,13 +97,22 @@ void Menu_ConnexionDocteur() {
 	cout << endl;
 	/* Appel a la methode connexion */
 	GestionUtilisateur uneGestionUtilisateur;
-	if (uneGestionUtilisateur.connexion(nom, prenom, motpasse, "ListeDocteurs.txt"))
+	if (nom.compare("") == 0 || prenom.compare("") == 0 || motpasse.compare("") == 0)
 	{
-		Menu_DocteurConnecte(prenom, nom);
+		cout << "Vous avez rentre un champ vide. Veuillez recommencer." << endl;
+		Menu_Principal();
 	}
 	else
 	{
-		Menu_Principal();
+		if (uneGestionUtilisateur.connexion(nom, prenom, motpasse, "ListeDocteurs.txt"))
+		{
+			
+			Menu_DocteurConnecte(prenom, nom);
+		}
+		else
+		{
+			Menu_Principal();
+		}
 	}
 }
 
@@ -116,7 +125,6 @@ void Menu_DocteurConnecte(string prenom, string nom) {
 	gestUt.ecritureLog("Log.txt", prenom, nom, "Connexion");
     Empreinte::initialiserFormat();
 	gestRisques.initMaladies("Donnees/F2_ok.txt");
-
 	string valeurCommande;
 
 	cout << "---------------------------------------------------------------------------------------------------";
@@ -149,7 +157,12 @@ void Menu_DocteurConnecte(string prenom, string nom) {
                 cout << "Nom Fichier ? " << endl;
                 cin >> valeurCommande;
 				cin.ignore();
-                gestRisques.analyserFichier(valeurCommande);
+				ifstream testOuverture(valeurCommande);
+				if (!testOuverture)
+					cout << "Fichier inexistant.";
+				else
+					 gestRisques.analyserFichier(valeurCommande);
+				testOuverture.close();
                 break;
             }
             case '3': {
@@ -195,13 +208,21 @@ void Menu_ConnexionAdministrateur() {
 	/* Appel a la methode connexion */
 
 	GestionUtilisateur uneGestionUtilisateur;
-	if (uneGestionUtilisateur.connexion(nom, prenom, motpasse, "ListeAdministrateurs.txt"))
+	if (nom.compare("") == 0 || prenom.compare("") == 0 || motpasse.compare("") == 0)
 	{
-		Menu_AdministrateurConnecte(prenom, nom);
+		cout << "Vous avez rentre un champ vide. Veuillez recommencer." << endl;
+		Menu_Principal();
 	}
 	else
 	{
-		Menu_Principal();
+		if (uneGestionUtilisateur.connexion(nom, prenom, motpasse, "ListeAdministrateurs.txt"))
+		{
+			Menu_AdministrateurConnecte(prenom, nom);
+		}
+		else
+		{
+			Menu_Principal();
+		}
 	}
 }
 
@@ -222,7 +243,7 @@ void Menu_AdministrateurConnecte(string prenom, string nom) {
 		cout << endl;
 		cout << endl;
         cout << "1. \tSe deconnecter" << endl;
-        cout << "2. \tModifier le fichier" << endl;
+		cout << "2. \tModifier le fichier" << endl << endl;
         cout << "Entrer 1 ou 2 suivant l option que vous souhaitez utiliser puis appuyer sur la touche entrer." << endl << endl;
         cout << "Votre choix : ";
 
@@ -262,7 +283,7 @@ void Menu_ModificationFichier()
         cout << "1. \tAjouter une ligne" << endl;
         cout << "2. \tSupprimer une ligne" << endl;
         cout << "3. \tSupprimer une empreinte via son ID" << endl;
-		cout << "4. \tRevenir au menu" << endl;
+		cout << "4. \tRevenir au menu" << endl << endl;
         cout << "Entrer 1, 2, 3 ou 4 suivant l option que vous souhaitez utiliser puis appuyer sur la touche entrer." << endl << endl;
         char choix = outil_ObtenirChoix();
         switch (choix) {
