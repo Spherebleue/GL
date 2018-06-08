@@ -21,7 +21,7 @@ using namespace std;
 //#define MAP ;
 
 //----------------------------------------------------------------- PUBLIC
-string Empreinte::fichierFormat = "Donnees/F1_ok.txt";
+string Empreinte::fichierFormat = "Donnees/F1.txt";
 vector< pair<string, string> > Empreinte::format;
 
 
@@ -46,9 +46,9 @@ void Empreinte::initialiserFormat()
 
     string line;
     getline(entreeFichier, line);
-    assert(line.compare("AttributeName;AttributeType\r")==0);    //verifie que l'entete est bien la bonne
+    assert(line.compare("AttributeName;AttributeType")==0);    //verifie que l'entete est bien la bonne
     getline(entreeFichier, line);
-    assert(line.compare("NoID;ID\r")==0);
+    assert(line.compare("NoID;ID")==0);
 
     while(entreeFichier.good())
     {
@@ -57,32 +57,37 @@ void Empreinte::initialiserFormat()
         ss.str(line);
         string nomAttribut;
         getline(ss, nomAttribut,';');
-
-        assert(nomAttribut!=line);                  //veririe que la ligne est bien formee
-
-        string typeAttribut;
-        getline(ss, typeAttribut,'\r');
-
-        if(typeAttribut.compare("string")==0)       //verifie que le type est bien le bon
+        if(nomAttribut!="")
         {
-            typeAttribut="Categoriel";
-        }
-        else if (typeAttribut.compare("double")==0)
-        {
-            typeAttribut="Numerique";
+            assert(nomAttribut!=line);                  //veririe que la ligne est bien formee
+
+            string typeAttribut;
+            getline(ss, typeAttribut,'\r');
+
+            if(typeAttribut.compare("string")==0)       //verifie que le type est bien le bon
+            {
+                typeAttribut="Categoriel";
+            }
+            else if (typeAttribut.compare("double")==0)
+            {
+                typeAttribut="Numerique";
+            }
+            else
+            {
+                cout<<"Erreur : l'un des attributs n'est ni numerique, ni categoriel"<<endl;
+                cout<<"il s'agit de la ligne :"<< line <<endl;
+                abort();
+            }
+
+            pair<string,string> nouvellePaire=make_pair(nomAttribut,typeAttribut);
+            format.push_back(nouvellePaire);
         }
         else
         {
-            cout<<"Erreur : l'un des attributs n'est ni numerique, ni categoriel"<<endl;
-            cout<<"il s'agit de la ligne :"<< line <<endl;
-            abort();
+            cout<<"Attention, ligne vide trouvée dans le fichier "<< fichierFormat<<endl;
         }
-
-        pair<string,string> nouvellePaire=make_pair(nomAttribut,typeAttribut);
-        format.push_back(nouvellePaire);
-
-
     }
+    entreeFichier.close();
 
 }
 
