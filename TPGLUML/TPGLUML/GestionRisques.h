@@ -22,8 +22,8 @@ using namespace std;
 #include "Empreinte.h"
 
 // Role de la classe <GestionRisques>
-//
-//
+// Cette classe permet de gérer tout ce qui touche aux empreintes et maladies :
+// analyse de fichier d'empreintes, initialisation des maladies, etc...
 //------------------------------------------------------------------------
 
 

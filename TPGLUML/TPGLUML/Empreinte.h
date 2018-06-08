@@ -22,8 +22,8 @@ using namespace std;
 #include <assert.h>
 
 // Role de la classe <Empreinte>
-//
-//
+// Cette classe definit une empreinte, qui possède des attribust et
+//qui représente une ligne de fichier dans  le fichier à analyser. 
 //------------------------------------------------------------------------
 
 class Empreinte
@@ -62,7 +62,7 @@ public:
     // Mode d'emploi :
     // Un constructeur par défaut, se contentant de creer la premiere cellule
 
-	Empreinte(std::vector <Attribut*> nouveauxAttributs);
+	Empreinte(vector <Attribut*> nouveauxAttributs);
 	// Mode d'emploi :
 	// Un constructeur
 

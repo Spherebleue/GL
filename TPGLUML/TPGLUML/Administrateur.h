@@ -23,8 +23,8 @@ class Administrateur : public Utilisateur
 
 //------------------------------------------------------------------------
 // Role de la classe <Administrateur>
-// 
-//
+// Cette classe herite de la classe Utilisateur. Un Administrateur pourra
+// modifier le fichier contenant la base de données pour les maladies
 //------------------------------------------------------------------------
 //-------------------------------------------------------Fonction amies
 public:

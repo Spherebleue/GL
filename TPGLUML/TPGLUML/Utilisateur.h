@@ -17,7 +17,7 @@ using namespace std;
 #include <fstream>
 
 // Role de la classe <Utilisateur>
-// 
+// Une classe abstraite qui permet de définir un  utilisateur de l'application
 //
 //------------------------------------------------------------------------
 
@@ -44,6 +44,7 @@ public:
 	Utilisateur(string, string, string, string);
 	// Mode d'emploi :
 	// Un constructeur
+
 
 
     virtual ~Utilisateur( );

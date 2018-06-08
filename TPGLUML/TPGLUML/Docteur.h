@@ -18,8 +18,9 @@ using namespace std;
 #include "Utilisateur.h"
 
 // Role de la classe <Docteur>
-// 
-//
+//Cette classe herite de la classe Utilisateur. Un Docteur pourra afficher la liste des
+//maladies prises en charge, la description d'une maladie, ou il pourra
+//analyser un fichier d'empreintes
 //------------------------------------------------------------------------
 
 class Docteur : public Utilisateur

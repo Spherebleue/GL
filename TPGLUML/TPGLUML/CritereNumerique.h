@@ -17,8 +17,8 @@ using namespace std;
 #include <fstream>
 
 // Role de la classe <CritereNumerique>
-// 
-//
+//Cette classe hérite de Critere. Elle définit un critère de type numérique
+//d'une maladie
 //------------------------------------------------------------------------
 
 

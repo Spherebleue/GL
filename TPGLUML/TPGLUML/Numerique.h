@@ -19,8 +19,8 @@ using namespace std;
 #include <fstream>
 
 // Role de la classe <Numerique>
-// 
-//
+//Cette classe hérite de Attibut. Elle définit un attribut de type numérique
+//d'une maladie
 //------------------------------------------------------------------------
 
 class Numerique : public Attribut

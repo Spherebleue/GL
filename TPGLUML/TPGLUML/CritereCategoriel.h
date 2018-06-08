@@ -17,8 +17,8 @@ using namespace std;
 #include "Critere.h"
 
 // Role de la classe <CritereCategoriel>
-// 
-//
+//Cette classe hérite de Critere. Elle définit un critère de type categoriel 
+//d'une maladie
 //------------------------------------------------------------------------
 
 class CritereCategoriel : public Critere

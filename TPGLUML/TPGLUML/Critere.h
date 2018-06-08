@@ -18,8 +18,9 @@ using namespace std;
 #include <fstream>
 
 // Role de la classe <Critere>
-// 
-//
+// Cette classe abstraite permet de définir un critère d'une maladie
+//Le type d'attribut (categoriel, ou numerique) est définie dans ses classes
+//filles
 //------------------------------------------------------------------------
 class Critere
 {

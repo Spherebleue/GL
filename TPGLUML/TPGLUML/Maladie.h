@@ -17,8 +17,8 @@ using namespace std;
 #include "Critere.h"
 
 // Role de la classe <Maladie>
-// 
-//
+// Cette classe définit une maladie, qui possède des critères qui seront définis
+// dans la méthode initMaladies() de GestionRisques
 //------------------------------------------------------------------------
 
 class Maladie

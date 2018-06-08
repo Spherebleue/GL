@@ -17,8 +17,8 @@ using namespace std;
 #include <fstream>
 
 // Role de la classe <Categoriel>
-// 
-//
+// Cette classe hérite de Attibut. Elle définit un attribut de type catégoirel
+//d'une maladie
 //------------------------------------------------------------------------
 
 class Categoriel : public Attribut
