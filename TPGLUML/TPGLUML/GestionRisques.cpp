@@ -137,7 +137,7 @@ void GestionRisques::analyserFichier(string nomFichier)
 	double ecartType = 0.0;
 	double moyenne = 0.0;
 	string attribut;
-	string nomMaladie;
+	string nomMaladie = "je ne suis pas vide";
 	string elementVecteur;
 
 	for (int i = 0; i < int(vectEmpreinte.size()); i++)
@@ -177,15 +177,14 @@ void GestionRisques::analyserFichier(string nomFichier)
                             moyenne = stod(attribut);
                             getline(ss, attribut, ';');
                             ecartType  = stod(attribut);
-                        if (dynamic_cast <Numerique*>(vectEmpreinte[i]->getListeAttribut()[j])->getValeur() <= (moyenne + ecartType)
-                        && dynamic_cast <Numerique*>(vectEmpreinte[i]->getListeAttribut()[j])->getValeur() >= (moyenne - ecartType) )
+                        if (dynamic_cast <Numerique*>(vectEmpreinte[i]->getListeAttribut()[j])->getValeur() <= (moyenne + 1.96*ecartType)
+                        && dynamic_cast <Numerique*>(vectEmpreinte[i]->getListeAttribut()[j])->getValeur() >= (moyenne - 1.96*ecartType) )
                             compteurSymptomes ++;
                         }
                     }
                 }
             }
-
-           if ((compteurSymptomes*100/ nombreUtile)>=90 )
+            if ((compteurSymptomes*100/ nombreUtile)>=90 )
             elementVecteur = elementVecteur + nomMaladie + " ";
         }
         empreinteMaladie.push_back(elementVecteur);
@@ -496,7 +495,7 @@ void GestionRisques::initMaladies(string nomFichier)
 				double moyenneAucune=dynamic_cast<CritereNumerique*> (mAucune.getListeCritere()[att])->getMoyenne();
                 double ecartTypeAucune=dynamic_cast<CritereNumerique*> (mAucune.getListeCritere()[att])->getEcartType();
 
-				if ((moyenneAucune - 1.96*ecartTypeAucune <= moyenne) && (moyenne >= moyenneAucune + 1.96*ecartTypeAucune))
+				if ((moyenne>= moyenneAucune - 1.96*ecartTypeAucune) && (moyenne <= moyenneAucune + 1.96*ecartTypeAucune))
 				{
 					valid = false;
 				}
@@ -508,6 +507,8 @@ void GestionRisques::initMaladies(string nomFichier)
 	}
 	enregistrerMaladies(defMaladies);
 }
+
+
 void GestionRisques::supprimerEmpreinte(string nomFichier, string empreinteAEffacer)
 {
     string ligne;
