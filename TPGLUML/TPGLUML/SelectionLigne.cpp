@@ -50,7 +50,7 @@ int SelectionLigneAlea(string nomFichierSource, string nomFichierDestination, in
         int offset = rand()%(5001-nbLigne);
         for(int i = 0 ; i<nbLigne ; i++)
         {
-			ofs<<table[i+offset]<<"\r\n";
+			ofs<<table[i+offset]<<"\n";
 		}
 		ifs.close();
 		ofs.close();
