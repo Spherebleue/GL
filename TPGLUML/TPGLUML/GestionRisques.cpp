@@ -57,8 +57,6 @@ GestionRisques::GestionRisques()
 #endif
 
 } //----- Fin de GestionRisques
-//---- Fin de GestionRisques
-
 
 GestionRisques::~GestionRisques()
 // Algorithme :
@@ -80,7 +78,7 @@ void GestionRisques::analyserFichier(string nomFichier)
 	string line;
 	getline(entreeFichier, line);
 	vector <Empreinte *> vectEmpreinte;
-	while (entreeFichier.good())
+	while (entreeFichier.good()) // tant qu'il y a des empreintes , on cree des objets Empreinte que l'on met dans un vecteur
 	{
 		Empreinte * e = new Empreinte();
 		getline(entreeFichier, line);
@@ -90,48 +88,44 @@ void GestionRisques::analyserFichier(string nomFichier)
 		getline(ss, valeurAttribut, ';');
 		if(valeurAttribut.compare("")!=0)
 		{
-            for (int i = 0; i < int (Empreinte::format.size()); i++)
-            {
-                if (i == Empreinte::format.size())
-                {
-                    getline(ss, valeurAttribut);
-                }
-                else
-                {
-                    getline(ss, valeurAttribut, ';');
-                }
-                if (Empreinte::format[i].second.compare("Categoriel") == 0) //verifie que le type est bien le bon
-                {
-                    Categoriel * a = new Categoriel(Empreinte::format[i].first, valeurAttribut);
-                    //cout << *a << endl;
-                    e->ajouterAttribut(a);
-                }
-                else if (Empreinte::format[i].second.compare("Numerique") == 0)
-                {
-                    Numerique * a = new Numerique(Empreinte::format[i].first, stod(valeurAttribut));
-                    //cout << *a << endl;
-                    e->ajouterAttribut(a);
-                }
-                else
-                {
-                    cout << "Erreur : l'un des attributs n'est ni numerique, ni categoriel" << endl;
-                    abort();
-                }
-
-            }
-		//cout << *e << endl;
-		vectEmpreinte.push_back(e);
-        }
-        else
-        {
-            cout<<"Attention, ligne vide détectée dans le fichier de données " << nomFichier<<endl;
-        }
+		    for (int i = 0; i < int (Empreinte::format.size()); i++)
+		    {
+			if (i == Empreinte::format.size())
+			{
+			    getline(ss, valeurAttribut);
+			}
+			else
+			{
+			    getline(ss, valeurAttribut, ';');
+			}
+			if (Empreinte::format[i].second.compare("Categoriel") == 0) //verifie que le type est bien le bon
+			{
+			    Categoriel * a = new Categoriel(Empreinte::format[i].first, valeurAttribut);
+			    //cout << *a << endl;
+			    e->ajouterAttribut(a);
+			}
+			else if (Empreinte::format[i].second.compare("Numerique") == 0)
+			{
+			    Numerique * a = new Numerique(Empreinte::format[i].first, stod(valeurAttribut));
+			    //cout << *a << endl;
+			    e->ajouterAttribut(a);
+			}
+			else
+			{
+			    cout << "Erreur : l'un des attributs n'est ni numerique, ni categoriel" << endl;
+			    abort();
+			}
+          	    }
+		    //cout << *e << endl;
+		    vectEmpreinte.push_back(e);
+       	        }
+		else
+		{
+		    cout<<"Attention, ligne vide détectée dans le fichier de données " << nomFichier<<endl;
+		}
 	}
 	entreeFichier.close();
-	//cout << (vectEmpreinte.size()) << endl;
-
-	                     //verifie que le fichier est bien trouve
-	vector <string> empreinteMaladie;
+	vector <string> empreinteMaladie; //le vecteur qui contiendra ce qu'il faudra afficher : les empreintes et leur maladies
 	int compteurSymptomes;
 	int nombreUtile = 0;
 	double ecartType = 0.0;
@@ -147,8 +141,7 @@ void GestionRisques::analyserFichier(string nomFichier)
         assert(entreeFichierMaladies);
         string numero = to_string(i+1);
         elementVecteur = "Empreinte n°" + numero  + ": ";
-           //cout<< " co in ! "<<elementVecteur<<endl;
-
+		
         while (entreeFichierMaladies.good())
         {
             nombreUtile =0;
@@ -167,12 +160,12 @@ void GestionRisques::analyserFichier(string nomFichier)
                         nombreUtile ++;
                         getline(ss, attribut, ';');
 
-                        if (Empreinte::format[j].second.compare("Categoriel") == 0) //verifie que le type est bien le bon
+                        if (Empreinte::format[j].second.compare("Categoriel") == 0) // si c'est un type Catagoriel, on vérifie que la valeur est identique
                         {
                             if (attribut.compare(dynamic_cast <Categoriel*>(vectEmpreinte[i]->getListeAttribut()[j])->getValeur()) ==0)
                             compteurSymptomes ++;
                         }
-                        else if (Empreinte::format[j].second.compare("Numerique") == 0)
+                        else if (Empreinte::format[j].second.compare("Numerique") == 0) // s'il est numérique, on regarde si la valeur appartient à l'intervalle [moyenne - 2*ecartType ; moyenne + 2*ecartType] 
                         {
                             moyenne = stod(attribut);
                             getline(ss, attribut, ';');
@@ -184,7 +177,7 @@ void GestionRisques::analyserFichier(string nomFichier)
                     }
                 }
             }
-            if ((compteurSymptomes*100/ nombreUtile)>=90 )
+            if ((compteurSymptomes*100/ nombreUtile)>=90 ) //on considère que la personne a une maladie si elle a au moins 90% des symptomes
             elementVecteur = elementVecteur + nomMaladie + " ";
         }
         empreinteMaladie.push_back(elementVecteur);
@@ -318,7 +311,6 @@ multimap<string, Empreinte> GestionRisques::creerEmpreintesAvecMaladie(string no
 				{
 					maladie = "Aucune";
 				}
-				//ICI : recuperer le nom de la maladie ou "Aucune" si vide (je sais pas ce qui se passe si vide)
 			}
 			else
             {
@@ -437,7 +429,7 @@ void GestionRisques::initMaladies(string nomFichier)
 			if (Empreinte::format[att].second.compare("Categoriel") == 0)
 			{
 				map<string, int> nbApparition;
-				//on compte le nombre d'apparition pour chaque
+				//on compte le nombre d'apparition pour chaque attribut
 				for (auto j = bordListe.first; j != bordListe.second; ++j)
 				{
 					string val = ( dynamic_cast<Categoriel*> (j->second.getListeAttribut()[att] ) )->getValeur() ;
